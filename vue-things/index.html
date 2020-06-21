@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Hello, Vue dot jay es! </title>
+        <script src = "https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body>
+        <div id = "application">
+            {{moustacheText}}
+        </div>
+        <script>
+            const application = new Vue({
+                el: "#application",
+                data: {
+                    moustacheText: "Hello, whoever is reading this!"
+                }
+            })
+        </script>
+    </body>
+</html>
