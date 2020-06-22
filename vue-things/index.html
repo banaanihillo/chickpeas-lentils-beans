@@ -1,20 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html class = "background-color-thing">
     <head>
         <title> Hello, Vue dot jay es! </title>
         <script src = "https://cdn.jsdelivr.net/npm/vue"></script>
+        <link rel = "stylesheet" type = "text/css" href = "styles.css">
     </head>
     <body>
-        <div id = "application">
-            {{moustacheText}}
+        <div class = "cute-navigation-thing">
+
         </div>
-        <script>
-            const application = new Vue({
-                el: "#application",
-                data: {
-                    moustacheText: "Hello, whoever is reading this!"
-                }
-            })
-        </script>
+        <div id = "application">
+            <h1> {{expandedMessage}} </h1>
+            <p>
+                {{anotherMessage}}
+                <ul>
+                    <li v-for = "thing in things">
+                        {{thing.product}}
+                        {{thing.inStock ? "(in stock)" : "(Out of stock!)"}}
+                    </li>
+                    {{beanQuantity}} in stock:
+                    <li v-for = "bean in allKindsaBeans">
+                        {{bean.bean}}
+                            <span v-if = "bean.quantity > 2">
+                                ({{bean.quantity}} in stock)
+                            </span>
+                            <span v-else-if = "bean.quantity > 0">
+                                (Almost gone - {{bean.quantity}} left)
+                            </span>
+                            <span v-else>
+                                (This bean is out of stock)
+                            </span>
+                    </li>
+                </ul>
+            </p>
+        </div>
+        <script src = "index.js"></script>
     </body>
 </html>
