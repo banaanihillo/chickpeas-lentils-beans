@@ -1,4 +1,6 @@
-const application = new Vue({
+Vue.config.devtools = true
+
+new Vue({
     el: "#application",
     data: {
         moustacheText: "Hello, ",
@@ -18,19 +20,19 @@ const application = new Vue({
         ],
         allKindsaBeans: [
             {
-                bean: "Kidney beans",
-                quantity: 2
-            },
-            {
-                bean: "Black beans",
-                quantity: 0
-            },
-            {
-                bean: "Mung beans",
+                beanType: "Mung",
                 quantity: 5
             },
             {
-                bean: "Fava beans",
+                beanType: "Black",
+                quantity: 0
+            },
+            {
+                beanType: "Kidney",
+                quantity: 2
+            },
+            {
+                beanType: "Fava",
                 quantity: 0
             }
         ]
@@ -47,5 +49,14 @@ const application = new Vue({
                 return sum + bean.quantity
             }, 0)
         }
+    },
+    methods: {
+        addToStock(beanType) {
+            this.allKindsaBeans.find(bean => bean.beanType === beanType).quantity++
+        }
     }
+})
+
+new Vue({
+    el: "#button-thing"
 })

@@ -19,17 +19,22 @@
                         {{thing.inStock ? "(in stock)" : "(Out of stock!)"}}
                     </li>
                     {{beanQuantity}} in stock:
-                    <li v-for = "bean in allKindsaBeans">
-                        {{bean.bean}}
-                            <span v-if = "bean.quantity > 2">
-                                ({{bean.quantity}} in stock)
-                            </span>
-                            <span v-else-if = "bean.quantity > 0">
-                                (Almost gone - {{bean.quantity}} left)
-                            </span>
-                            <span v-else>
-                                (This bean is out of stock)
-                            </span>
+                    <li v-for = "bean in allKindsaBeans" id = "button-thing">
+
+                        <span v-if = "bean.quantity > 2">
+                            {{bean.quantity}} {{bean.beanType}} beans in stock.
+                        </span>
+                        <span v-else-if = "bean.quantity > 0">
+                            {{bean.beanType}} beans almost gone, {{bean.quantity}} left
+                        </span>
+                        <span v-else>
+                            No {{bean.beanType}} beans in stock.
+                        </span>
+
+                        <button v-on:click = "addToStock(bean.beanType)">
+                            Add a bean
+                        </button>
+                        
                     </li>
                 </ul>
             </p>
