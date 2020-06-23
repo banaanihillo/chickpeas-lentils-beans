@@ -52,11 +52,21 @@ new Vue({
     },
     methods: {
         addToStock(beanType) {
-            this.allKindsaBeans.find(bean => bean.beanType === beanType).quantity++
+            const bean = this.allKindsaBeans.find(bean => bean.beanType === beanType)
+            bean.quantity++
         }
     }
 })
 
 new Vue({
     el: "#button-thing"
+})
+
+Vue.component("counter-button", {
+    template: "#counter-button-template",
+    data () {
+        return {
+            count: 0
+        }
+    }
 })
