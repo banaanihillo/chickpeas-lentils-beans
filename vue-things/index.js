@@ -35,7 +35,8 @@ new Vue({
                 beanType: "Fava",
                 quantity: 0
             }
-        ]
+        ],
+        favoriteBean: ""
     },
     computed: {
         expandedMessage: function () {
@@ -58,10 +59,7 @@ new Vue({
     }
 })
 
-new Vue({
-    el: "#button-thing"
-})
-
+/*
 Vue.component("counter-button", {
     template: "#counter-button-template",
     data () {
@@ -70,3 +68,8 @@ Vue.component("counter-button", {
         }
     }
 })
+
+new Vue({
+    el: "#counter-button-component"
+})
+*/
