@@ -4,6 +4,7 @@
   "description": "and all kinds of rainbows",
   "main": "index.js",
   "dependencies": {
+    "@vue/cli": "^4.4.6",
     "vue": "^2.6.11"
   },
   "devDependencies": {},

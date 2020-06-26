@@ -59,17 +59,20 @@ new Vue({
     }
 })
 
-/*
-Vue.component("counter-button", {
+
+const CounterButton = {
     template: "#counter-button-template",
     data () {
         return {
             count: 0
         }
     }
-})
+}
 
 new Vue({
-    el: "#counter-button-component"
+    el: "#counter-button-component",
+    components: {
+        "counter-button": CounterButton
+    }
 })
-*/
+
