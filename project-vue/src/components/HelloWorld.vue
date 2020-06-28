@@ -2,6 +2,28 @@
     <div class = "hello">
         <h1> {{message}} </h1>
         <p>
+            Banana count: {{this.$store.state.bananas}} <br />
+            Guanabana count: {{this.$store.state.guanabanas}} <br />
+            Total ingredients: {{this.$store.getters.getFruitSaladIngredients}}
+            <br />
+            Add some guanabanas:
+            <input
+                v-model.number = "guanabanasToAdd"
+                type = "number"
+                min = 1
+                max = 99
+            />
+                <span v-if = "!(!(guanabanasToAdd < 100) || !(guanabanasToAdd > 0))">
+                    <button @click = "addGuanabanas(guanabanasToAdd)">
+                        Add
+                    </button>
+                </span>
+                <span v-else>
+                    <br />
+                    Make sure the input is between 1 and 99.
+                </span>
+        </p>
+        <p>
             For a guide and recipes on how to configure / customize this project,
             <br />
             check out the
@@ -136,6 +158,18 @@
             message: {
                 type: String,
                 required: true
+            }
+        },
+        methods: {
+            addGuanabanas(guanabanaInput) {
+                this.$store.commit("addGuanabanas", {
+                    guanabanaInput: guanabanaInput
+                })
+            }
+        },
+        data() {
+            return {
+                guanabanasToAdd: 1
             }
         }
     }
