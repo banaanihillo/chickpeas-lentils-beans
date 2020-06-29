@@ -1,0 +1,102 @@
+{
+    "teams": [
+        {
+            "id": "BAL",
+            "name": "Baltimore Orioles",
+            "organization": "Major League Baseball",
+            "league": "American League",
+            "division": "AL East"
+        },
+        {
+            "id": "BOS",
+            "name": "Boston Red Sox",
+            "organization": "Major League Baseball",
+            "league": "American League",
+            "division": "AL East"
+        },
+        {
+            "id": "NYY",
+            "name": "New York Yankees",
+            "organization": "Major League Baseball",
+            "league": "American League",
+            "division": "AL East",
+            "evilEmpire": true
+        },
+        {
+            "id": "TB",
+            "name": "Tampa Bay Rays",
+            "organization": "Major League Baseball",
+            "league": "American League",
+            "division": "AL East",
+            "alternate": "Tampa Bay Devil Rays"
+        },
+        {
+            "id": "TOR",
+            "name": "Toronto Blue Jays",
+            "organization": "Major League Baseball",
+            "league": "American League",
+            "division": "AL East"
+        },
+        {
+            "id": "한화",
+            "alternate": "HH",
+            "name": "Hanwha Eagles",
+            "organization": "Korean Baseball Organization"
+        }
+    ],
+    "players": [
+        {
+            "id": "99",
+            "name": "류현진",
+            "alternate": "Ryu Hyeon Jin",
+            "anglicized": "Hyun-Jin Ryu",
+            "team": "TOR",
+            "position": "Pitcher",
+            "role": "Starter",
+            "bats": "R",
+            "throws": "L"
+        },
+        {
+            "id": "27",
+            "name": "Vladimir Guerrero, Jr.",
+            "team": "TOR",
+            "position": "Third Base",
+            "bats": "R",
+            "throws": "R"
+        },
+        {
+            "id": "17",
+            "name": "大谷 翔平",
+            "alternate": "Ōtani Shōhei",
+            "anglicized": "Shohei Ohtani",
+            "team": "LAA",
+            "position": [
+                "Pitcher",
+                "Designated Hitter"
+            ],
+            "role": "Starter",
+            "bats": "L",
+            "throws": "R"
+        },
+        {
+            "id": "54",
+            "name": "양현종",
+            "alternate": "Yang Hyeon Jong",
+            "anglicized": "Hyun-Jong Yang",
+            "team": "KIA",
+            "position": "Pitcher",
+            "role": "Starter",
+            "throws": "R"
+        },
+        {
+            "id": "21",
+            "name": "오승환",
+            "alternate": "O Seung Hwan",
+            "anglicized": "Seung-Hwan Oh",
+            "team": "삼성",
+            "position": "Pitcher",
+            "role": "Closer",
+            "throws": "R"
+        }
+    ]
+}
