@@ -25,5 +25,7 @@ try {
 
 const playerRouter = require("./controllers/playerRouter")
 app.use("/players", playerRouter)
+const teamRouter = require("./controllers/teamRouter")
+app.use("/teams", teamRouter)
 
 module.exports = app
