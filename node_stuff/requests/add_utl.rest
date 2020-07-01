@@ -1,0 +1,12 @@
+POST http://localhost:9001/players/
+Content-Type: application/json
+
+{
+    "number": 11,
+    "name": "Cavan Biggio",
+    "team": "Toronto Blue Jays",
+    "positions": ["2B, RF, 1B"],
+    "preferredPosition": "2B",
+    "bats": "L",
+    "throws": "L"
+}

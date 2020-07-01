@@ -1,0 +1,10 @@
+POST http://localhost:9001/players/
+Content-Type: application/json
+
+{
+    "number": 1,
+    "name": "Shun Yamaguchi",
+    "team": "Toronto Blue Jays",
+    "positions": ["P"],
+    "throws": "R"
+}
