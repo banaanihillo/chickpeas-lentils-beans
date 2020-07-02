@@ -47,4 +47,20 @@ playerRouter.post("/", async (request, response) => {
     }
 })
 
+playerRouter.put("/:id", async (request, response) => {
+    const body = request.body
+    const unchangedProperties = await Player.findById(request.params.id)
+    const modifiedPlayer = Object.assign(unchangedProperties, body)
+
+    const modifiedAndUpdatedPlayer = await Player.findByIdAndUpdate(
+        request.params.id,
+        modifiedPlayer,
+        {
+            new: true
+        }
+    )
+
+    response.json(modifiedAndUpdatedPlayer.toJSON())
+})
+
 module.exports = playerRouter

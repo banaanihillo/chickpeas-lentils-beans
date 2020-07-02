@@ -1,0 +1,15 @@
+POST http://localhost:9001/players
+Content-Type: application/json
+
+{
+    "number": 17,
+    "name": "Shohei Ohtani",
+    "team": "Los Angeles Angels of Anaheim",
+    "positions": [
+        "P",
+        "DH"
+    ],
+    "role": "Two-way player",
+    "bats": "L",
+    "throws": "R"
+}

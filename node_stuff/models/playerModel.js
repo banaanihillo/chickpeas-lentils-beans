@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const positionsEnum = ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF"]
+const positionsEnum = ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH"]
 //should probably be a checkbox in the frontend to allow for multiple position input
 const handednessEnum = ["L", "R", "S"]
 

@@ -2,8 +2,10 @@ POST http://localhost:9001/teams/
 Content-Type: application/json
 
 {
-    "name": "Yomiuri Giants",
-    "abbreviation": "巨",
-    "organization": "Nippon Professional Baseball",
-    "league": "Central League"
+    "name": "Los Angeles Angels of Anaheim",
+    "alternate": "California Angels",
+    "abbreviation": "LAA",
+    "organization": "Major League Baseball",
+    "league": "American League",
+    "division": "AL West"
 }

@@ -1,0 +1,10 @@
+PUT http://localhost:9001/players/5efdecc0dea6341a18fe7163
+Content-Type: application/json
+
+{
+    "positions": [
+        "2B",
+        "RF",
+        "1B"
+    ]
+}
