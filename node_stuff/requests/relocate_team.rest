@@ -1,0 +1,7 @@
+PUT http://localhost:9001/teams/5efde7c9ef3a7c180cf9ef69
+Content-Type: application/json
+
+{
+    "league": "American League",
+    "division": "AL East"
+}

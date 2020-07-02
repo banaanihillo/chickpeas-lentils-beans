@@ -22,8 +22,8 @@ const playerSchema = new mongoose.Schema({
         required: false
     },
     team: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Team"
     },
     positions: {
         type: [String],

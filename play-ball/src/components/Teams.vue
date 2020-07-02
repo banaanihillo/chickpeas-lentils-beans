@@ -6,6 +6,9 @@
                 <span v-if = "team.division">
                     ({{team.division}})
                 </span>
+                <span v-else-if = "team.league">
+                    ({{team.league}})
+                </span>
             </li>
         </ul>
     </div>

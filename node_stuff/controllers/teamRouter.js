@@ -26,4 +26,20 @@ teamRouter.post("/", async (request, response) => {
     }
 })
 
+teamRouter.put("/:id", async (request, response) => {
+    const body = request.body
+    const unchangedTeamProperties = await Team.findById(request.params.id)
+    const team = Object.assign(unchangedTeamProperties, body)
+
+    const relocatedTeam = await Team.findByIdAndUpdate(
+        request.params.id,
+        team,
+        {
+            new: true
+        }
+    )
+
+    response.json(relocatedTeam.toJSON())
+})
+
 module.exports = teamRouter

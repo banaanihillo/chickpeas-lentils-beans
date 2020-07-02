@@ -2,9 +2,12 @@ import Vue from "vue"
 import Vuex from "vuex"
 import VueRouter from "vue-router"
 import App from "./App.vue"
-import axios from "axios"
+
 import Players from "./components/Players"
 import Teams from "./components/Teams"
+import playerService from "./services/playerService"
+import teamService from "./services/teamService"
+
 Vue.use(Vuex)
 Vue.use(VueRouter)
 
@@ -24,59 +27,13 @@ const routes = [
 const router = new VueRouter({
     routes: routes
 })
-
-const baseURL = "http://localhost:3000"
-
+//
 const store = new Vuex.Store({
     state: {
-        /*
-        leagues: {
-            majorLeagueBaseball: {
-                americanLeague: {
-                    designatedHitter: true,
-                    east: {
-                        abbreviation: "AL East"
-                    },
-                    central: {
-                        abbreviation: "AL Central"
-                    },
-                    west: {
-                        abbreviation: "AL West"
-                    }
-                },
-                nationalLeague: {
-                    designatedHitter: false,
-                    east: {
-                        abbreviation: "NL East"
-                    },
-                    central: {
-                        abbreviation: "NL Central"
-                    },
-                    west: {
-                        abbreviation: "NL West"
-                    }
-                }
-            },
-            koreanBaseballOrganization: {
-                designatedHitter: true
-            },
-            nipponProfessionalBaseball: {
-                centralLeague: {
-                    designatedHitter: false
-                },
-                pacificLeague: {
-                    designatedHitter: true
-                }
-            },
-            chineseProfessionalBaseballLeague: {
-                designatedHitter: true
-            }
-        },
-        */
-        teams: [
+        players: [
 
         ],
-        players: [
+        teams: [
 
         ]
     },
@@ -98,9 +55,7 @@ const store = new Vuex.Store({
         }*/
     },
     getters: {
-        getTeam: (state, teamAbbreviation) => {
-            return state.teams.find(team => team.id === teamAbbreviation)
-        }
+
     }
 })
 
@@ -110,19 +65,19 @@ new Vue({
   router: router,
   async created() {
       try {
-          const response = await axios.get(`${baseURL}/teams`)
+          const teams = await teamService.getTeams()
           this.$store.commit("initializeTeams", {
               type: "INITIALIZE_TEAMS",
-              teams: response.data
+              teams: teams
           })
       } catch (error) {
           console.log(error)
       }
       try {
-          const response = await axios.get(`${baseURL}/players`)
+          const players = await playerService.getPlayers()
           this.$store.commit("initializePlayers", {
               type: "INITIALIZE_PLAYERS",
-              players: response.data
+              players: players
           })
       } catch (error) {
           console.log(error)

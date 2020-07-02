@@ -2,7 +2,8 @@ POST http://localhost:9001/teams/
 Content-Type: application/json
 
 {
-    "name": "Weichun Dragons",
-    "abbreviation": "W",
-    "organization": "Chinese Professional Baseball League"
+    "name": "Yomiuri Giants",
+    "abbreviation": "巨",
+    "organization": "Nippon Professional Baseball",
+    "league": "Central League"
 }
