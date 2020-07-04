@@ -8,10 +8,12 @@
         <span>
             <router-link to = "/players"> Players </router-link>
             <router-link to = "/teams"> Teams </router-link>
+            <router-link to = "/add-player"> Add a player </router-link>
         </span>
         <router-view>
             <Players />
             <Teams />
+            <AddPlayer />
         </router-view>
         <HelloWorld msg = "Welcome to Your Vue.js App" />
     </div>
@@ -21,13 +23,15 @@
     import HelloWorld from "./components/HelloWorld.vue"
     import Players from "./components/Players"
     import Teams from "./components/Teams"
+    import AddPlayer from "./components/AddPlayer"
 
     export default {
         name: "App",
         components: {
             HelloWorld,
             Players,
-            Teams
+            Teams,
+            AddPlayer
         }
     }
 </script>

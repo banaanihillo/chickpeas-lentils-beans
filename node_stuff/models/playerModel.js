@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 
-const positionsEnum = ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH"]
-//should probably be a checkbox in the frontend to allow for multiple position input
+
 const handednessEnum = ["L", "R", "S"]
 
 const playerSchema = new mongoose.Schema({
@@ -30,9 +29,8 @@ const playerSchema = new mongoose.Schema({
         required: true
     },
     preferredPosition: {
-        type: String,
-        enum: positionsEnum,
-        required: false
+        required: false,
+        type: String
     },
     role: {
         type: String,

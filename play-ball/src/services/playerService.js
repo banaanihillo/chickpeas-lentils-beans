@@ -6,6 +6,14 @@ const getPlayers = async () => {
     return response.data
 }
 
+const addPlayer = async (playerInput) => {
+    console.log(playerInput)
+    const response = await axios.post(baseURL, playerInput)
+    console.log(response)
+    return response.data
+}
+
 export default {
-    getPlayers
+    getPlayers,
+    addPlayer
 }

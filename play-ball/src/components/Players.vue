@@ -41,18 +41,13 @@
                             <span v-if = "player.role">
                                 {{player.role}}
                             </span>
-                            <span v-else-if = "player.preferredPosition">
+                            <span v-if = "player.preferredPosition">
                                 {{player.preferredPosition}}
                             </span>
-                            <span v-else>
-                                <span v-if = "player.positions.length === 1">
-                                    {{player.positions[0]}}
-                                </span>
-                                <span v-else>
-                                    utility player
-                                </span>
+                            <span v-else-if = "player.role !== 'Two-way player'">
+                                {{player.positions[0]}}
                             </span>
-                        
+
                         </span>
                         for the {{player.team.name}}.
                     </p>
