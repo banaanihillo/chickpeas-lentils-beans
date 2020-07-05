@@ -52,10 +52,7 @@
                 </option>
             </select> <br />
 
-            <button type = "submit" @click.prevent = "addPlayer(input)">
-                Submit
-            </button>
-
+            <button type = "submit"> Submit </button>
         </form>
     </div>
 </template>

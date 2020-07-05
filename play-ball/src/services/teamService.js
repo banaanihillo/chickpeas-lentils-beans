@@ -6,6 +6,12 @@ const getTeams = async () => {
     return response.data
 }
 
+const addTeam = async (teamInput) => {
+    const response = await axios.post(baseURL, teamInput)
+    return response.data
+}
+
 export default {
-    getTeams
+    getTeams,
+    addTeam
 }

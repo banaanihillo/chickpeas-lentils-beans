@@ -9,11 +9,13 @@
             <router-link to = "/players"> Players </router-link>
             <router-link to = "/teams"> Teams </router-link>
             <router-link to = "/add-player"> Add a player </router-link>
+            <router-link to = "/add-team"> Add a team </router-link>
         </span>
         <router-view>
             <Players />
             <Teams />
             <AddPlayer />
+            <AddTeam />
         </router-view>
         <HelloWorld msg = "Welcome to Your Vue.js App" />
     </div>
@@ -24,6 +26,7 @@
     import Players from "./components/Players"
     import Teams from "./components/Teams"
     import AddPlayer from "./components/AddPlayer"
+    import AddTeam from "./components/AddTeam"
 
     export default {
         name: "App",
@@ -31,7 +34,8 @@
             HelloWorld,
             Players,
             Teams,
-            AddPlayer
+            AddPlayer,
+            AddTeam
         }
     }
 </script>

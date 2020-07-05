@@ -6,6 +6,7 @@ import App from "./App.vue"
 import Players from "./components/Players"
 import Teams from "./components/Teams"
 import AddPlayer from "./components/AddPlayer"
+import AddTeam from "./components/AddTeam"
 import playerService from "./services/playerService"
 import teamService from "./services/teamService"
 
@@ -26,6 +27,10 @@ const routes = [
     {
         path: "/add-player",
         component: AddPlayer
+    },
+    {
+        path: "/add-team",
+        component: AddTeam
     }
 ]
 
@@ -48,10 +53,10 @@ const store = new Vuex.Store({
         },
         initializePlayers(state, payload) {
             state.players = payload.players
-        }/*,
-        addExpansionTeam: {
-
-        }*/,
+        },
+        addExpansionTeam(state, payload) {
+            state.teams = state.teams.concat(payload)
+        },
         signFreeAgent(state, payload) {
             console.log(state.players)
             state.players = state.players.concat(payload)
@@ -66,6 +71,12 @@ const store = new Vuex.Store({
             context.commit(
                 "signFreeAgent",
                 await playerService.addPlayer(payload.input)
+            )
+        },
+        async addExpansionTeam(context, payload) {
+            context.commit(
+                "addExpansionTeam",
+                await teamService.addTeam(payload.input)
             )
         }
     },

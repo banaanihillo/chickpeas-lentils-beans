@@ -3,11 +3,12 @@
         <ul v-for = "team in teams" v-bind:key = "team.id">
             <li>
                 {{team.name}} - {{team.organization}}
-                <span v-if = "team.division">
-                    ({{team.division}})
-                </span>
-                <span v-else-if = "team.league">
-                    ({{team.league}})
+                <span v-if = "team.league">
+                    - {{team.league}}
+                    <span v-if = "team.division">
+                        {{team.division}}
+                    </span>
+                    
                 </span>
             </li>
         </ul>
