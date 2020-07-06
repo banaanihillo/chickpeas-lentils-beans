@@ -1,6 +1,12 @@
 <template>
     <div>
-        <form @submit = "addTeam(input)">
+        <form @submit = "addTeam(input)" id = "add-team">
+            <p v-if = "errors.length">
+                Not all fields were correctly filled in:
+                <ul v-for = "error in errors" v-bind:key = "error">
+                    <li> {{error}} </li>
+                </ul>
+            </p>
             <p>
                 <label for = "name"> Name: </label> <input v-model = "input.name" />
             </p>
@@ -52,10 +58,34 @@
         name: "AddTeam",
         methods: {
             addTeam() {
-                this.$store.dispatch({
-                    type: "addExpansionTeam",
-                    input: this.input
-                })
+                if (this.hasLeagues()) {
+                    if (!this.input.league) {
+                        this.errors.push("Please specify the league this team belongs to.")
+                        return
+                    }
+                    if (this.hasDivisions() && !this.input.division) {
+                        this.errors.push("This league requires a division input.")
+                        return
+                    }
+                }
+                if (this.input.name && this.input.abbreviation && this.input.organization) {
+                    this.errors = []
+                    this.$store.dispatch({
+                        type: "addExpansionTeam",
+                        input: this.input
+                    })
+                } else {
+                    console.log("Make sure all the required fields are filled.")
+                    if (!this.input.name) {
+                        this.errors.push("A name is required.")
+                    }
+                    if (!this.input.abbreviation || this.input.abbreviation.length > 3) {
+                        this.errors.push("An abbreviation of 1-3 characters is required.")
+                    }
+                    if (!this.input.organization) {
+                        this.errors.push("Please select an organization for the team.")
+                    }
+                }
             },
             hasLeagues() {
                 const organizationWithLeagues = this.organizations.find(organization =>
@@ -76,6 +106,7 @@
         },
         data() {
             return {
+                errors: [],
                 input: {
                     name: "",
                     abbreviation: "",
