@@ -1,6 +1,13 @@
 <template>
     <div id = "add-player">
         <form @submit.prevent = "addPlayer(input)">
+            <p v-if = "errors.length">
+                Make sure all the required fields are filled:
+                <ul v-for = "error in errors" v-bind:key = "error">
+                    <li> {{error}} </li>
+                </ul>
+            </p>
+
             <label for = "name"> Name: </label> <input v-model = "input.name" /> <br />
             <label for = "alternate"> Alternate spelling for non-roman script: </label>
             <input v-model = "input.alternate" placeholder = "Romanized name" /> <br />
@@ -64,15 +71,51 @@
             console: () => console
         },
         methods: {
-            addPlayer() {
-                this.$store.dispatch({
-                    type: "signFreeAgent",
-                    input: this.input
+            /*emptyFields() {
+                let copyOfInput = this.input
+                console.log(copyOfInput)
+                let trimmedInput = Object.values(copyOfInput).filter(value => {
+                    if (!value) {
+                        return
+                    } else {
+                        return Object.keys(copyOfInput).map(key => {
+                            return {
+                                key: value
+                            }
+                        })
+                    }
                 })
+                console.log(trimmedInput)
+                return trimmedInput
+            },*/
+            addPlayer() {
+                this.errors = []
+                if (!this.input.name) {
+                    this.errors.push("A name is required.")
+                }
+                if (!this.input.number || this.input.number < 0 || this.input.number > 99) {
+                    this.errors.push("A number between 0 and 99 is required.")
+                }
+                if (!this.input.team) {
+                    this.errors.push("The team of the player is required.")
+                }
+                if (!this.input.throws) {
+                    this.errors.push("Handedness is required.")
+                }
+                if (!this.input.positions.includes("P") && !this.input.bats) {
+                    this.errors.push("Position players require a batting side.")
+                }
+                if (this.errors.length === 0) {
+                    this.$store.dispatch({
+                        type: "signFreeAgent",
+                        input: this.input
+                    })
+                }
             }
         },
         data() {
             return {
+                errors: [],
                 input: {
                     name: "",
                     alternate: null,

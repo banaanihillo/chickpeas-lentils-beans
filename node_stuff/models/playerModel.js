@@ -1,7 +1,10 @@
 const mongoose = require("mongoose")
 
 
-const handednessEnum = ["L", "R", "S"]
+
+
+
+
 
 const playerSchema = new mongoose.Schema({
     number: {
@@ -38,12 +41,12 @@ const playerSchema = new mongoose.Schema({
     },
     bats: {
         type: String,
-        enum: handednessEnum,
+
         required: false
     },
     throws: {
         type: String,
-        enum: handednessEnum,
+
         required: true
     }
 })
