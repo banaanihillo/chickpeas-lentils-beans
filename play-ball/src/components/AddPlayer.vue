@@ -18,7 +18,14 @@
                 min = 0
                 max = 99
             /> <br />
-            <label for = "team"> Team: </label> <input v-model = "input.team" /> <br />
+
+            <label for = "team"> Team: </label>
+            <select v-model = "input.team">
+                <option disabled value = ""> Select the team </option>
+                <option v-for = "team in teams" v-bind:key = "team._id">
+                    {{team.name}}
+                </option>
+            </select> <br />
             
             <label for = "positions"> Positions: </label>
             <span v-for = "position in listOfPositions" v-bind:key = "position">
@@ -68,20 +75,20 @@
     export default {
         name: "AddPlayer",
         computed: {
-            console: () => console
+            console: () => console,
+            teams() {
+                return this.$store.state.teams
+            }
         },
         methods: {
             /*emptyFields() {
-                let copyOfInput = this.input
-                console.log(copyOfInput)
-                let trimmedInput = Object.values(copyOfInput).filter(value => {
-                    if (!value) {
-                        return
-                    } else {
-                        return Object.keys(copyOfInput).map(key => {
-                            return {
-                                key: value
-                            }
+                let trimmedInput = {}
+                Object.entries(this.input).map(([key, value]) => {
+                    console.log(key)
+                    console.log(value)
+                    if (value) {
+                        Object.defineProperty(trimmedInput, key, {
+                            value: value
                         })
                     }
                 })
@@ -106,6 +113,9 @@
                     this.errors.push("Position players require a batting side.")
                 }
                 if (this.errors.length === 0) {
+                    //const strippedInput = this.emptyFields()
+                    //console.log(strippedInput)
+                    //console.log(this.input)
                     this.$store.dispatch({
                         type: "signFreeAgent",
                         input: this.input

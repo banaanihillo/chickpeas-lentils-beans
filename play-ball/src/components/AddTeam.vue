@@ -26,6 +26,7 @@
                         type = "radio"
                         :value = "organization.name"
                         v-model = "input.organization"
+                        @click = "input.league = ''; input.division = ''"
                     />
                     <label for = "organization" style = "margin-right: 10px">
                         {{organization.id}}
@@ -41,7 +42,7 @@
                 </span>
             </p>
 
-            <p v-if = "hasDivisions()">
+            <p v-if = "!(!(input.league) || !(hasDivisions()))">
                 <label for = "division"> Division: </label>
                 <span v-for = "division in hasDivisions()" v-bind:key = "division">
                     <input type = "radio" :value = "division" v-model = "input.division" />

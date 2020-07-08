@@ -58,9 +58,9 @@ const store = new Vuex.Store({
             state.teams = state.teams.concat(payload)
         },
         signFreeAgent(state, payload) {
-            console.log(state.players)
+            console.log(payload)
             state.players = state.players.concat(payload)
-            console.log(state.players)
+            
         }/*,
         makeTrade: {
 
@@ -68,6 +68,7 @@ const store = new Vuex.Store({
     },
     actions: {
         async signFreeAgent(context, payload) {
+            console.log(payload)
             context.commit(
                 "signFreeAgent",
                 await playerService.addPlayer(payload.input)
