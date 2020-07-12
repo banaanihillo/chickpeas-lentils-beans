@@ -81,20 +81,13 @@
             }
         },
         methods: {
-            /*emptyFields() {
-                let trimmedInput = {}
+            emptyFields() {
                 Object.entries(this.input).map(([key, value]) => {
-                    console.log(key)
-                    console.log(value)
-                    if (value) {
-                        Object.defineProperty(trimmedInput, key, {
-                            value: value
-                        })
+                    if (!value) {
+                        this.$delete(this.input, key)
                     }
                 })
-                console.log(trimmedInput)
-                return trimmedInput
-            },*/
+            },
             addPlayer() {
                 this.errors = []
                 if (!this.input.name) {
@@ -113,9 +106,7 @@
                     this.errors.push("Position players require a batting side.")
                 }
                 if (this.errors.length === 0) {
-                    //const strippedInput = this.emptyFields()
-                    //console.log(strippedInput)
-                    //console.log(this.input)
+                    this.emptyFields()
                     this.$store.dispatch({
                         type: "signFreeAgent",
                         input: this.input

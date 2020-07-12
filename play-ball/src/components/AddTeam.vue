@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit = "addTeam(input)" id = "add-team">
+        <form @submit.prevent = "addTeam(input)" id = "add-team">
             <p v-if = "errors.length">
                 Not all fields were correctly filled in:
                 <ul v-for = "error in errors" v-bind:key = "error">
