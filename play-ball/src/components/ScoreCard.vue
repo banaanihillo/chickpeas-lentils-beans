@@ -1,48 +1,65 @@
 <template>
     <div class = "score-card">
-        <h1> {{message}} </h1>
+        <h1> {{message}}! </h1>
+        <label for = "away-team"> Away team: </label>
+        <select v-model = "awayTeam">
+            <option disabled value = ""> Away </option>
+            <option v-for = "team in teams" v-bind:key = "team._id">
+                {{team.name}}
+            </option>
+        </select>
+
+        <label for = "home-team"> Home team: </label>
+        <select v-model = "homeTeam">
+            <option disabled value = ""> Home </option>
+            <option v-for = "team in teams" v-bind:key = "team._id">
+                {{team.name}}
+            </option>
+        </select> <br />
+
+        <label for = "away-players"> Away batting order: </label>
+        <form v-for = "batter in 9" v-bind:key = "'Away' + batter">
+            <select v-if = "findPlayers(awayTeam).length > 0" v-model = "awayPlayers[batter]">
+                <option disabled value = ""> Away batter {{batter}} </option>
+                <option v-for = "player in findPlayers(awayTeam)" v-bind:key = "player._id">
+                    {{player.name}}
+                </option>
+            </select>
+        </form>
+
+        <label for = "home-players"> Home batting order: </label>
+        <form v-for = "batter in 9" v-bind:key = "'Home' + batter">
+            <select v-if = "findPlayers(homeTeam).length > 0" v-model = "homePlayers[batter]">
+                <option disabled value = ""> Home batter {{batter}} </option>
+                <option v-for = "player in findPlayers(homeTeam)" v-bind:key = "player._id">
+                    {{player.name}}
+                </option>
+            </select>
+        </form>
 
         <h2> Defensive scorecard </h2>
-        <form>
-            <input />
-        </form>
+        <defensive-score-card
+            v-bind:awayPlayers = awayPlayers
+            v-bind:homePlayers = homePlayers
+        />
 
         <h2> Offensive scorecard </h2>
-        <form>
-            <input />
-        </form>
 
-        <h3> Boxscore </h3>
-        <form>
-            <label for = "away-team"> Away: </label>
-            <select v-model = "boxScore.awayTeam">
-                <option disabled value = ""> Away team </option>
-                <option v-for = "team in teams" v-bind:key = "team._id">
-                    {{team.name}}
-                </option>
-            </select>
-
-            <label for = "home-team"> Home: </label>
-            <select v-model = "boxScore.homeTeam">
-                <option disabled value = ""> Home team </option>
-                <option v-for = "team in teams" v-bind:key = "team._id">
-                    {{team.name}}
-                </option>
-            </select>
-
-            <BoxScore />
-        </form>
-
+        <h3> Box score </h3>
+        <BoxScore />
+        
     </div>
 </template>
 
 <script>
     import BoxScore from "./BoxScore"
+    import DefensiveScoreCard from "./DefensiveScoreCard"
 
     export default {
         name: "ScoreCard",
         components: {
-            BoxScore
+            BoxScore,
+            DefensiveScoreCard
         },
         computed: {
             players() {
@@ -54,10 +71,35 @@
         },
         data() {
             return {
-                boxScore: {
-                    awayTeam: "",
-                    homeTeam: ""
+                awayPlayers: {
+                    1: "",
+                    2: "",
+                    3: "",
+                    4: "",
+                    5: "",
+                    6: "",
+                    7: "",
+                    8: "",
+                    9: ""
+                },
+                awayTeam: "",
+                homeTeam: "",
+                homePlayers: {
+                    1: "",
+                    2: "",
+                    3: "",
+                    4: "",
+                    5: "",
+                    6: "",
+                    7: "",
+                    8: "",
+                    9: ""
                 }
+            }
+        },
+        methods: {
+            findPlayers(teamName) {
+                return this.players.filter(player => player.team.name === teamName)
             }
         },
         props: {

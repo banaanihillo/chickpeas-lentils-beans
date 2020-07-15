@@ -79,12 +79,12 @@
         background-color: black;
         color: hotpink;
         margin-top: 10px;
-        display: grid;
+        display: flex;
         align-content: space-evenly;
         justify-content: center;
         grid-auto-flow: column;
         flex-wrap: wrap;
-        height: 12ch;
+        
     }
     #slashline {
         display: flex;
