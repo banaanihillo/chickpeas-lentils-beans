@@ -3,25 +3,29 @@
         <span id = "boxscore">
             <span v-for = "inning in innings" v-bind:key = "inning">
                 {{inning}} <br />
-                <input type = "number" v-bind:value = 0 /> <br />
-                <input type = "number" v-bind:value = 0 /> <br />
+                <input type = "number" v-model.number = awayTeamRuns[inning] /> <br />
+                <input type = "number" v-model.number = homeTeamRuns[inning] /> <br />
             </span>
 
             <span id = "slashline">
                 <span>
                     R <br />
-                    <input type = "number" v-bind:value = awayTeamRuns /> <br />
-                    <input type = "number" v-bind:value = homeTeamRuns /> <br />
+
+                    <span v-if = "awayTeamRuns.length === 0"> 0 </span>
+                    <span v-else> {{calculateSum(awayTeamRuns)}} </span> <br />
+
+                    <span v-if = "homeTeamRuns.length === 0"> 0 </span>
+                    <span v-else> {{calculateSum(homeTeamRuns)}} </span> <br />
                 </span>
                 <span>
                     H <br />
-                    <input type = "number" v-bind:value = 0 /> <br />
-                    <input type = "number" v-bind:value = 0 /> <br />
+                    {{awayHits}} <br />
+                    {{homeHits}} <br />
                 </span>
                 <span>
                     E <br />
-                    <input type = "number" v-bind:value = 0 /> <br />
-                    <input type = "number" v-bind:value = 0 /> <br />
+                    {{awayErrors}} <br />
+                    {{homeErrors}} <br />
                 </span>
             </span>
             <!--        
@@ -48,8 +52,17 @@
         data() {
             return {
                 innings: 9,
-                awayTeamRuns: 0,
-                homeTeamRuns: 0
+                awayTeamRuns: [],
+                homeTeamRuns: [],
+                awayHits: 0,
+                homeHits: 0,
+                awayErrors: 0,
+                homeErrors: 0
+            }
+        },
+        methods: {
+            calculateSum(thing) {
+                return thing.reduce((sum, summand) => sum + summand, 0)
             }
         }
     }
@@ -71,11 +84,14 @@
     #slashline {
         background-color: black;
         color: hotpink;
-        display: flex;
+        display: grid;
+        flex: 0.1 0 auto;
+        align-items: flex-start;
+        grid-template-columns: repeat(3, auto);
     }
     input {
         width: 2ch;
-        height: 1fr;
+        height: auto;
         font-size: 3ch;
         text-align: right;
     }
