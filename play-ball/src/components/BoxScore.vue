@@ -10,22 +10,27 @@
             <span id = "slashline">
                 <span>
                     R <br />
+                    <span id = "runs">
+                        <span v-if = "awayTeamRuns.length === 0"> 0 </span>
+                        <span v-else> {{calculateSum(awayTeamRuns)}} </span> <br />
 
-                    <span v-if = "awayTeamRuns.length === 0"> 0 </span>
-                    <span v-else> {{calculateSum(awayTeamRuns)}} </span> <br />
-
-                    <span v-if = "homeTeamRuns.length === 0"> 0 </span>
-                    <span v-else> {{calculateSum(homeTeamRuns)}} </span> <br />
+                        <span v-if = "homeTeamRuns.length === 0"> 0 </span>
+                        <span v-else> {{calculateSum(homeTeamRuns)}} </span> <br />
+                    </span>
                 </span>
                 <span>
                     H <br />
-                    {{awayHits}} <br />
-                    {{homeHits}} <br />
+                    <span id = "hits">
+                        {{awayHits}} <br />
+                        {{homeHits}} <br />
+                    </span>
                 </span>
                 <span>
                     E <br />
-                    {{awayErrors}} <br />
-                    {{homeErrors}} <br />
+                    <span id = "errors">
+                        {{awayErrors}} <br />
+                        {{homeErrors}} <br />
+                    </span>
                 </span>
             </span>
             <!--        
@@ -71,27 +76,37 @@
 <style scoped>
     #boxscore {
         font-size: 3ch;
-        background-color: hotpink;
+        background-color: black;
+        color: hotpink;
         margin-top: 10px;
-        display: flex;
-        grid-template-columns: repeat(9, auto);
-        grid-auto-columns: auto;
-        grid-auto-rows: auto;
+        display: grid;
+        align-content: space-evenly;
         justify-content: center;
         grid-auto-flow: column;
         flex-wrap: wrap;
+        height: 12ch;
     }
     #slashline {
-        background-color: black;
-        color: hotpink;
-        display: grid;
-        flex: 0.1 0 auto;
+        display: flex;
+        flex: 0 1 auto;
+        justify-content: space-around;
         align-items: flex-start;
-        grid-template-columns: repeat(3, auto);
+        width: 10ch;
+    }
+    #runs {
+        font-size: 3.3ch;
+        color: yellow;
+    }
+    #hits {
+        font-size: 3.3ch;
+    }
+    #errors {
+        font-size: 3.3ch;
+        color: red;
     }
     input {
         width: 2ch;
-        height: auto;
+        height: 2ch;
         font-size: 3ch;
         text-align: right;
     }
