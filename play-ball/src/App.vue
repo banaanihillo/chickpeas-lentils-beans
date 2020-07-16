@@ -1,6 +1,6 @@
 <template>
     <div id = "app">
-        <ScoreCard message = "Welcome to Your Ballgame Application" />
+        <BallGame message = "Welcome to Your Ballgame Application" />
         <p>
             <router-link to = "/players"> Players </router-link>
             <router-link to = "/teams"> Teams </router-link>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import ScoreCard from "./components/ScoreCard.vue"
+    import BallGame from "./components/BallGame"
     import Players from "./components/Players"
     import Teams from "./components/Teams"
     import AddPlayer from "./components/AddPlayer"
@@ -30,7 +30,7 @@
     export default {
         name: "App",
         components: {
-            ScoreCard,
+            BallGame,
             Players,
             Teams,
             AddPlayer,

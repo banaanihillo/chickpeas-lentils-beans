@@ -1,126 +1,99 @@
 <template>
-    <div class = "score-card">
-        <h1> {{message}}! </h1>
-        <label for = "away-team"> Away team: </label>
-        <select v-model = "awayTeam">
-            <option disabled value = ""> Away </option>
-            <option v-for = "team in teams" v-bind:key = "team._id">
-                {{team.name}}
-            </option>
-        </select>
+    <table id = "scorecard" border = 1>
+        <tr>
+            <td> Away </td>
+            <th scope = "col" v-for = "inning in innings" v-bind:key = "inning">
+                {{inning}}
+            </th>
+        </tr>
+        <tr v-for = "player in awayPlayers" v-bind:key = "player + Math.random()">
+            <th scope = "row" v-if = "getPlayer(player)" id = "row-header">
+                #{{getPlayer(player).number}} <br />
+                {{getPlayer(player).name}} <br />
+                <select>
+                    <option disabled value = ""></option>
+                    <option
+                        v-for = "position in getPlayer(player).positions"
+                        v-bind:key = "position"
+                    >
+                        {{position}}
+                    </option>
+                </select>
+            </th>
+            <th v-else></th>
 
-        <label for = "home-team"> Home team: </label>
-        <select v-model = "homeTeam">
-            <option disabled value = ""> Home </option>
-            <option v-for = "team in teams" v-bind:key = "team._id">
-                {{team.name}}
-            </option>
-        </select> <br />
-
-        <label for = "away-players"> Away batting order: </label>
-        <form v-for = "batter in 9" v-bind:key = "'Away' + batter">
-            <select v-if = "findPlayers(awayTeam).length > 0" v-model = "awayPlayers[batter]">
-                <option disabled value = ""> Away batter {{batter}} </option>
-                <option v-for = "player in findPlayers(awayTeam)" v-bind:key = "player._id">
-                    {{player.name}}
-                </option>
-            </select>
-        </form>
-
-        <label for = "home-players"> Home batting order: </label>
-        <form v-for = "batter in 9" v-bind:key = "'Home' + batter">
-            <select v-if = "findPlayers(homeTeam).length > 0" v-model = "homePlayers[batter]">
-                <option disabled value = ""> Home batter {{batter}} </option>
-                <option v-for = "player in findPlayers(homeTeam)" v-bind:key = "player._id">
-                    {{player.name}}
-                </option>
-            </select>
-        </form>
-
-        <h2> Defensive scorecard </h2>
-        <defensive-score-card
-            v-bind:awayPlayers = awayPlayers
-            v-bind:homePlayers = homePlayers
-        />
-
-        <h2> Offensive scorecard </h2>
-
-        <h3> Box score </h3>
-        <BoxScore />
-        
-    </div>
+            <td v-for = "inning in innings" v-bind:key = "inning">
+                <span v-for = "ball in 3" v-bind:key = "'Ball ' + ball">
+                    <input type = checkbox />
+                </span> <br />
+                <span v-for = "strike in 2" v-bind:key = "'Strike ' + strike">
+                    <input type = checkbox />
+                </span> <br />
+                <select v-model = "payoff">
+                    <option disabled value = ""> Payoff </option>
+                    <option> H </option>
+                    <option> E </option>
+                    <option> Fc </option>
+                    <option> K </option>
+                    <option> F </option>
+                    <option> L </option>
+                    <option> GO </option>
+                    <option> DP </option>
+                </select> <br />
+                <input
+                    v-if = "payoff === 'E' || payoff === 'F' || payoff === 'L'
+                    || payoff === 'GO' || payoff === 'DP'"
+                    type = "text" placeholder = "Play" size = 5ch
+                />
+            </td>
+        </tr>
+    </table>
 </template>
 
 <script>
-    import BoxScore from "./BoxScore"
-    import DefensiveScoreCard from "./DefensiveScoreCard"
-
+//
     export default {
         name: "ScoreCard",
-        components: {
-            BoxScore,
-            DefensiveScoreCard
+        //
+        props: {
+            awayPlayers: Object,
+            homePlayers: Object,
+            innings: Number
+        },
+        data() {
+            return {
+                payoff: "",
+                putout: ""
+            }
         },
         computed: {
             players() {
                 return this.$store.state.players
-            },
-            teams() {
-                return this.$store.state.teams
-            }
-        },
-        data() {
-            return {
-                awayPlayers: {
-                    1: "",
-                    2: "",
-                    3: "",
-                    4: "",
-                    5: "",
-                    6: "",
-                    7: "",
-                    8: "",
-                    9: ""
-                },
-                awayTeam: "",
-                homeTeam: "",
-                homePlayers: {
-                    1: "",
-                    2: "",
-                    3: "",
-                    4: "",
-                    5: "",
-                    6: "",
-                    7: "",
-                    8: "",
-                    9: ""
-                }
+
             }
         },
         methods: {
-            findPlayers(teamName) {
-                return this.players.filter(player => player.team.name === teamName)
+            getPlayer(playerName) {
+                return this.players.find(player => player.name === playerName)
             }
-        },
-        props: {
-            message: String
+
         }
     }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!---->
 <style scoped>
-    ul {
-        padding: 0;
+    #scorecard {
+        background-color: violet;
+        color: darkmagenta;
     }
-    li {
-        display: inline-block;
-        margin: 0 10px;
+    #diamond {
+        background-color: hotpink;
+        transform: rotate(0.125turn);
+        width: 3ch;
+        height: 3ch;
     }
-    a {
-        color: #42b983;
-    }
-    select {
-        margin-right: 10%;
+    #row-header {
+        color: black;
+        width: 25ch;
     }
 </style>

@@ -56,7 +56,7 @@
         name: "BoxScore",
         data() {
             return {
-                innings: 9,
+                
                 awayTeamRuns: [],
                 homeTeamRuns: [],
                 awayHits: 0,
@@ -69,6 +69,9 @@
             calculateSum(thing) {
                 return thing.reduce((sum, summand) => sum + summand, 0)
             }
+        },
+        props: {
+            innings: Number
         }
     }
 </script>
