@@ -38,11 +38,11 @@
         </form>
 
         <h2> Score cards </h2>
-        <score-card
-            v-bind:awayPlayers = "awayPlayers"
-            v-bind:homePlayers = "homePlayers"
-            v-bind:innings = "innings"
-        />
+        <h3> Away </h3>
+        <score-card v-bind:selectedPlayers = "awayPlayers" v-bind:innings = "innings" />
+        <h3> Home </h3>
+        <score-card v-bind:selectedPlayers = "homePlayers" v-bind:innings = "innings" />
+        
         <h3> Box score </h3>
         <box-score v-bind:innings = "innings" />
     </div>
