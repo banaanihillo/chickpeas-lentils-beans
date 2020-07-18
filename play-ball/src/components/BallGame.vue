@@ -39,18 +39,31 @@
 
         <h2> Score cards </h2>
         <h3> Away </h3>
+        <h4> Position players </h4>
         <score-card
             v-bind:selectedPlayers = "awayPlayers"
             v-bind:innings = "innings"
             v-bind:awayTeam = "awayTeam"
         />
+        <h4> Pitching </h4>
+        <pitching-score-card
+            v-bind:selectedPlayers = "awayPlayers"
+            v-bind:awayTeam = "awayTeam"
+        />
+
         <h3> Home </h3>
+        <h4> Position players </h4>
         <score-card
             v-bind:selectedPlayers = "homePlayers"
             v-bind:innings = "innings"
             v-bind:homeTeam = "homeTeam"
         />
-        
+        <h4> Pitching </h4>
+        <pitching-score-card
+            v-bind:selectedPlayers = "homePlayers"
+            v-bind:homeTeam = "homeTeam"
+        />
+
         <h3> Box score </h3>
         <box-score v-bind:innings = "innings" />
     </div>
@@ -59,12 +72,14 @@
 <script>
     import BoxScore from "./BoxScore"
     import ScoreCard from "./ScoreCard"
+    import PitchingScoreCard from "./PitchingScoreCard"
 
     export default {
         name: "BallGame",
         components: {
             BoxScore,
-            ScoreCard
+            ScoreCard,
+            PitchingScoreCard
         },
         computed: {
             players() {

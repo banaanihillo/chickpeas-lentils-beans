@@ -128,17 +128,19 @@
     }
     select {
         background-color: plum;
-    }/*
+    }
     #ball {
-        background-color: seagreen;
+        background-color: green;
+        font-size: 2ch;
     }
     #strike {
-        background-color: yellow;
-    }*/
+        background-color: gold;
+        font-size: 2ch;
+    }
     #ball input:checked {
-        box-shadow: 0 0 2px 2px lime;
+        box-shadow: 0 0 0 1px chartreuse;
     }
     #strike input:checked {
-        box-shadow: 0 0 0 2px yellow;
+        box-shadow: 0 0 0 1px;
     }
 </style>
