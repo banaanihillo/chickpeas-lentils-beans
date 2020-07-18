@@ -1,13 +1,15 @@
 <template>
     <div id = "app">
-        <BallGame message = "Welcome to Your Ballgame Application" />
+
         <p>
+            <router-link to = "/ballgame"> Main page </router-link>
             <router-link to = "/players"> Players </router-link>
             <router-link to = "/teams"> Teams </router-link>
             <router-link to = "/add-player"> Add a player </router-link>
             <router-link to = "/add-team"> Add a team </router-link>
         </p>
         <router-view>
+            <BallGame />
             <Players />
             <Teams />
             <AddPlayer />
@@ -46,6 +48,9 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
-        margin-top: 40px;
+        background-color: lightslategray;
+    }
+    a:visited {
+        color: indigo;
     }
 </style>

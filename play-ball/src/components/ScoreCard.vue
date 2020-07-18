@@ -1,7 +1,9 @@
 <template>
     <table id = "scorecard" border = 1>
         <tr>
-            <td id = "scorecard-title"> Away </td>
+            <td id = "scorecard-title" v-if = "awayTeam"> {{awayTeam}} </td>
+            <td v-else-if = "homeTeam" id = "scorecard-title"> {{homeTeam}} </td>
+            <td v-else> Team name </td>
             <th
                 scope = "col"
                 v-for = "inning in innings"
@@ -28,10 +30,10 @@
             <th v-else> Fill out the batting order above </th>
 
             <td v-for = "inning in innings" v-bind:key = "inning">
-                <span v-for = "ball in 3" v-bind:key = "'Ball ' + ball">
+                <span v-for = "ball in 3" v-bind:key = "'Ball ' + ball" id = "ball">
                     <input type = checkbox />
                 </span> <br />
-                <span v-for = "strike in 2" v-bind:key = "'Strike ' + strike">
+                <span v-for = "strike in 2" v-bind:key = "'Strike ' + strike" id = "strike">
                     <input type = checkbox />
                 </span> <br />
                 <select>
@@ -69,7 +71,9 @@
         //
         props: {
             selectedPlayers: Object,
-            innings: Number
+            innings: Number,
+            awayTeam: String,
+            homeTeam: String
         },/*
         data() {
             return {
@@ -95,7 +99,7 @@
 <!---->
 <style scoped>
     #scorecard {
-        background-color: hotpink;
+        background-color: black;
         color: silver;
     }
     #diamond {
@@ -105,17 +109,36 @@
         height: 3ch;
     }
     #row-header {
-        color: black;
+        color: magenta;
         width: 25ch;
     }
     #column-header {
-        color: black;
+        color: magenta;
+        height: 4ch;
     }
     #scorecard-title {
-        background-color: magenta;
+        background-color: hotpink;
         color: black;
     }
     input:invalid {
         background-color: tomato;
+    }
+    input {
+        background-color: thistle;
+    }
+    select {
+        background-color: plum;
+    }/*
+    #ball {
+        background-color: seagreen;
+    }
+    #strike {
+        background-color: yellow;
+    }*/
+    #ball input:checked {
+        box-shadow: 0 0 2px 2px lime;
+    }
+    #strike input:checked {
+        box-shadow: 0 0 0 2px yellow;
     }
 </style>

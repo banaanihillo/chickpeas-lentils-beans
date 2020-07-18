@@ -1,6 +1,6 @@
 <template>
-    <div class = "ballgame">
-        <h1> {{message}}! </h1>
+    <div id = "ballgame">
+        <h1> Play ball! </h1>
         <label for = "away-team"> Away team: </label>
         <select v-model = "awayTeam">
             <option disabled value = ""> Away </option>
@@ -39,9 +39,17 @@
 
         <h2> Score cards </h2>
         <h3> Away </h3>
-        <score-card v-bind:selectedPlayers = "awayPlayers" v-bind:innings = "innings" />
+        <score-card
+            v-bind:selectedPlayers = "awayPlayers"
+            v-bind:innings = "innings"
+            v-bind:awayTeam = "awayTeam"
+        />
         <h3> Home </h3>
-        <score-card v-bind:selectedPlayers = "homePlayers" v-bind:innings = "innings" />
+        <score-card
+            v-bind:selectedPlayers = "homePlayers"
+            v-bind:innings = "innings"
+            v-bind:homeTeam = "homeTeam"
+        />
         
         <h3> Box score </h3>
         <box-score v-bind:innings = "innings" />
@@ -99,9 +107,7 @@
             findPlayers(teamName) {
                 return this.players.filter(player => player.team.name === teamName)
             }
-        },
-        props: {
-            message: String
+
         }
     }
 </script>
