@@ -53,4 +53,7 @@
     a:visited {
         color: indigo;
     }
+    body {
+        background-color: silver;
+    }
 </style>

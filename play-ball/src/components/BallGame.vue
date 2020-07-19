@@ -43,29 +43,33 @@
         <score-card
             v-bind:selectedPlayers = "awayPlayers"
             v-bind:innings = "innings"
-            v-bind:awayTeam = "awayTeam"
+            v-bind:selectedTeam = "awayTeam"
         />
+        <h5> Batting statistics </h5>
+        <batting-statistics v-bind:battingOrder = "awayPlayers" />
+
         <h4> Pitching </h4>
-        <pitching-score-card
-            v-bind:selectedPlayers = "awayPlayers"
-            v-bind:awayTeam = "awayTeam"
-        />
+        <pitching-score-card v-bind:selectedTeam = "awayTeam" />
 
         <h3> Home </h3>
         <h4> Position players </h4>
         <score-card
             v-bind:selectedPlayers = "homePlayers"
             v-bind:innings = "innings"
-            v-bind:homeTeam = "homeTeam"
+            v-bind:selectedTeam = "homeTeam"
         />
+        <h5> Batting statistics </h5>
+        <batting-statistics v-bind:battingOrder = "homePlayers" />
+
         <h4> Pitching </h4>
-        <pitching-score-card
-            v-bind:selectedPlayers = "homePlayers"
-            v-bind:homeTeam = "homeTeam"
-        />
+        <pitching-score-card v-bind:selectedTeam = "homeTeam" />
 
         <h3> Box score </h3>
         <box-score v-bind:innings = "innings" />
+        
+        <button @click.prevent = "innings++">
+            Extra innings
+        </button>
     </div>
 </template>
 
@@ -73,13 +77,15 @@
     import BoxScore from "./BoxScore"
     import ScoreCard from "./ScoreCard"
     import PitchingScoreCard from "./PitchingScoreCard"
+    import BattingStatistics from "./BattingStatistics"
 
     export default {
         name: "BallGame",
         components: {
             BoxScore,
             ScoreCard,
-            PitchingScoreCard
+            PitchingScoreCard,
+            BattingStatistics
         },
         computed: {
             players() {
@@ -92,28 +98,28 @@
         data() {
             return {
                 awayPlayers: {
-                    1: "",
-                    2: "",
-                    3: "",
-                    4: "",
-                    5: "",
-                    6: "",
-                    7: "",
-                    8: "",
-                    9: ""
+                    1: "Away batting order number 1",
+                    2: "Away batting order number 2",
+                    3: "Away batting order number 3",
+                    4: "Away batting order number 4",
+                    5: "Away batting order number 5",
+                    6: "Away batting order number 6",
+                    7: "Away batting order number 7",
+                    8: "Away batting order number 8",
+                    9: "Away batting order number 9"
                 },
                 awayTeam: "",
                 homeTeam: "",
                 homePlayers: {
-                    1: "",
-                    2: "",
-                    3: "",
-                    4: "",
-                    5: "",
-                    6: "",
-                    7: "",
-                    8: "",
-                    9: ""
+                    1: "Home batting order number 1",
+                    2: "Home batting order number 2",
+                    3: "Home batting order number 3",
+                    4: "Home batting order number 4",
+                    5: "Home batting order number 5",
+                    6: "Home batting order number 6",
+                    7: "Home batting order number 7",
+                    8: "Home batting order number 8",
+                    9: "Home batting order number 9"
                 },
                 innings: 9
             }

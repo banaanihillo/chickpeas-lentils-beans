@@ -1,9 +1,8 @@
 <template>
     <table id = "scorecard" border = 1>
         <tr>
-            <td id = "scorecard-title" v-if = "awayTeam"> {{awayTeam}} </td>
-            <td v-else-if = "homeTeam" id = "scorecard-title"> {{homeTeam}} </td>
-            <td v-else> Team name </td>
+            <td id = "scorecard-title" v-if = "selectedTeam"> {{selectedTeam}} </td>
+            <td v-else id = "scorecard-title-empty"> Team name </td>
             <th
                 scope = "col"
                 v-for = "inning in innings"
@@ -13,7 +12,7 @@
                 {{inning}}
             </th>
         </tr>
-        <tr v-for = "player in selectedPlayers" v-bind:key = "player + Math.random()">
+        <tr v-for = "player in selectedPlayers" v-bind:key = "player">
             <th scope = "row" v-if = "getPlayer(player)" id = "row-header">
                 #{{getPlayer(player).number}} <br />
                 {{getPlayer(player).name}} <br />
@@ -27,7 +26,7 @@
                     </option>
                 </select>
             </th>
-            <th v-else> Fill out the batting order above </th>
+            <th v-else id = "row-header-empty"> {{player}} </th>
 
             <td v-for = "inning in innings" v-bind:key = "inning">
                 <span v-for = "ball in 3" v-bind:key = "'Ball ' + ball" id = "ball">
@@ -38,18 +37,22 @@
                 </span> <br />
                 <select>
                     <option disabled value = "" selected> Payoff </option>
-                    <option> H </option>
-                    <option> E </option>
-                    <option> Fc </option>
-                    <option> BB </option>
-                    <option> HBP </option>
-                    <option> K </option>
-                    <option> F </option>
-                    <option> L </option>
-                    <option> GO </option>
-                    <option> DP </option>
-                    <option> PO </option>
-                    <option> FO </option>
+                    <optgroup label = "Safe">
+                        <option> H </option>
+                        <option> E </option>
+                        <option> Fc </option>
+                        <option> BB </option>
+                        <option> HBP </option>
+                    </optgroup>
+                    <optgroup label = "Out">
+                        <option> K </option>
+                        <option> F </option>
+                        <option> L </option>
+                        <option> GO </option>
+                        <option> DP </option>
+                        <option> PO </option>
+                        <option> FO </option>
+                    </optgroup>
                 </select> <br />
                 <input
                     type = "text"
@@ -72,8 +75,7 @@
         props: {
             selectedPlayers: Object,
             innings: Number,
-            awayTeam: String,
-            homeTeam: String
+            selectedTeam: String
         },/*
         data() {
             return {
@@ -100,7 +102,8 @@
 <style scoped>
     #scorecard {
         background-color: black;
-        color: silver;
+        margin-left: auto;
+        margin-right: auto;
     }
     #diamond {
         background-color: hotpink;
@@ -112,6 +115,9 @@
         color: magenta;
         width: 25ch;
     }
+    #row-header-empty {
+        color: gray;
+    }
     #column-header {
         color: magenta;
         height: 4ch;
@@ -119,6 +125,11 @@
     #scorecard-title {
         background-color: hotpink;
         color: black;
+        width: 25ch;
+    }
+    #scorecard-title-empty {
+        color: darkslategray;
+        width: 25ch;
     }
     input:invalid {
         background-color: tomato;

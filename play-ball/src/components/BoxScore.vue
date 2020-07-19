@@ -44,10 +44,8 @@
         </span>
 
 
-        <button @click.prevent = "innings++">
-            Extra innings
-        </button>
-        
+
+
     </div>
 </template>
 
