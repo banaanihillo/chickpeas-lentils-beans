@@ -18,8 +18,11 @@
         </select> <br />
 
         <label for = "away-players"> Away batting order: </label>
-        <form v-for = "batter in 9" v-bind:key = "'Away' + batter">
-            <select v-if = "findPlayers(awayTeam).length > 0" v-model = "awayPlayers[batter]">
+        <form v-for = "batter in 9" v-bind:key = "'Away batter ' + batter">
+            <select
+                v-if = "findPlayers(awayTeam).length > 0"
+                v-model = "awayPlayers[batter].name"
+            >
                 <option disabled value = ""> Away batter {{batter}} </option>
                 <option v-for = "player in findPlayers(awayTeam)" v-bind:key = "player._id">
                     {{player.name}}
@@ -28,8 +31,11 @@
         </form>
 
         <label for = "home-players"> Home batting order: </label>
-        <form v-for = "batter in 9" v-bind:key = "'Home' + batter">
-            <select v-if = "findPlayers(homeTeam).length > 0" v-model = "homePlayers[batter]">
+        <form v-for = "batter in 9" v-bind:key = "'Home batter ' + batter">
+            <select
+                v-if = "findPlayers(homeTeam).length > 0"
+                v-model = "homePlayers[batter].name"
+            >
                 <option disabled value = ""> Home batter {{batter}} </option>
                 <option v-for = "player in findPlayers(homeTeam)" v-bind:key = "player._id">
                     {{player.name}}
@@ -45,9 +51,7 @@
             v-bind:innings = "innings"
             v-bind:selectedTeam = "awayTeam"
         />
-        <h5> Batting statistics </h5>
-        <batting-statistics v-bind:battingOrder = "awayPlayers" />
-
+        <!---->
         <h4> Pitching </h4>
         <pitching-score-card v-bind:selectedTeam = "awayTeam" />
 
@@ -58,9 +62,7 @@
             v-bind:innings = "innings"
             v-bind:selectedTeam = "homeTeam"
         />
-        <h5> Batting statistics </h5>
-        <batting-statistics v-bind:battingOrder = "homePlayers" />
-
+        <!---->
         <h4> Pitching </h4>
         <pitching-score-card v-bind:selectedTeam = "homeTeam" />
 
@@ -77,15 +79,13 @@
     import BoxScore from "./BoxScore"
     import ScoreCard from "./ScoreCard"
     import PitchingScoreCard from "./PitchingScoreCard"
-    import BattingStatistics from "./BattingStatistics"
-
+    //
     export default {
         name: "BallGame",
         components: {
             BoxScore,
             ScoreCard,
-            PitchingScoreCard,
-            BattingStatistics
+            PitchingScoreCard
         },
         computed: {
             players() {
@@ -98,28 +98,82 @@
         data() {
             return {
                 awayPlayers: {
-                    1: "Away batting order number 1",
-                    2: "Away batting order number 2",
-                    3: "Away batting order number 3",
-                    4: "Away batting order number 4",
-                    5: "Away batting order number 5",
-                    6: "Away batting order number 6",
-                    7: "Away batting order number 7",
-                    8: "Away batting order number 8",
-                    9: "Away batting order number 9"
+                    1: {
+                        name: "Away batting order number 1",
+                        plateAppearances: {}
+                    },
+                    2: {
+                        name: "Away batting order number 2",
+                        plateAppearances: {}
+                    },
+                    3: {
+                        name: "Away batting order number 3",
+                        plateAppearances: {}
+                    },
+                    4: {
+                        name: "Away batting order number 4",
+                        plateAppearances: {}
+                    },
+                    5: {
+                        name: "Away batting order number 5",
+                        plateAppearances: {}
+                    },
+                    6: {
+                        name: "Away batting order number 6",
+                        plateAppearances: {}
+                    },
+                    7: {
+                        name: "Away batting order number 7",
+                        plateAppearances: {}
+                    },
+                    8: {
+                        name: "Away batting order number 8",
+                        plateAppearances: {}
+                    },
+                    9: {
+                        name: "Away batting order number 9",
+                        plateAppearances: {}
+                    }
                 },
                 awayTeam: "",
                 homeTeam: "",
                 homePlayers: {
-                    1: "Home batting order number 1",
-                    2: "Home batting order number 2",
-                    3: "Home batting order number 3",
-                    4: "Home batting order number 4",
-                    5: "Home batting order number 5",
-                    6: "Home batting order number 6",
-                    7: "Home batting order number 7",
-                    8: "Home batting order number 8",
-                    9: "Home batting order number 9"
+                    1: {
+                        name: "Home batting order number 1",
+                        plateAppearances: {}
+                    },
+                    2: {
+                        name: "Home batting order number 2",
+                        plateAppearances: {}
+                    },
+                    3: {
+                        name: "Home batting order number 3",
+                        plateAppearances: {}
+                    },
+                    4: {
+                        name: "Home batting order number 4",
+                        plateAppearances: {}
+                    },
+                    5: {
+                        name: "Home batting order number 5",
+                        plateAppearances: {}
+                    },
+                    6: {
+                        name: "Home batting order number 6",
+                        plateAppearances: {}
+                    },
+                    7: {
+                        name: "Home batting order number 7",
+                        plateAppearances: {}
+                    },
+                    8: {
+                        name: "Home batting order number 8",
+                        plateAppearances: {}
+                    },
+                    9: {
+                        name: "Home batting order number 9",
+                        plateAppearances: {}
+                    }
                 },
                 innings: 9
             }
@@ -146,6 +200,6 @@
         color: #42b983;
     }
     select {
-        margin-right: 10%;
+        background-color: violet;
     }
 </style>

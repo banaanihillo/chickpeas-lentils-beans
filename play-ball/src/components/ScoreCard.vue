@@ -1,4 +1,5 @@
 <template>
+    <div>
     <table id = "scorecard" border = 1>
         <tr>
             <td id = "scorecard-title" v-if = "selectedTeam"> {{selectedTeam}} </td>
@@ -12,21 +13,21 @@
                 {{inning}}
             </th>
         </tr>
-        <tr v-for = "player in selectedPlayers" v-bind:key = "player">
-            <th scope = "row" v-if = "getPlayer(player)" id = "row-header">
-                #{{getPlayer(player).number}} <br />
-                {{getPlayer(player).name}} <br />
+        <tr v-for = "player in selectedPlayers" v-bind:key = "player.name">
+            <th scope = "row" v-if = "getPlayer(player.name)" id = "row-header">
+                #{{getPlayer(player.name).number}} <br />
+                {{player.name}} <br />
                 <select>
                     <option disabled value = ""></option>
                     <option
-                        v-for = "position in getPlayer(player).positions"
+                        v-for = "position in getPlayer(player.name).positions"
                         v-bind:key = "position"
                     >
                         {{position}}
                     </option>
                 </select>
             </th>
-            <th v-else id = "row-header-empty"> {{player}} </th>
+            <th v-else id = "row-header-empty"> {{player.name}} </th>
 
             <td v-for = "inning in innings" v-bind:key = "inning">
                 <span v-for = "ball in 3" v-bind:key = "'Ball ' + ball" id = "ball">
@@ -35,7 +36,7 @@
                 <span v-for = "strike in 2" v-bind:key = "'Strike ' + strike" id = "strike">
                     <input type = checkbox />
                 </span> <br />
-                <select>
+                <select v-model = "player.plateAppearances[inning]">
                     <option disabled value = "" selected> Payoff </option>
                     <optgroup label = "Safe">
                         <option> H </option>
@@ -52,26 +53,47 @@
                         <option> DP </option>
                         <option> PO </option>
                         <option> FO </option>
+                        <option> SAC </option>
                     </optgroup>
                 </select> <br />
-                <input
-                    type = "text"
-                    pattern = "([1-9]-)*([1-9])"
-                    size = 5ch
-                    value = ""
-                    placeholder = "Putout"
-                    title = "Fielder, or fielders separated by hyphens"
-                />
+
+                <span v-if = "player.plateAppearances[inning] === 'H'">
+                    <select>
+                        <option disabled value = "" selected> Bases </option>
+                        <option> 1B </option>
+                        <option> 2B </option>
+                        <option> 3B </option>
+                        <option> HR </option>
+                    </select>
+                </span>
+                <span v-else>
+                    <input
+                        type = "text"
+                        pattern = "([1-9]-)*([1-9])"
+                        size = 5ch
+                        value = ""
+                        placeholder = "Putout"
+                        title = "Fielder, or fielders separated by hyphens"
+                    />
+                </span>
             </td>
         </tr>
     </table>
+
+    <h5> Batting statistics </h5>
+    <batting-statistics v-bind:battingOrder = "selectedPlayers" />
+
+    </div>
 </template>
 
 <script>
-//
+    import BattingStatistics from "./BattingStatistics"
+
     export default {
         name: "ScoreCard",
-        //
+        components: {
+            BattingStatistics
+        },
         props: {
             selectedPlayers: Object,
             innings: Number,
@@ -79,7 +101,7 @@
         },/*
         data() {
             return {
-                payoff: "",
+                plateAppearances: [],
                 putout: "",
                 play: ""
             }

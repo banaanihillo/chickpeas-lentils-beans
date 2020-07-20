@@ -2,18 +2,63 @@
     <table id = "batting-statistics" border = 3>
         <tr id = "batting-statistics-header">
             <td id = "batting-statistics-title"> Batter </td>
-            <th v-for = "statistic in statistics" v-bind:key = "statistic + ' header'">
+            <th id = "plate-appearances"> Plate appearances </th>
+            <th
+                v-for = "statistic in statistics"
+                v-bind:key = "statistic + ' header'"
+                id = "batting-statistics-column-header"
+            >
                 <span id = "batting-statistics-column"> {{statistic}} </span>
             </th>
         </tr>
 
-        <tr v-for = "batter in battingOrder" v-bind:key = "batter" id = "batter">
+        <tr v-for = "batter in battingOrder" v-bind:key = "batter.name" id = "batter">
             <th id = "batting-statistics-row-header">
-                {{batter}}
+                {{batter.name}}
             </th>
-            <td v-for = "statistic in statistics" v-bind:key = "statistic + ' row'">
-                <span id = "batting-statistics-content"> 0 </span>
+            <td id = "plate-appearances">
+                {{Object.values(batter.plateAppearances).length}}
             </td>
+            <td v-for = "statistic in statistics" v-bind:key = "statistic + ' column'">
+                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                    plateAppearance === statistic
+                ).length
+                }}
+            </td>
+            <!--
+            <td>
+                {{Object.values(batter.plateAppearances).length}}
+            </td>
+            <td>
+                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                    plateAppearance === "H"
+                ).length
+                }}
+            </td>
+            <td v-for = "empty in 3" v-bind:key = "'Empty thing ' + empty" id = "empty">
+                nothing here
+            </td>
+            <td>
+                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                    plateAppearance === "K"
+                ).length
+                }}
+            </td>
+            <td>
+                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                    plateAppearance === "BB" || plateAppearance === "HBP"
+                ).length
+                }}
+            </td>
+            -->
+            <!--
+            <td>
+                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                    plateAppearance === "H" /* && bound amount of bases on a hit here*/
+                ).length
+                }}
+            </td>
+            -->
         </tr>
     </table>
 </template>
@@ -27,7 +72,7 @@
         data() {
             return {
                 statistics: [
-                    "At bats", "Hits", "RBI", "Runs", "HR", "K", "BB + HBP"
+                    "H", "K", "BB", "HBP"/*, "HR", "XBH"*/
                 ]
             }
         }
@@ -41,21 +86,23 @@
         margin-right: auto;
         margin-left: auto;
         table-layout: fixed;
-        width: 100%;
+
     }
     #batting-statistics-title {
         color: blueviolet;
-        width: 25ch;
+        width: 20ch;
     }
-    #batting-statistics-content {
-        background-color: darkmagenta;
-        font-size: 3ch;
+    #batting-statistics-column-header {
+        width: 8ch;
     }
-    #batting-statistics-column {
-        background-color: hotpink;
-        color: black;
+    #empty {
+        font-size: 1ch;
     }
     #batting-statistics-row-header {
-        width: 20ch;
+        height: 5ch;
+    }
+    #plate-appearances {
+        background-color: indigo;
+        width: 15ch;
     }
 </style>
