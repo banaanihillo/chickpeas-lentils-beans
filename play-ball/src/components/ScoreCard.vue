@@ -38,35 +38,27 @@
                 </span> <br />
                 <select v-model = "player.plateAppearances[inning]">
                     <option disabled value = "" selected> Payoff </option>
-                    <optgroup label = "Safe">
-                        <option> H </option>
-                        <option> E </option>
-                        <option> Fc </option>
-                        <option> BB </option>
-                        <option> HBP </option>
-                    </optgroup>
-                    <optgroup label = "Out">
-                        <option> K </option>
-                        <option> F </option>
-                        <option> L </option>
-                        <option> GO </option>
-                        <option> DP </option>
-                        <option> PO </option>
-                        <option> FO </option>
-                        <option> SAC </option>
-                    </optgroup>
-                </select> <br />
-
-                <span v-if = "player.plateAppearances[inning] === 'H'">
-                    <select>
-                        <option disabled value = "" selected> Bases </option>
+                    <optgroup label = "Base hit">
                         <option> 1B </option>
                         <option> 2B </option>
                         <option> 3B </option>
                         <option> HR </option>
-                    </select>
-                </span>
-                <span v-else>
+                    </optgroup>
+                    <option> E </option>
+                    <option> Fc </option>
+                    <option> BB </option>
+                    <option> HBP </option>
+                    <option> K </option>
+                    <option> F </option>
+                    <option> L </option>
+                    <option> GO </option>
+                    <option> DP </option>
+                    <option> PO </option>
+                    <option> FO </option>
+                    <option> SAC </option>
+
+                </select> <br />
+                <span>
                     <input
                         type = "text"
                         pattern = "([1-9]-)*([1-9])"

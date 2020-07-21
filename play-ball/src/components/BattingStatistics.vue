@@ -3,13 +3,15 @@
         <tr id = "batting-statistics-header">
             <td id = "batting-statistics-title"> Batter </td>
             <th id = "plate-appearances"> Plate appearances </th>
+            <th id = "base-hits"> Hits </th>
             <th
-                v-for = "statistic in statistics"
-                v-bind:key = "statistic + ' header'"
-                id = "batting-statistics-column-header"
+                v-for = "(outcome, index) in threeTrueOutcomes"
+                v-bind:key = "index"
+                id = "three-true-outcomes"
             >
-                <span id = "batting-statistics-column"> {{statistic}} </span>
+                <span id = "batting-statistics-column"> {{outcome}} </span>
             </th>
+            <th id = "extra-base-hits"> XBH </th>
         </tr>
 
         <tr v-for = "batter in battingOrder" v-bind:key = "batter.name" id = "batter">
@@ -19,9 +21,26 @@
             <td id = "plate-appearances">
                 {{Object.values(batter.plateAppearances).length}}
             </td>
-            <td v-for = "statistic in statistics" v-bind:key = "statistic + ' column'">
+            <td id = "base-hits">
+                {{Object.values(batter.plateAppearances).filter(plateAppearance => (
+                    plateAppearance === "1B" || plateAppearance === "2B"
+                    || plateAppearance === "3B" || plateAppearance === "HR"
+                )
+                ).length
+                }}
+            </td>
+            <td v-for = "outcome in threeTrueOutcomes" v-bind:key = "outcome">
                 {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                    plateAppearance === statistic
+                    plateAppearance === outcome
+                ).length
+                }}
+            </td>
+            <td id = "extra-base-hits">
+                {{Object.values(batter.plateAppearances).filter(plateAppearance => (
+                    plateAppearance === "2B"
+                    || plateAppearance === "3B"
+                    || plateAppearance === "HR"
+                )
                 ).length
                 }}
             </td>
@@ -71,8 +90,8 @@
         },
         data() {
             return {
-                statistics: [
-                    "H", "K", "BB", "HBP"/*, "HR", "XBH"*/
+                threeTrueOutcomes: [
+                    "HR", "BB", "K"
                 ]
             }
         }
@@ -92,7 +111,7 @@
         color: blueviolet;
         width: 20ch;
     }
-    #batting-statistics-column-header {
+    #batting-statistics-header {
         width: 8ch;
     }
     #empty {
@@ -102,7 +121,14 @@
         height: 5ch;
     }
     #plate-appearances {
-        background-color: indigo;
+        color: mediumpurple;
         width: 15ch;
+    }
+    #base-hits {
+        color: aquamarine;
+    }
+    #three-true-outcomes {
+        color: magenta;
+        width: 6ch;
     }
 </style>
