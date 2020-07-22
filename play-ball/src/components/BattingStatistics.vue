@@ -22,12 +22,7 @@
                 {{Object.values(batter.plateAppearances).length}}
             </td>
             <td id = "base-hits">
-                {{Object.values(batter.plateAppearances).filter(plateAppearance => (
-                    plateAppearance === "1B" || plateAppearance === "2B"
-                    || plateAppearance === "3B" || plateAppearance === "HR"
-                )
-                ).length
-                }}
+                {{getBaseHits(batter.plateAppearances)}}
             </td>
             <td v-for = "outcome in threeTrueOutcomes" v-bind:key = "outcome">
                 {{Object.values(batter.plateAppearances).filter(plateAppearance =>
@@ -93,6 +88,15 @@
                 threeTrueOutcomes: [
                     "HR", "BB", "K"
                 ]
+            }
+        },
+        methods: {
+            getBaseHits(plateAppearances) {
+                return Object.values(plateAppearances).filter(plateAppearance => (
+                    plateAppearance === "1B" || plateAppearance === "2B"
+                    || plateAppearance === "3B" || plateAppearance === "HR"
+                )
+                ).length
             }
         }
     }

@@ -67,7 +67,11 @@
         <pitching-score-card v-bind:selectedTeam = "homeTeam" />
 
         <h3> Box score </h3>
-        <box-score v-bind:innings = "innings" />
+        <box-score
+            v-bind:innings = "innings"
+            v-bind:awayPlayers = "awayPlayers"
+            v-bind:homePlayers = "homePlayers"
+        />
         
         <button @click.prevent = "innings++">
             Extra innings

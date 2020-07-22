@@ -21,8 +21,8 @@
                 <span>
                     H <br />
                     <span id = "hits">
-                        {{awayHits}} <br />
-                        {{homeHits}} <br />
+                        {{calculateSum(getHits(awayPlayers))}} <br />
+                        {{calculateSum(getHits(homePlayers))}} <br />
                     </span>
                 </span>
                 <span>
@@ -33,19 +33,9 @@
                     </span>
                 </span>
             </span>
-            <!--        
-            <span v-for = "inning in innings" v-bind:key = "'Top' + inning">
-                <input type = "number" v-bind:value = 0 />
-            </span>
-            <span v-for = "inning in innings" v-bind:key = "'Bottom' + inning">
-                <input type = "number" v-bind:value = 0 />
-            </span>
-            -->
+            <!---->
         </span>
-
-
-
-
+        <!---->
     </div>
 </template>
 
@@ -54,23 +44,89 @@
         name: "BoxScore",
         data() {
             return {
-                
-                awayTeamRuns: [],
-                homeTeamRuns: [],
-                awayHits: 0,
-                homeHits: 0,
+                awayTeamRuns: {},
+                homeTeamRuns: {},
                 awayErrors: 0,
                 homeErrors: 0
             }
         },
         methods: {
-            calculateSum(thing) {
-                return thing.reduce((sum, summand) => sum + summand, 0)
+            calculateSum(things) {
+                return Object.values(things).reduce((sum, summand) => sum + summand, 0)
+            },
+            getHits(team) {
+                let baseHits = {}
+                let amountOfHitsPerBatter = {}
+                for (const [battingOrderNumber, player] of Object.entries(team)) {
+                    baseHits[battingOrderNumber] = Object.values(
+                        player.plateAppearances
+                    ).filter(plateAppearance =>
+                        plateAppearance === "1B" || plateAppearance === "2B"
+                        || plateAppearance === "3B" || plateAppearance === "HR"
+                    )
+                }
+                for (const [batter, hitsByBatter] of Object.entries(baseHits)) {
+                    amountOfHitsPerBatter[batter] = hitsByBatter.length
+                }
+                return amountOfHitsPerBatter
             }
+            /*,
+            calculateHits(totalPlateAppearances) {
+                console.log(Object.values(totalPlateAppearances))
+                const plateAppearances = Object.values(totalPlateAppearances).map(
+                    player => player.plateAppearances
+                )
+                console.log(plateAppearances)
+                const baseHits = Object.values(plateAppearances).filter(plateAppearance =>
+                    plateAppearance === "1B" || plateAppearance === "2B"
+                    || plateAppearance === "3B" || plateAppearance === "HR"
+                )
+                console.log(baseHits)
+                return baseHits.length
+            }*/
         },
         props: {
-            innings: Number
-        }
+            innings: Number,
+            awayPlayers: Object,
+            homePlayers: Object
+        }/*,
+        computed: {
+            awayHits() {
+                
+                const awayTeamPlateAppearances = Object.values(this.awayPlayers).map(
+                    player => player.plateAppearances
+                )
+                let baseHits = {}
+                let amountOfHitsPerBatter = {}
+                for (const [battingOrderNumber, player] of Object.entries(this.awayPlayers)) {
+                    console.log(battingOrderNumber)
+                    console.log(player)
+                    console.log(player.plateAppearances)
+                    baseHits[battingOrderNumber] = Object.values(
+                        player.plateAppearances
+                    ).filter(plateAppearance =>
+                        plateAppearance === "1B" || plateAppearance === "2B"
+                        || plateAppearance === "3B" || plateAppearance === "HR"
+                    )
+                    console.log(baseHits)
+                    console.log(baseHits[battingOrderNumber].length)
+                }
+                for (const [batter, hitsByBatter] of Object.entries(baseHits)) {
+                    console.log(batter)
+                    console.log(hitsByBatter)
+                    console.log(hitsByBatter.length)
+                    amountOfHitsPerBatter[batter] = hitsByBatter.length
+                }
+                console.log(amountOfHitsPerBatter)
+                return amountOfHitsPerBatter
+            },
+            homeHits() {
+                const homeTeamPlateAppearances = Object.values(this.homePlayers).map(player =>
+                    player.plateAppearances
+                )
+                return this.calculateHits(homeTeamPlateAppearances)
+            }
+        }*/
     }
 </script>
 
@@ -110,5 +166,6 @@
         height: 2ch;
         font-size: 3ch;
         text-align: right;
+        background-color: violet;
     }
 </style>
