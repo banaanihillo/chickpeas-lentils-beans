@@ -28,8 +28,8 @@
                 <span>
                     E <br />
                     <span id = "errors">
-                        {{awayErrors}} <br />
-                        {{homeErrors}} <br />
+                        {{calculateSum(getOpposingErrors(homePlayers))}} <br />
+                        {{calculateSum(getOpposingErrors(awayPlayers))}} <br />
                     </span>
                 </span>
             </span>
@@ -45,9 +45,7 @@
         data() {
             return {
                 awayTeamRuns: {},
-                homeTeamRuns: {},
-                awayErrors: 0,
-                homeErrors: 0
+                homeTeamRuns: {}
             }
         },
         methods: {
@@ -69,21 +67,21 @@
                     amountOfHitsPerBatter[batter] = hitsByBatter.length
                 }
                 return amountOfHitsPerBatter
+            },
+            getOpposingErrors(opposingTeam) {
+                let opposingErrors = {}
+                let amountOfTimesReachedOnErrors = {}
+                for (const [battingOrderNumber, player] of Object.entries(opposingTeam)) {
+                    opposingErrors[battingOrderNumber] = Object.values(
+                        player.plateAppearances
+                    ).filter(plateAppearance => plateAppearance === "E")
+                }
+                for (const [batter, timesReachedOnError] of Object.entries(opposingErrors)) {
+                    amountOfTimesReachedOnErrors[batter] = timesReachedOnError.length
+                }
+                return amountOfTimesReachedOnErrors
             }
-            /*,
-            calculateHits(totalPlateAppearances) {
-                console.log(Object.values(totalPlateAppearances))
-                const plateAppearances = Object.values(totalPlateAppearances).map(
-                    player => player.plateAppearances
-                )
-                console.log(plateAppearances)
-                const baseHits = Object.values(plateAppearances).filter(plateAppearance =>
-                    plateAppearance === "1B" || plateAppearance === "2B"
-                    || plateAppearance === "3B" || plateAppearance === "HR"
-                )
-                console.log(baseHits)
-                return baseHits.length
-            }*/
+
         },
         props: {
             innings: Number,
