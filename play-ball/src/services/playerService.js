@@ -13,7 +13,13 @@ const addPlayer = async (playerInput) => {
     return response.data
 }
 
+const modifyPlayer = async (playerInput) => {
+    const response = await axios.put(`${baseURL}/${playerInput._id}`, playerInput)
+    return response.data
+}
+
 export default {
     getPlayers,
-    addPlayer
+    addPlayer,
+    modifyPlayer
 }

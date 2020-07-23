@@ -63,17 +63,19 @@ const store = new Vuex.Store({
             state.teams = state.teams.concat(payload)
         },
         signFreeAgent(state, payload) {
-            console.log(payload)
-            state.players = state.players.concat(payload)
-            
-        }/*,
-        makeTrade: {
-
-        }*/
+            //
+            state.players = state.players.concat(payload)   
+        },
+        modifyPlayer(state, payload) {
+            const modifiedPlayer = state.players.find(player => player._id === payload._id)
+            state.players = state.players.map(player => {
+                return (player._id === payload._id) ? modifiedPlayer : player
+            })
+        }
     },
     actions: {
         async signFreeAgent(context, payload) {
-            console.log(payload)
+
             context.commit(
                 "signFreeAgent",
                 await playerService.addPlayer(payload.input)
@@ -83,6 +85,12 @@ const store = new Vuex.Store({
             context.commit(
                 "addExpansionTeam",
                 await teamService.addTeam(payload.input)
+            )
+        },
+        async modifyPlayer(context, payload) {
+            context.commit(
+                "modifyPlayer",
+                await playerService.modifyPlayer(payload.input)
             )
         }
     },

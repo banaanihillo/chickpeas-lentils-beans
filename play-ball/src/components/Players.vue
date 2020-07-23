@@ -3,6 +3,14 @@
         <ul v-for = "player in players" v-bind:key = "player.id">
             <li>
                 {{player.name}} #{{player.number}}
+                <input
+                    type = "number"
+                    v-model.number = "player.number"
+                    id = "number"
+                    @input = "player.modified = true"
+                    min = 0
+                    max = 99
+                />
                 <span v-if = "player.positions.includes('P')">
                     <p>
                         <span v-if = "player.throws === 'L'">
@@ -36,7 +44,7 @@
                         <span v-else>
                             Switch
                         </span>
-                        hitting
+                            hitting
                         <span>
                             <span v-if = "player.role">
                                 {{player.role}}
@@ -65,7 +73,43 @@
                         Can play {{player.positions.join(", ")}}.
                     </p>
                 </span>
+                Change positions:
+                <br />
+                <span v-for = "position in listOfPositions" v-bind:key = "position + 'key'">
+                    <label for = "position"> {{position}} </label>
+                    <input
+                        type = checkbox
+                        v-model = "player.positions"
+                        id = "positionInput"
+                        v-bind:value = "position"
+                        @input = "player.positionsModified = true"
+                    />
+                </span>
+                <p v-if = "player.positionsModified">
+                    Preferred position, if any:
+                    <br />
+                    <span v-for = "position in player.positions" v-bind:key = "position">
+                        <label for = "preferredPosition"> {{position}} </label>
+                        <input
+                            type = radio
+                            v-model = "player.preferredPosition"
+                            v-bind:value = "position"
+                            id = "positionInput"
+                        />
+                    </span>
+                </p>
             </li>
+            <span v-if = "player.modified || player.positionsModified">
+                <button @click.prevent = "modifyPlayer(player)"> Save changes </button>
+                <span v-if = "errors.length > 0">
+                    <br />
+                    Modification unsuccessful:
+                    <li v-for = "error in errors" v-bind:key = "error">
+                        {{error}}
+                    </li>
+                </span>
+            </span>
+            <br />
         </ul>
     </div>
 </template>
@@ -76,12 +120,56 @@
         computed: {
             players() {
                 return this.$store.state.players
-            }
+
+            },
+            console: () => console
         },
         data() {
             return {
-                listOfPositionPlayers: ["C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH"]
+                listOfPositions: ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH"],
+                errors: []
+            }
+        },
+        methods: {
+            modifyPlayer(player) {
+                this.errors = []
+                if (player.number < 0 || player.number > 99) {
+                    this.errors.push("The number should be between 0 and 99.")
+                }
+                if (player.positions.length === 0) {
+                    this.errors.push("Make sure at least one position is checked.")
+                }
+                if (this.errors.length === 0) {
+                    player.modified = false
+                    player.positionsModified = false
+                    this.$store.dispatch({
+                        type: "modifyPlayer",
+                        input: player
+                    })
+                }
             }
         }
     }
 </script>
+
+<style scoped>
+    #players {
+        background-color: black;
+        color: deeppink;
+    }
+    #number {
+        margin-left: 1ch;
+        margin-right: 1ch;
+        width: 4ch;
+        font-size: 2ch;
+    }
+    #positionInput {
+        margin-right: 3ch;
+    }
+    input:valid {
+        background: violet;
+    }
+    input:invalid {
+        background-color: coral;
+    }
+</style>
