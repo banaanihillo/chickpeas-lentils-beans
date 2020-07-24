@@ -11,7 +11,13 @@ const addTeam = async (teamInput) => {
     return response.data
 }
 
+const modifyTeam = async (teamInput) => {
+    const response = await axios.put(`${baseURL}/${teamInput._id}`, teamInput)
+    return response.data
+}
+
 export default {
     getTeams,
-    addTeam
+    addTeam,
+    modifyTeam
 }

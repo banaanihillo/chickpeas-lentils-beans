@@ -20,14 +20,26 @@
                             Right handed
                         </span>
                         <span>
-                            <span v-if = "player.role">
-                                {{player.role}}
+                            <span v-if = "!player.role || player.role === 'Two-way player'">
+                                pitcher
                             </span>
                             <span v-else>
-                                pitcher
+                                {{player.role}}
                             </span>
                             for the {{player.team.name}}.
                         </span>
+                    </p>
+                    <p>
+                        <label for = "pitcherRole"> Assign a new role: </label>
+                        <select v-model = "player.role" @input = "player.modified = true">
+                            <option disabled value = ""></option>
+                            <option
+                                v-for = "pitcherRole in roles.pitchers"
+                                v-bind:key = "pitcherRole"
+                            >
+                                {{pitcherRole}}
+                            </option>
+                        </select>
                     </p>
                 </span>
                 <span v-if = "
@@ -58,6 +70,18 @@
 
                         </span>
                         for the {{player.team.name}}.
+                    </p>
+                    <p>
+                        <label for = "positionPlayerRole"> Assign a new role: </label>
+                        <select v-model = "player.role" @input = "player.modified = true">
+                            <option disabled value = ""></option>
+                            <option
+                                v-for = "positionPlayerRole in roles.positionPlayers"
+                                v-bind:key = "positionPlayerRole"
+                            >
+                                {{positionPlayerRole}}
+                            </option>
+                        </select>
                     </p>
                     <p>
                         Throws
@@ -127,7 +151,24 @@
         data() {
             return {
                 listOfPositions: ["P", "C", "1B", "2B", "3B", "SS", "LF", "CF", "RF", "DH"],
-                errors: []
+                errors: [],
+                roles: {
+                    pitchers: [
+                        "Starting pitcher",
+                        "Closer",
+                        "Relief pitcher",
+                        "Opener",
+                        "Two-way player"
+                    ],
+                    positionPlayers: [
+                        "Everyday",
+                        "Bench",
+                        "Utility",
+                        "Backup",
+                        "Platoon",
+                        "Two-way player"
+                    ]
+                }
             }
         },
         methods: {
@@ -140,8 +181,12 @@
                     this.errors.push("Make sure at least one position is checked.")
                 }
                 if (this.errors.length === 0) {
-                    player.modified = false
-                    player.positionsModified = false
+                    if (player.modified) {
+                        delete player.modified
+                    }
+                    if (player.positionsModified) {
+                        delete player.positionsModified
+                    }
                     this.$store.dispatch({
                         type: "modifyPlayer",
                         input: player
@@ -171,5 +216,8 @@
     }
     input:invalid {
         background-color: coral;
+    }
+    select {
+        background-color: plum;
     }
 </style>

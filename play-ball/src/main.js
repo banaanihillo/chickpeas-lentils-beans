@@ -71,6 +71,12 @@ const store = new Vuex.Store({
             state.players = state.players.map(player => {
                 return (player._id === payload._id) ? modifiedPlayer : player
             })
+        },
+        modifyTeam(state, payload) {
+            const modifiedTeam = state.teams.find(team => team._id === payload._id)
+            state.teams = state.teams.map(team => {
+                return (team._id === payload._id) ? modifiedTeam : team
+            })
         }
     },
     actions: {
@@ -91,6 +97,12 @@ const store = new Vuex.Store({
             context.commit(
                 "modifyPlayer",
                 await playerService.modifyPlayer(payload.input)
+            )
+        },
+        async modifyTeam(context, payload) {
+            context.commit(
+                "modifyTeam",
+                await teamService.modifyTeam(payload.input)
             )
         }
     },
