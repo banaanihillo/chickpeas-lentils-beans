@@ -67,7 +67,52 @@
                         placeholder = "Putout"
                         title = "Fielder, or fielders separated by hyphens"
                     />
-                </span>
+                </span> <br />
+                <svg width = "60px" height = "60px">
+                    <path d = "
+                                M 30 5
+                                L 55 30
+                                L 30 55
+                                L 5 30
+                                z
+                    " />
+                    <text x = "30" y = "35" text-anchor = "middle">
+                        {{player.plateAppearances[inning]}}
+                    </text>
+                </svg>
+                <!--
+                <svg width = "3ch" height = "3ch">
+                    <g>
+                        <line x1 = "0" y1 = "20" x2 = "20" y2 = "0" id = "second-to-third" />
+                        
+                        <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "first-to-second" />
+                        <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "third-to-home" />
+                        <line x1 = "0" y1 = "20" x2 = "20" y2 = "0" id = "home-to-first" />
+                        
+                    </g>
+                </svg>
+                <svg width = "3ch" height = "3ch">
+                    <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "first-to-second" />
+                    <text> K </text>
+                </svg>
+                <svg width = "3ch" height = "3ch">
+                    <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "third-to-home" />
+                </svg>
+                <svg width = "3ch" height = "3ch">
+                    <line x1 = "0" y1 = "20" x2 = "20" y2 = "0" id = "home-to-first" />
+                </svg>
+                -->
+                <!--
+                <br />
+                <div id = "diamond">
+                    <div id = "diamond-top">
+                        <div id = "first-to-second"> SB </div>
+                    </div>
+                    <div id = "diamond-bottom">
+                        {{player.plateAppearances[inning]}}
+                    </div>
+                </div>
+                -->
             </td>
         </tr>
     </table>
@@ -119,12 +164,28 @@
         margin-left: auto;
         margin-right: auto;
     }
-    #diamond {
-        background-color: hotpink;
-        transform: rotate(0.125turn);
-        width: 3ch;
-        height: 3ch;
+    /*
+    #diamond-top {
+        width: 0;
+        height: 0;
+        border: 2ch solid transparent;
+        border-bottom-color: deeppink;
+        margin-left: auto;
+        margin-right: auto;
     }
+    #diamond-bottom {
+        width: 0;
+        height: 0;
+        border: 2ch solid transparent;
+        border-top-color: magenta;
+        margin-left: auto;
+        margin-right: auto;
+        color: gold;
+    }
+    #first-to-second {
+        color: yellow;
+    }
+    */
     #row-header {
         color: magenta;
         width: 25ch;
@@ -168,4 +229,17 @@
     #strike input:checked {
         box-shadow: 0 0 0 1px;
     }
+    path {
+        fill: fuchsia;
+        stroke: gold;
+        stroke-width: 3;
+    }
+    /*
+    line {
+        stroke: deeppink;
+    }
+    #home-to-first {
+        stroke: yellow;
+    }
+    */
 </style>
