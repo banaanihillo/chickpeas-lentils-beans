@@ -19,25 +19,33 @@
                 {{batter.name}}
             </th>
             <td id = "plate-appearances">
-                {{Object.values(batter.plateAppearances).length}}
+                <span v-if = "!batter.plateAppearances"> 0 </span>
+                <span v-else> {{Object.values(batter.plateAppearances).length}} </span>
             </td>
             <td id = "base-hits">
-                {{getBaseHits(batter.plateAppearances)}}
+                <span v-if = "!batter.plateAppearances"> 0 </span>
+                <span v-else> {{getBaseHits(batter.plateAppearances)}} </span>
             </td>
             <td v-for = "outcome in threeTrueOutcomes" v-bind:key = "outcome">
-                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                    plateAppearance === outcome
-                ).length
-                }}
+                <span v-if = "!batter.plateAppearances"> 0 </span>
+                <span v-else>
+                    {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                        plateAppearance === outcome
+                    ).length
+                    }}
+                </span>
             </td>
             <td id = "extra-base-hits">
-                {{Object.values(batter.plateAppearances).filter(plateAppearance => (
-                    plateAppearance === "2B"
-                    || plateAppearance === "3B"
-                    || plateAppearance === "HR"
-                )
-                ).length
-                }}
+                <span v-if = "!batter.plateAppearances"> 0 </span>
+                <span v-else>
+                    {{Object.values(batter.plateAppearances).filter(plateAppearance => (
+                        plateAppearance.payoff === "2B"
+                        || plateAppearance.payoff === "3B"
+                        || plateAppearance.payoff === "HR"
+                    )
+                    ).length
+                    }}
+                </span>
             </td>
             <!--
             <td>

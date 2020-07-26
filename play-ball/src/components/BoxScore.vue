@@ -56,6 +56,9 @@
                 let baseHits = {}
                 let amountOfHitsPerBatter = {}
                 for (const [battingOrderNumber, player] of Object.entries(team)) {
+                    if (!player.plateAppearances) {
+                        return 0
+                    }
                     baseHits[battingOrderNumber] = Object.values(
                         player.plateAppearances
                     ).filter(plateAppearance =>
@@ -72,6 +75,9 @@
                 let opposingErrors = {}
                 let amountOfTimesReachedOnErrors = {}
                 for (const [battingOrderNumber, player] of Object.entries(opposingTeam)) {
+                    if (!player.plateAppearances) {
+                        return 0
+                    }
                     opposingErrors[battingOrderNumber] = Object.values(
                         player.plateAppearances
                     ).filter(plateAppearance => plateAppearance === "E")

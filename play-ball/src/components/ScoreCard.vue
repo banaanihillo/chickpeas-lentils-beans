@@ -36,7 +36,10 @@
                 <span v-for = "strike in 2" v-bind:key = "'Strike ' + strike" id = "strike">
                     <input type = checkbox />
                 </span> <br />
-                <select v-model = "player.plateAppearances[inning]">
+                <select
+                    value = ""
+                    v-on:change = "({target}) => addPayoff(target.value, player, inning)"
+                >
                     <option disabled value = "" selected> Payoff </option>
                     <optgroup label = "Base hit">
                         <option> 1B </option>
@@ -58,16 +61,38 @@
                     <option> SAC </option>
 
                 </select> <br />
-                <span>
-                    <input
-                        type = "text"
-                        pattern = "([1-9]-)*([1-9])"
-                        size = 5ch
-                        value = ""
-                        placeholder = "Putout"
-                        title = "Fielder, or fielders separated by hyphens"
-                    />
-                </span> <br />
+                <span v-if = "player.plateAppearances">
+                    <span v-if = "player.plateAppearances[inning]">
+                        <span v-if = "
+                            player.plateAppearances[inning].payoff === '1B'
+                            || player.plateAppearances[inning].payoff === '2B'
+                            || player.plateAppearances[inning].payoff === '3B'
+                            || player.plateAppearances[inning].payoff === 'HR'
+                        ">
+                            <select id = "type-of-hit">
+                                <option disabled value = "" selected> Type of hit </option>
+                                <option> Line drive </option>
+                                <option> Fly ball </option>
+                                <option> Ground ball </option>
+                                <option> Bunt </option>
+                            </select>
+                        </span>
+                        <span v-else>
+                            <input
+                                type = "text"
+                                pattern = "([1-9]-)*([1-9])"
+                                size = 5ch
+                                value = ""
+                                placeholder = "Putout"
+                                title = "Fielder, or fielders separated by hyphens"
+                                v-on:input = "({target}) =>
+                                    addPutout(target.value, player, inning)"
+                            />
+                        </span>
+                    </span>
+                </span>
+                <br />
+                <!--
                 <svg width = "60px" height = "60px">
                     <path d = "
                                 M 30 5
@@ -80,17 +105,49 @@
                         {{player.plateAppearances[inning]}}
                     </text>
                 </svg>
-                <!--
-                <svg width = "3ch" height = "3ch">
+                -->
+                
+                <svg width = "6.5ch" height = "6.5ch">
                     <g>
-                        <line x1 = "0" y1 = "20" x2 = "20" y2 = "0" id = "second-to-third" />
-                        
-                        <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "first-to-second" />
-                        <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "third-to-home" />
-                        <line x1 = "0" y1 = "20" x2 = "20" y2 = "0" id = "home-to-first" />
-                        
+                        <line
+                            x1 = "30" y1 = "55" x2 = "55" y2 = "30"
+                            id = "home-to-first" onclick = "style.stroke='yellow'"/>
+                        <line
+                            x1 = "55" y1 = "30" x2 = "30" y2 = "5"
+                            id = "first-to-second" onclick = "style.stroke='yellow'" />
+                        <line
+                            x1 = "30" y1 = "5" x2 = "5" y2 = "30"
+                            id = "second-to-third" onclick = "style.stroke='yellow'" />
+                        <line
+                            x1 = "5" y1 = "30" x2 = "30" y2 = "55"
+                            id = "third-to-home" onclick = "style.stroke='yellow'" />
+                    </g>
+                    <g v-if = "player.plateAppearances">
+                        <g v-if = "player.plateAppearances[inning]">
+                            <text
+                                x = "30"
+                                y = "35"
+                                text-anchor = "middle"
+                                v-if = "player.plateAppearances[inning].putout"
+                                id = "putout"
+                            >
+                                {{console.log("I am inside the putout")}}
+                                {{player.plateAppearances[inning].putout}}
+                            </text>
+                            <text
+                                v-else-if = "player.plateAppearances[inning].payoff"
+                                x = "30"
+                                y = "35"
+                                text-anchor = "middle"
+                                id = "payoff"
+                            >
+                                {{console.log("I am inside the payoff")}}
+                                {{player.plateAppearances[inning].payoff}}
+                            </text>
+                        </g>
                     </g>
                 </svg>
+                <!--
                 <svg width = "3ch" height = "3ch">
                     <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "first-to-second" />
                     <text> K </text>
@@ -146,12 +203,32 @@
         computed: {
             players() {
                 return this.$store.state.players
-
-            }
+            },
+            console: () => console
         },
         methods: {
             getPlayer(playerName) {
                 return this.players.find(player => player.name === playerName)
+            },
+            addPutout(value, player, inning) {
+                if (player.plateAppearances[inning].payoff === "GO"
+                    || player.plateAppearances[inning].payoff === "DP")
+                {
+                    this.$set(player.plateAppearances[inning], "putout", value)
+                }
+                else {
+                    const putout = player.plateAppearances[inning].payoff + value
+                    this.$set(player.plateAppearances[inning], "putout", putout)
+                }
+            },
+            addPayoff(value, player, inning) {
+                if (!Object.prototype.hasOwnProperty.call(player, "plateAppearances")) {
+                    this.$set(player, "plateAppearances", {})
+                }
+                const plateAppearance = {
+                    payoff: value
+                }
+                this.$set(player.plateAppearances, inning, plateAppearance)
             }
 
         }
@@ -188,7 +265,7 @@
     */
     #row-header {
         color: magenta;
-        width: 25ch;
+        width: 20ch;
     }
     #row-header-empty {
         color: gray;
@@ -200,11 +277,11 @@
     #scorecard-title {
         background-color: hotpink;
         color: black;
-        width: 25ch;
+
     }
     #scorecard-title-empty {
         color: darkslategray;
-        width: 25ch;
+        
     }
     input:invalid {
         background-color: tomato;
@@ -234,12 +311,21 @@
         stroke: gold;
         stroke-width: 3;
     }
-    /*
+    
     line {
         stroke: deeppink;
+        stroke-width: 2;
     }
-    #home-to-first {
+    line:hover {
         stroke: yellow;
     }
-    */
+    text {
+        fill: magenta;
+    }
+    #payoff {
+        stroke: lime;
+    }
+    #putout {
+        stroke: tomato;
+    }
 </style>
