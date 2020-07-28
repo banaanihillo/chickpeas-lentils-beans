@@ -56,15 +56,11 @@
                 let baseHits = {}
                 let amountOfHitsPerBatter = {}
                 for (const [battingOrderNumber, player] of Object.entries(team)) {
-                    if (!player.plateAppearances) {
-                        return 0
+                    if (player.plateAppearances) {
+                        baseHits[battingOrderNumber] = Object.values(
+                            player.plateAppearances
+                        ).filter(plateAppearance => plateAppearance.payoff === "H")
                     }
-                    baseHits[battingOrderNumber] = Object.values(
-                        player.plateAppearances
-                    ).filter(plateAppearance =>
-                        plateAppearance === "1B" || plateAppearance === "2B"
-                        || plateAppearance === "3B" || plateAppearance === "HR"
-                    )
                 }
                 for (const [batter, hitsByBatter] of Object.entries(baseHits)) {
                     amountOfHitsPerBatter[batter] = hitsByBatter.length
@@ -75,12 +71,11 @@
                 let opposingErrors = {}
                 let amountOfTimesReachedOnErrors = {}
                 for (const [battingOrderNumber, player] of Object.entries(opposingTeam)) {
-                    if (!player.plateAppearances) {
-                        return 0
+                    if (player.plateAppearances) {
+                        opposingErrors[battingOrderNumber] = Object.values(
+                            player.plateAppearances
+                        ).filter(plateAppearance => plateAppearance.payoff === "E")   
                     }
-                    opposingErrors[battingOrderNumber] = Object.values(
-                        player.plateAppearances
-                    ).filter(plateAppearance => plateAppearance === "E")
                 }
                 for (const [batter, timesReachedOnError] of Object.entries(opposingErrors)) {
                     amountOfTimesReachedOnErrors[batter] = timesReachedOnError.length

@@ -1,5 +1,7 @@
 <template>
     <div class = "hello">
+        {{console.log("Hello")}}
+        {{console.log(window.performance.now())}}
         <h1> {{message}} </h1>
         <p>
             Banana count: {{this.$store.state.bananas}} <br />
@@ -171,6 +173,10 @@
             return {
                 guanabanasToAdd: 1
             }
+        },
+        computed: {
+            console: () => console,
+            window: () => window
         }
     }
 </script>

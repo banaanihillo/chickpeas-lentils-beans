@@ -1,5 +1,7 @@
 <template>
     <div id = "app">
+        {{console.log("I am inside the application")}}
+        {{console.log(window.performance.now())}}
         <hello-everyone-else :greetees = "properties.greetees" />
         <img alt = "Vue logo" src = "./assets/logo.png">
         <HelloWorld message = "Hello!" />
@@ -33,6 +35,10 @@
                     ]
                 }
             }
+        },
+        computed: {
+            console: () => console,
+            window: () => window
         }
     }
 </script>

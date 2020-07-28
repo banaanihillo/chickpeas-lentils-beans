@@ -4,6 +4,7 @@
             <td id = "batting-statistics-title"> Batter </td>
             <th id = "plate-appearances"> Plate appearances </th>
             <th id = "base-hits"> Hits </th>
+            <th id = "runs-batted-in"> RBI </th>
             <th
                 v-for = "(outcome, index) in threeTrueOutcomes"
                 v-bind:key = "index"
@@ -24,13 +25,22 @@
             </td>
             <td id = "base-hits">
                 <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else> {{getBaseHits(batter.plateAppearances)}} </span>
+                <span v-else>
+                    {{Object.values(batter.plateAppearances).filter(plateAppearance => (
+                        plateAppearance.payoff === "H")
+                    ).length
+                    }}
+                </span>
+            </td>
+            <td id = "runs-batted-in">
+                <span v-if = "!batter.plateAppearances"> 0 </span>
+                <span v-else> {{getRunsBattedIn(batter.plateAppearances)}} </span>
             </td>
             <td v-for = "outcome in threeTrueOutcomes" v-bind:key = "outcome">
                 <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else>
+                <span v-else id = "three-true-outcomes">
                     {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                        plateAppearance === outcome
+                        plateAppearance.payoff === outcome
                     ).length
                     }}
                 </span>
@@ -39,48 +49,15 @@
                 <span v-if = "!batter.plateAppearances"> 0 </span>
                 <span v-else>
                     {{Object.values(batter.plateAppearances).filter(plateAppearance => (
-                        plateAppearance.payoff === "2B"
-                        || plateAppearance.payoff === "3B"
-                        || plateAppearance.payoff === "HR"
+                        plateAppearance.typeOfHit === "2B"
+                        || plateAppearance.typeOfHit === "3B"
+                        || plateAppearance.typeOfHit === "HR"
                     )
                     ).length
                     }}
                 </span>
             </td>
-            <!--
-            <td>
-                {{Object.values(batter.plateAppearances).length}}
-            </td>
-            <td>
-                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                    plateAppearance === "H"
-                ).length
-                }}
-            </td>
-            <td v-for = "empty in 3" v-bind:key = "'Empty thing ' + empty" id = "empty">
-                nothing here
-            </td>
-            <td>
-                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                    plateAppearance === "K"
-                ).length
-                }}
-            </td>
-            <td>
-                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                    plateAppearance === "BB" || plateAppearance === "HBP"
-                ).length
-                }}
-            </td>
-            -->
-            <!--
-            <td>
-                {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                    plateAppearance === "H" /* && bound amount of bases on a hit here*/
-                ).length
-                }}
-            </td>
-            -->
+            
         </tr>
     </table>
 </template>
@@ -99,13 +76,15 @@
             }
         },
         methods: {
-            getBaseHits(plateAppearances) {
-                return Object.values(plateAppearances).filter(plateAppearance => (
-                    plateAppearance === "1B" || plateAppearance === "2B"
-                    || plateAppearance === "3B" || plateAppearance === "HR"
+            getRunsBattedIn(plateAppearances) {
+                const rbiTotal = Object.values(plateAppearances).map(plateAppearance =>
+                    plateAppearance.RBI
                 )
-                ).length
-            }
+                return this.calculateSum(rbiTotal)
+            },
+            calculateSum(things) {
+                return things.reduce((sum, summand) => sum + (summand || 0), 0)
+            },
         }
     }
 </script>
@@ -134,13 +113,21 @@
     }
     #plate-appearances {
         color: mediumpurple;
-        width: 15ch;
+        width: 12ch;
     }
     #base-hits {
         color: aquamarine;
+        width: 5ch;
     }
     #three-true-outcomes {
         color: magenta;
-        width: 6ch;
+        width: 4ch;
+    }
+    #runs-batted-in {
+        width: 4ch;
+    }
+    #extra-base-hits {
+        width: 5ch;
+        color: lightpink
     }
 </style>

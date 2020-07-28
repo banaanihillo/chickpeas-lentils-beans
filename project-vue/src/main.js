@@ -1,6 +1,8 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import App from "./App.vue"
+console.log("I am inside main.js")
+console.log(window.performance.now())
 Vue.use(Vuex)
 
 const store = new Vuex.Store({

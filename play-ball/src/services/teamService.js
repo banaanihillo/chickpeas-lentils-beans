@@ -3,6 +3,7 @@ const baseURL = "http://localhost:9001/teams"
 
 const getTeams = async () => {
     const response = await axios.get(baseURL)
+    console.log("I am getting teams")
     return response.data
 }
 

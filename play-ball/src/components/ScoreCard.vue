@@ -13,8 +13,8 @@
                 {{inning}}
             </th>
         </tr>
-        <tr v-for = "player in selectedPlayers" v-bind:key = "player.name">
-            <th scope = "row" v-if = "getPlayer(player.name)" id = "row-header">
+        <tr v-for = "(player, index) in selectedPlayers" v-bind:key = "player.name">
+            <th scope = "row" v-if = "player.name" id = "row-header">
                 #{{getPlayer(player.name).number}} <br />
                 {{player.name}} <br />
                 <select>
@@ -27,8 +27,7 @@
                     </option>
                 </select>
             </th>
-            <th v-else id = "row-header-empty"> {{player.name}} </th>
-
+            <th v-else id = "row-header-empty"> Batting order number {{index}} </th>
             <td v-for = "inning in innings" v-bind:key = "inning">
                 <span v-for = "ball in 3" v-bind:key = "'Ball ' + ball" id = "ball">
                     <input type = checkbox />
@@ -41,12 +40,7 @@
                     v-on:change = "({target}) => addPayoff(target.value, player, inning)"
                 >
                     <option disabled value = "" selected> Payoff </option>
-                    <optgroup label = "Base hit">
-                        <option> 1B </option>
-                        <option> 2B </option>
-                        <option> 3B </option>
-                        <option> HR </option>
-                    </optgroup>
+                    <option> H </option>
                     <option> E </option>
                     <option> Fc </option>
                     <option> BB </option>
@@ -63,50 +57,57 @@
                 </select> <br />
                 <span v-if = "player.plateAppearances">
                     <span v-if = "player.plateAppearances[inning]">
-                        <span v-if = "
-                            player.plateAppearances[inning].payoff === '1B'
-                            || player.plateAppearances[inning].payoff === '2B'
-                            || player.plateAppearances[inning].payoff === '3B'
-                            || player.plateAppearances[inning].payoff === 'HR'
-                        ">
-                            <select id = "type-of-hit">
-                                <option disabled value = "" selected> Type of hit </option>
-                                <option> Line drive </option>
-                                <option> Fly ball </option>
-                                <option> Ground ball </option>
-                                <option> Bunt </option>
+                        <span v-if = "player.plateAppearances[inning].payoff === 'H'">
+                            <select
+                                id = "type-of-hit"
+                                @change = "({target}) => addHit(target.value, player, inning)"
+                            >
+                                <option disabled value = "" selected> Hit </option>
+                                <option> 1B </option>
+                                <option> 2B </option>
+                                <option> 3B </option>
+                                <option> HR </option>
                             </select>
+                            <br />
                         </span>
+                        <span v-else-if = "player.plateAppearances[inning].payoff === 'BB'
+                            || player.plateAppearances[inning].payoff === 'HBP'
+                            || player.plateAppearances[inning].payoff === 'Fc'" />
                         <span v-else>
                             <input
                                 type = "text"
                                 pattern = "([1-9]-)*([1-9])"
-                                size = 5ch
+                                size = 4ch
                                 value = ""
                                 placeholder = "Putout"
                                 title = "Fielder, or fielders separated by hyphens"
                                 v-on:input = "({target}) =>
                                     addPutout(target.value, player, inning)"
                             />
+                            <br />
                         </span>
+                        <span id = "runs-batted-in"> RBI:</span>
+                        <select
+                            @change = "({target}) => addRBI(target.value, player, inning)"
+                            id = "runs-batted-in-input"
+                        >
+                            <option selected value = 0> 0 </option>
+                            <option
+                                v-for = "number in 4"
+                                v-bind:key = "number"
+                                v-bind:value = "number"
+                            >
+                                {{number}}
+                            </option>
+                        </select>
+                        <!--
+                        <label for = "runScored"></label>
+                        <input type = "checkbox" />
+                        -->
                     </span>
                 </span>
                 <br />
-                <!--
-                <svg width = "60px" height = "60px">
-                    <path d = "
-                                M 30 5
-                                L 55 30
-                                L 30 55
-                                L 5 30
-                                z
-                    " />
-                    <text x = "30" y = "35" text-anchor = "middle">
-                        {{player.plateAppearances[inning]}}
-                    </text>
-                </svg>
-                -->
-                
+                <!---->
                 <svg width = "6.5ch" height = "6.5ch">
                     <g>
                         <line
@@ -128,10 +129,19 @@
                                 x = "30"
                                 y = "35"
                                 text-anchor = "middle"
-                                v-if = "player.plateAppearances[inning].putout"
+                                v-if = "player.plateAppearances[inning].typeOfHit"
+                                id = "base-hit"
+                            >
+                                {{player.plateAppearances[inning].typeOfHit}}
+                            </text>
+                            <text
+                                x = "30"
+                                y = "35"
+                                text-anchor = "middle"
+                                v-else-if = "player.plateAppearances[inning].putout"
                                 id = "putout"
                             >
-                                {{console.log("I am inside the putout")}}
+
                                 {{player.plateAppearances[inning].putout}}
                             </text>
                             <text
@@ -141,7 +151,7 @@
                                 text-anchor = "middle"
                                 id = "payoff"
                             >
-                                {{console.log("I am inside the payoff")}}
+                            
                                 {{player.plateAppearances[inning].payoff}}
                             </text>
                         </g>
@@ -192,19 +202,14 @@
             selectedPlayers: Object,
             innings: Number,
             selectedTeam: String
-        },/*
-        data() {
-            return {
-                plateAppearances: [],
-                putout: "",
-                play: ""
-            }
-        },*/
+        },
+        
         computed: {
             players() {
                 return this.$store.state.players
             },
-            console: () => console
+            console: () => console,
+            window: () => window
         },
         methods: {
             getPlayer(playerName) {
@@ -229,6 +234,12 @@
                     payoff: value
                 }
                 this.$set(player.plateAppearances, inning, plateAppearance)
+            },
+            addHit(value, player, inning) {
+                this.$set(player.plateAppearances[inning], "typeOfHit", value)
+            },
+            addRBI(value, player, inning) {
+                this.$set(player.plateAppearances[inning], "RBI", Number(value))
             }
 
         }
@@ -265,13 +276,14 @@
     */
     #row-header {
         color: magenta;
-        width: 20ch;
+        width: 1fr;
     }
     #row-header-empty {
         color: gray;
     }
     #column-header {
         color: magenta;
+        width: 8ch;
         height: 4ch;
     }
     #scorecard-title {
@@ -323,9 +335,18 @@
         fill: magenta;
     }
     #payoff {
-        stroke: lime;
+        stroke: gold;
     }
     #putout {
         stroke: tomato;
+    }
+    #runs-batted-in-input {
+        background-color: darkkhaki;
+    }
+    #base-hit {
+        stroke: lime;
+    }
+    #runs-batted-in {
+        color: hotpink;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div id = "app">
-
+        
         <p>
             <router-link to = "/ballgame"> Main page </router-link>
             <router-link to = "/players"> Players </router-link>
@@ -37,6 +37,10 @@
             Teams,
             AddPlayer,
             AddTeam
+        },
+        computed: {
+            console: () => console,
+            window: () => window
         }
     }
 </script>

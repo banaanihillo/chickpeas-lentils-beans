@@ -97,69 +97,36 @@
             },
             teams() {
                 return this.$store.state.teams
-            }
+
+            },
+            console: () => console,
+            window: () => window
         },
         data() {
             return {
                 awayPlayers: {
-                    1: {
-                        name: "Away batting order number 1"
-                    },
-                    2: {
-                        name: "Away batting order number 2"
-                    },
-                    3: {
-                        name: "Away batting order number 3"
-                    },
-                    4: {
-                        name: "Away batting order number 4"
-                    },
-                    5: {
-                        name: "Away batting order number 5"
-                    },
-                    6: {
-                        name: "Away batting order number 6"
-                    },
-                    7: {
-                        name: "Away batting order number 7"
-                    },
-                    8: {
-                        name: "Away batting order number 8"
-                    },
-                    9: {
-                        name: "Away batting order number 9"
-                    }
+                    1: {},
+                    2: {},
+                    3: {},
+                    4: {},
+                    5: {},
+                    6: {},
+                    7: {},
+                    8: {},
+                    9: {}
                 },
                 awayTeam: "",
                 homeTeam: "",
                 homePlayers: {
-                    1: {
-                        name: "Home batting order number 1"
-                    },
-                    2: {
-                        name: "Home batting order number 2"
-                    },
-                    3: {
-                        name: "Home batting order number 3"
-                    },
-                    4: {
-                        name: "Home batting order number 4"
-                    },
-                    5: {
-                        name: "Home batting order number 5"
-                    },
-                    6: {
-                        name: "Home batting order number 6"
-                    },
-                    7: {
-                        name: "Home batting order number 7"
-                    },
-                    8: {
-                        name: "Home batting order number 8"
-                    },
-                    9: {
-                        name: "Home batting order number 9"
-                    }
+                    1: {},
+                    2: {},
+                    3: {},
+                    4: {},
+                    5: {},
+                    6: {},
+                    7: {},
+                    8: {},
+                    9: {}
                 },
                 innings: 9
             }

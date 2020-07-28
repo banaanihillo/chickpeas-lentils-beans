@@ -3,11 +3,11 @@ import Vuex from "vuex"
 import VueRouter from "vue-router"
 import App from "./App.vue"
 
-import BallGame from "./components/BallGame"
-import Players from "./components/Players"
-import Teams from "./components/Teams"
-import AddPlayer from "./components/AddPlayer"
-import AddTeam from "./components/AddTeam"
+const BallGame = () => import("./components/BallGame")
+const Players = () => import("./components/Players")
+const Teams = () => import("./components/Teams")
+const AddPlayer = () => import("./components/AddPlayer")
+const AddTeam = () => import("./components/AddTeam")
 import playerService from "./services/playerService"
 import teamService from "./services/teamService"
 
