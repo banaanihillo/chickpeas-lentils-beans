@@ -78,7 +78,7 @@
         methods: {
             getRunsBattedIn(plateAppearances) {
                 const rbiTotal = Object.values(plateAppearances).map(plateAppearance =>
-                    plateAppearance.RBI
+                    plateAppearance.runsBattedIn
                 )
                 return this.calculateSum(rbiTotal)
             },

@@ -1,21 +1,22 @@
 <template>
     <div>
         <span id = "boxscore">
-            <span v-for = "inning in innings" v-bind:key = "inning">
+            <span v-for = "inning in innings" v-bind:key = "inning" id = "inning">
                 {{inning}} <br />
-                <input type = "number" v-model.number = awayTeamRuns[inning] /> <br />
-                <input type = "number" v-model.number = homeTeamRuns[inning] /> <br />
+                <span id = "runs">
+                    <!--
+                    {{getRuns(awayPlayers, inning)}} <br />
+                    {{getRuns(homePlayers, inning)}} <br />
+                    --> 0 <br /> 0 <br />
+                </span>
             </span>
 
             <span id = "slashline">
                 <span>
                     R <br />
                     <span id = "runs">
-                        <span v-if = "awayTeamRuns.length === 0"> 0 </span>
-                        <span v-else> {{calculateSum(awayTeamRuns)}} </span> <br />
-
-                        <span v-if = "homeTeamRuns.length === 0"> 0 </span>
-                        <span v-else> {{calculateSum(homeTeamRuns)}} </span> <br />
+                        {{getRunTotal(awayPlayers)}} <br />
+                        {{getRunTotal(homePlayers)}}
                     </span>
                 </span>
                 <span>
@@ -42,15 +43,10 @@
 <script>
     export default {
         name: "BoxScore",
-        data() {
-            return {
-                awayTeamRuns: {},
-                homeTeamRuns: {}
-            }
-        },
+
         methods: {
             calculateSum(things) {
-                return Object.values(things).reduce((sum, summand) => sum + summand, 0)
+                return Object.values(things).reduce((sum, summand) => sum + (summand || 0), 0)
             },
             getHits(team) {
                 let baseHits = {}
@@ -81,6 +77,44 @@
                     amountOfTimesReachedOnErrors[batter] = timesReachedOnError.length
                 }
                 return amountOfTimesReachedOnErrors
+            }/*
+            getRuns(team, inning) {
+                let rbiPerInning = {}
+                for (const player of Object.values(team)) {
+                    if (player.plateAppearances && player.plateAppearances[inning]
+                        && player.plateAppearances[inning].runsBattedIn
+                    ) {
+                        console.log(player.name)
+                        console.log(player.plateAppearances[inning].runsBattedIn)
+                        console.log(rbiPerInning)
+                        if (rbiPerInning[inning]) {
+                            rbiPerInning[inning] = (
+                                (rbiPerInning[inning])
+                                + (player.plateAppearances[inning].runsBattedIn)
+                            )
+                            console.log(rbiPerInning[inning])
+                        } else {
+                            rbiPerInning[inning] = (
+                                player.plateAppearances[inning].runsBattedIn
+                            )
+                            console.log(rbiPerInning[inning])
+                        }
+                        console.log(rbiPerInning)
+                        return this.calculateSum(rbiPerInning)
+                    }
+                }
+            }*/,
+            getRunTotal(team) {
+                let totalRuns = {}
+                for (const player of Object.values(team)) {
+                    if (player.plateAppearances) {
+                        totalRuns = Object.values(totalRuns)
+                            .concat(Object.values(player.plateAppearances)
+                                .map(plateAppearance => plateAppearance.runsBattedIn)
+                        )
+                    }
+                }
+                return this.calculateSum(totalRuns)
             }
 
         },
@@ -88,44 +122,7 @@
             innings: Number,
             awayPlayers: Object,
             homePlayers: Object
-        }/*,
-        computed: {
-            awayHits() {
-                
-                const awayTeamPlateAppearances = Object.values(this.awayPlayers).map(
-                    player => player.plateAppearances
-                )
-                let baseHits = {}
-                let amountOfHitsPerBatter = {}
-                for (const [battingOrderNumber, player] of Object.entries(this.awayPlayers)) {
-                    console.log(battingOrderNumber)
-                    console.log(player)
-                    console.log(player.plateAppearances)
-                    baseHits[battingOrderNumber] = Object.values(
-                        player.plateAppearances
-                    ).filter(plateAppearance =>
-                        plateAppearance === "1B" || plateAppearance === "2B"
-                        || plateAppearance === "3B" || plateAppearance === "HR"
-                    )
-                    console.log(baseHits)
-                    console.log(baseHits[battingOrderNumber].length)
-                }
-                for (const [batter, hitsByBatter] of Object.entries(baseHits)) {
-                    console.log(batter)
-                    console.log(hitsByBatter)
-                    console.log(hitsByBatter.length)
-                    amountOfHitsPerBatter[batter] = hitsByBatter.length
-                }
-                console.log(amountOfHitsPerBatter)
-                return amountOfHitsPerBatter
-            },
-            homeHits() {
-                const homeTeamPlateAppearances = Object.values(this.homePlayers).map(player =>
-                    player.plateAppearances
-                )
-                return this.calculateHits(homeTeamPlateAppearances)
-            }
-        }*/
+        } //
     }
 </script>
 
@@ -136,8 +133,9 @@
         color: hotpink;
         margin-top: 10px;
         display: flex;
-        align-content: space-evenly;
+        
         justify-content: center;
+        align-items: flex-start;
         grid-auto-flow: column;
         flex-wrap: wrap;
         
@@ -145,26 +143,23 @@
     #slashline {
         display: flex;
         flex: 0 1 auto;
-        justify-content: space-around;
-        align-items: flex-start;
-        width: 10ch;
+        justify-content: space-evenly;
+        width: 9ch;
     }
     #runs {
-        font-size: 3.3ch;
+        font-size: 3ch;
         color: yellow;
     }
     #hits {
-        font-size: 3.3ch;
+        font-size: 3ch;
     }
     #errors {
-        font-size: 3.3ch;
+        font-size: 3ch;
         color: red;
     }
-    input {
-        width: 2ch;
+    #inning {
+        width: 3ch;
         height: 2ch;
-        font-size: 3ch;
-        text-align: right;
-        background-color: violet;
+        text-align: center;
     }
 </style>

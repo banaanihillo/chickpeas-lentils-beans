@@ -239,7 +239,7 @@
                 this.$set(player.plateAppearances[inning], "typeOfHit", value)
             },
             addRBI(value, player, inning) {
-                this.$set(player.plateAppearances[inning], "RBI", Number(value))
+                this.$set(player.plateAppearances[inning], "runsBattedIn", Number(value))
             }
 
         }
