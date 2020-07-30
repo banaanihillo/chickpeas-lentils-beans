@@ -3,11 +3,10 @@
         <span id = "boxscore">
             <span v-for = "inning in innings" v-bind:key = "inning" id = "inning">
                 {{inning}} <br />
-                <span id = "runs">
-                    <!--
+                <span id = "runs-per-inning">
                     {{getRuns(awayPlayers, inning)}} <br />
                     {{getRuns(homePlayers, inning)}} <br />
-                    --> 0 <br /> 0 <br />
+                
                 </span>
             </span>
 
@@ -77,33 +76,19 @@
                     amountOfTimesReachedOnErrors[batter] = timesReachedOnError.length
                 }
                 return amountOfTimesReachedOnErrors
-            }/*
+            },
             getRuns(team, inning) {
                 let rbiPerInning = {}
                 for (const player of Object.values(team)) {
                     if (player.plateAppearances && player.plateAppearances[inning]
                         && player.plateAppearances[inning].runsBattedIn
                     ) {
-                        console.log(player.name)
-                        console.log(player.plateAppearances[inning].runsBattedIn)
-                        console.log(rbiPerInning)
-                        if (rbiPerInning[inning]) {
-                            rbiPerInning[inning] = (
-                                (rbiPerInning[inning])
-                                + (player.plateAppearances[inning].runsBattedIn)
-                            )
-                            console.log(rbiPerInning[inning])
-                        } else {
-                            rbiPerInning[inning] = (
-                                player.plateAppearances[inning].runsBattedIn
-                            )
-                            console.log(rbiPerInning[inning])
-                        }
-                        console.log(rbiPerInning)
-                        return this.calculateSum(rbiPerInning)
+                        rbiPerInning = Object.values(rbiPerInning)
+                            .concat(player.plateAppearances[inning].runsBattedIn)
                     }
                 }
-            }*/,
+                return this.calculateSum(rbiPerInning)
+            },
             getRunTotal(team) {
                 let totalRuns = {}
                 for (const player of Object.values(team)) {
@@ -133,7 +118,7 @@
         color: hotpink;
         margin-top: 10px;
         display: flex;
-        
+        height: 9ch;
         justify-content: center;
         align-items: flex-start;
         grid-auto-flow: column;
@@ -145,10 +130,16 @@
         flex: 0 1 auto;
         justify-content: space-evenly;
         width: 9ch;
+        outline: solid hotpink;
     }
     #runs {
         font-size: 3ch;
         color: yellow;
+    }
+    #runs-per-inning {
+        font-size: 3ch;
+        border-top: solid deeppink;
+        border-bottom: solid hotpink;
     }
     #hits {
         font-size: 3ch;
