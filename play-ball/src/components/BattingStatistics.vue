@@ -20,12 +20,12 @@
                 {{batter.name}}
             </th>
             <td id = "plate-appearances">
-                <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else> {{Object.values(batter.plateAppearances).length}} </span>
+                <span v-if = "batter.plateAppearances">
+                    {{Object.values(batter.plateAppearances).length}}
+                </span>
             </td>
             <td id = "base-hits">
-                <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else>
+                <span v-if = "batter.plateAppearances">
                     {{Object.values(batter.plateAppearances).filter(plateAppearance => (
                         plateAppearance.payoff === "H")
                     ).length
@@ -33,12 +33,12 @@
                 </span>
             </td>
             <td id = "runs-batted-in">
-                <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else> {{getRunsBattedIn(batter.plateAppearances)}} </span>
+                <span v-if = "batter.plateAppearances">
+                    {{getRunsBattedIn(batter.plateAppearances)}}
+                </span>
             </td>
             <td v-for = "outcome in threeTrueOutcomes" v-bind:key = "outcome">
-                <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else id = "three-true-outcomes">
+                <span v-if = "batter.plateAppearances" id = "three-true-outcomes">
                     {{Object.values(batter.plateAppearances).filter(plateAppearance =>
                         plateAppearance.payoff === outcome
                     ).length
@@ -46,8 +46,7 @@
                 </span>
             </td>
             <td id = "extra-base-hits">
-                <span v-if = "!batter.plateAppearances"> 0 </span>
-                <span v-else>
+                <span v-if = "batter.plateAppearances">
                     {{Object.values(batter.plateAppearances).filter(plateAppearance => (
                         plateAppearance.typeOfHit === "2B"
                         || plateAppearance.typeOfHit === "3B"

@@ -3,7 +3,7 @@ const baseURL = "http://localhost:9001/players"
 
 const getPlayers = async () => {
     const response = await axios.get(baseURL)
-    console.log("I am getting players")
+    
     return response.data
 }
 

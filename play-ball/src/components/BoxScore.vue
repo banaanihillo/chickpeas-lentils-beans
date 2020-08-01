@@ -4,31 +4,43 @@
             <span v-for = "inning in innings" v-bind:key = "inning" id = "inning">
                 {{inning}} <br />
                 <span id = "runs-per-inning">
-                    {{getRuns(awayPlayers, inning)}} <br />
-                    {{getRuns(homePlayers, inning)}} <br />
-                
+                    <span id = "away-team-runs-per-inning">
+                        {{getRuns(awayPlayers, inning)}} <br />
+                    </span>
+                    <span id = "home-team-runs-per-inning">
+                        {{getRuns(homePlayers, inning)}} <br />
+                    </span>
                 </span>
             </span>
 
             <span id = "slashline">
-                <span>
+
+                <span id = "runs">
                     R <br />
-                    <span id = "runs">
+                    <span id = "away-total-runs">
                         {{getRunTotal(awayPlayers)}} <br />
+                    </span>
+                    <span id = "home-total-runs">
                         {{getRunTotal(homePlayers)}}
                     </span>
                 </span>
-                <span>
+
+                <span id = "hits">
                     H <br />
-                    <span id = "hits">
+                    <span id = "away-hits">
                         {{calculateSum(getHits(awayPlayers))}} <br />
+                    </span>
+                    <span id = "home-hits">
                         {{calculateSum(getHits(homePlayers))}} <br />
                     </span>
                 </span>
-                <span>
+
+                <span id = "errors">
                     E <br />
-                    <span id = "errors">
+                    <span id = "home-errors">
                         {{calculateSum(getOpposingErrors(homePlayers))}} <br />
+                    </span>
+                    <span id = "away-errors">
                         {{calculateSum(getOpposingErrors(awayPlayers))}} <br />
                     </span>
                 </span>
@@ -118,7 +130,7 @@
         color: hotpink;
         margin-top: 10px;
         display: flex;
-        height: 9ch;
+
         justify-content: center;
         align-items: flex-start;
         grid-auto-flow: column;
@@ -128,29 +140,55 @@
     #slashline {
         display: flex;
         flex: 0 1 auto;
-        justify-content: space-evenly;
-        width: 9ch;
-        outline: solid hotpink;
+        justify-content: space-around;
+        width: 8ch;
+        height: 9ch;
     }
     #runs {
-        font-size: 3ch;
         color: yellow;
+        width: 2ch;
     }
-    #runs-per-inning {
+    #away-total-runs {
+        font-size: 3ch;
+        outline: solid goldenrod;
+    }
+    #home-total-runs {
+        font-size: 3ch;
+        outline: solid goldenrod
+    }
+    #away-team-runs-per-inning {
+        font-size: 3ch;
+        border: solid deeppink;
+    }
+    #home-team-runs-per-inning {
+        font-size: 3ch;
+        outline: solid magenta;
+    }
+    #hit-column {
         font-size: 3ch;
         border-top: solid deeppink;
-        border-bottom: solid hotpink;
-    }
-    #hits {
-        font-size: 3ch;
+        border-bottom: solid magenta;
     }
     #errors {
-        font-size: 3ch;
         color: red;
+    }
+    #away-errors {
+        font-size: 3ch;
+        outline: solid deeppink;
+    }
+    #home-errors {
+        font-size: 3ch;
+        outline: solid magenta;
     }
     #inning {
         width: 3ch;
-        height: 2ch;
-        text-align: center;
+    }
+    #away-hits {
+        font-size: 3ch;
+        outline: solid deeppink;
+    }
+    #home-hits {
+        font-size: 3ch;
+        outline: solid magenta;
     }
 </style>

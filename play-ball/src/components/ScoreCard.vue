@@ -72,7 +72,8 @@
                         </span>
                         <span v-else-if = "player.plateAppearances[inning].payoff === 'BB'
                             || player.plateAppearances[inning].payoff === 'HBP'
-                            || player.plateAppearances[inning].payoff === 'Fc'" />
+                            || player.plateAppearances[inning].payoff === 'Fc'
+                            || player.plateAppearances[inning].payoff === 'K'"/>
                         <span v-else>
                             <input
                                 type = "text"
@@ -86,24 +87,24 @@
                             />
                             <br />
                         </span>
-                        <span id = "runs-batted-in"> RBI:</span>
-                        <select
-                            @change = "({target}) => addRBI(target.value, player, inning)"
-                            id = "runs-batted-in-input"
-                        >
-                            <option selected value = 0> 0 </option>
-                            <option
-                                v-for = "number in 4"
-                                v-bind:key = "number"
-                                v-bind:value = "number"
+                        <span
+                            id = "runs-batted-in"
+                            v-if = "checkPayoff(player.plateAppearances[inning].payoff)"
+                        > RBI:
+                            <select
+                                @change = "({target}) => addRBI(target.value, player, inning)"
+                                id = "runs-batted-in-input"
                             >
-                                {{number}}
-                            </option>
-                        </select>
-                        <!--
-                        <label for = "runScored"></label>
-                        <input type = "checkbox" />
-                        -->
+                                <option selected value = 0> 0 </option>
+                                <option
+                                    v-for = "number in 4"
+                                    v-bind:key = "number"
+                                    v-bind:value = "number"
+                                >
+                                    {{number}}
+                                </option>
+                            </select>
+                        </span>
                     </span>
                 </span>
                 <br />
@@ -157,29 +158,7 @@
                         </g>
                     </g>
                 </svg>
-                <!--
-                <svg width = "3ch" height = "3ch">
-                    <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "first-to-second" />
-                    <text> K </text>
-                </svg>
-                <svg width = "3ch" height = "3ch">
-                    <line x1 = "0" y1 = "0" x2 = "20" y2 = "20" id = "third-to-home" />
-                </svg>
-                <svg width = "3ch" height = "3ch">
-                    <line x1 = "0" y1 = "20" x2 = "20" y2 = "0" id = "home-to-first" />
-                </svg>
-                -->
-                <!--
-                <br />
-                <div id = "diamond">
-                    <div id = "diamond-top">
-                        <div id = "first-to-second"> SB </div>
-                    </div>
-                    <div id = "diamond-bottom">
-                        {{player.plateAppearances[inning]}}
-                    </div>
-                </div>
-                -->
+                
             </td>
         </tr>
     </table>
@@ -240,6 +219,13 @@
             },
             addRBI(value, player, inning) {
                 this.$set(player.plateAppearances[inning], "runsBattedIn", Number(value))
+            },
+            checkPayoff(payoff) {
+                if (payoff === 'K' || payoff === 'DP') {
+                    return false
+                } else {
+                    return true
+                }
             }
 
         }
@@ -252,28 +238,7 @@
         margin-left: auto;
         margin-right: auto;
     }
-    /*
-    #diamond-top {
-        width: 0;
-        height: 0;
-        border: 2ch solid transparent;
-        border-bottom-color: deeppink;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    #diamond-bottom {
-        width: 0;
-        height: 0;
-        border: 2ch solid transparent;
-        border-top-color: magenta;
-        margin-left: auto;
-        margin-right: auto;
-        color: gold;
-    }
-    #first-to-second {
-        color: yellow;
-    }
-    */
+
     #row-header {
         color: magenta;
         width: 1fr;
@@ -348,5 +313,8 @@
     }
     #runs-batted-in {
         color: hotpink;
+    }
+    #type-of-hit {
+        background-color: limegreen;
     }
 </style>
