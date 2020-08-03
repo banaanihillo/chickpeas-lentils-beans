@@ -135,6 +135,7 @@
             </span>
             <br />
         </ul>
+        <a href = "#players"> Back to top </a>
     </div>
 </template>
 
@@ -219,5 +220,11 @@
     }
     select {
         background-color: plum;
+    }
+    a {
+        color: aqua;
+    }
+    a:visited {
+        color: mediumorchid;
     }
 </style>

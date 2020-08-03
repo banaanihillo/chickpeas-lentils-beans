@@ -40,9 +40,25 @@ const routes = [
 ]
 
 const router = new VueRouter({
-    routes: routes
+    routes: routes,
+    mode: "history",
+    scrollBehavior (to, _from, savedPosition) {
+        if (to.hash) {
+            return {
+                selector: to.hash
+            }
+        }
+        else if (savedPosition) {
+            return savedPosition
+        } else {
+            return {
+                x: 0,
+                y: 0
+            }
+        }
+    }
 })
-//
+
 const store = new Vuex.Store({
     state: {
         players: [
@@ -63,7 +79,7 @@ const store = new Vuex.Store({
             state.teams = state.teams.concat(payload)
         },
         signFreeAgent(state, payload) {
-            //
+            
             state.players = state.players.concat(payload)   
         },
         modifyPlayer(state, payload) {

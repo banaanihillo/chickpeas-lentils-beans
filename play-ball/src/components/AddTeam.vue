@@ -147,3 +147,9 @@
         }
     }
 </script>
+
+<style scoped>
+    input {
+        background-color: plum;
+    }
+</style>

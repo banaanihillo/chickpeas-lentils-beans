@@ -17,6 +17,8 @@
                 type = "number"
                 min = 0
                 max = 99
+                title = "Number from 0 to 99"
+                id = "number-input"
             /> <br />
 
             <label for = "team"> Team: </label>
@@ -144,3 +146,21 @@
         }
     }
 </script>
+
+<style scoped>
+    #add-player {
+        color: black;
+    }
+    input {
+        background-color: pink;
+    }
+    select {
+        background-color: violet;
+    }
+    input:invalid {
+        background-color: crimson;
+    }
+    #number-input {
+        width: 5ch;
+    }
+</style>

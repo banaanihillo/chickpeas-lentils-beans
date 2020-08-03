@@ -2,19 +2,22 @@
     <div id = "app">
         
         <p>
-            <router-link to = "/ballgame"> Main page </router-link>
+            <router-link to = "/"> Main page </router-link>
             <router-link to = "/players"> Players </router-link>
             <router-link to = "/teams"> Teams </router-link>
             <router-link to = "/add-player"> Add a player </router-link>
             <router-link to = "/add-team"> Add a team </router-link>
         </p>
+        <p> <router-link to = "#ballgame"> Go to the ballgame </router-link> </p>
         <router-view>
-            <BallGame />
+            
             <Players />
             <Teams />
             <AddPlayer />
             <AddTeam />
         </router-view>
+        <span id = "ballgame"> <BallGame /> </span>
+        <p> <router-link to = "#app"> Go back to top </router-link> </p>
         <img
             alt = "The Vue logo - a dark blue letter V within a larger green letter V"
             src = "./assets/logo.png"

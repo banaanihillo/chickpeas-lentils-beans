@@ -43,39 +43,67 @@
             </select>
         </form>
 
+        <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
+        <p> <a href = "#away-pitching-scorecard"> Go to away pitching scorecard </a> </p>
+        <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
+        <p> <a href = "#home-pitching-scorecard"> Go to home pitching scorecard </a> </p>
+        <p> <a href = "#boxscore"> Go to boxscore </a> </p>
+
         <h2> Score cards </h2>
-        <h3> Away </h3>
-        <h4> Position players </h4>
-        <score-card
-            v-bind:selectedPlayers = "awayPlayers"
-            v-bind:innings = "innings"
-            v-bind:selectedTeam = "awayTeam"
-        />
-        <!---->
-        <h4> Pitching </h4>
-        <pitching-score-card v-bind:selectedTeam = "awayTeam" />
+        <span id = "away-scorecard">
+            <h3> Away </h3>
+            <p> <a href = "#away-pitching-scorecard"> Go to away pitching scorecard </a> </p>
+            <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
+            <p> <a href = "#boxscore"> Go to boxscore </a> </p>
+            <p> <a href = "#ballgame"> Back to top </a> </p>
+            <h4> Away position players </h4>
+            <score-card
+                v-bind:selectedPlayers = "awayPlayers"
+                v-bind:innings = "innings"
+                v-bind:selectedTeam = "awayTeam"
+            />
+        </span>
+        <span id = "away-pitching-scorecard">
+            <h4> Away pitching </h4>
+            <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
+            <pitching-score-card v-bind:selectedTeam = "awayTeam" />
+        </span>
 
-        <h3> Home </h3>
-        <h4> Position players </h4>
-        <score-card
-            v-bind:selectedPlayers = "homePlayers"
-            v-bind:innings = "innings"
-            v-bind:selectedTeam = "homeTeam"
-        />
-        <!---->
-        <h4> Pitching </h4>
-        <pitching-score-card v-bind:selectedTeam = "homeTeam" />
+        <span id = "home-scorecard">
+            <h3> Home </h3>
+            <p> <a href = "#home-pitching-scorecard"> Go to home pitching scorecard </a> </p>
+            <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
+            <p> <a href = "#boxscore"> Go to boxscore </a> </p>
+            <p> <a href = "#ballgame"> Back to top </a> </p>
+            <h4> Home position players </h4>
+            <score-card
+                v-bind:selectedPlayers = "homePlayers"
+                v-bind:innings = "innings"
+                v-bind:selectedTeam = "homeTeam"
+            />
+        </span>
+        <span id = "home-pitching-scorecard">
+            <h4> Home pitching </h4>
+            <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
+            <pitching-score-card v-bind:selectedTeam = "homeTeam" />
+        </span>
 
-        <h3> Box score </h3>
-        <box-score
-            v-bind:innings = "innings"
-            v-bind:awayPlayers = "awayPlayers"
-            v-bind:homePlayers = "homePlayers"
-        />
-        
-        <button @click.prevent = "innings++">
-            Extra innings
-        </button>
+        <span id = "boxscore">
+            <h3> Box score </h3>
+            <box-score
+                v-bind:innings = "innings"
+                v-bind:awayPlayers = "awayPlayers"
+                v-bind:homePlayers = "homePlayers"
+            />
+            <p>
+                <button @click.prevent = "innings++">
+                    Extra innings
+                </button>
+            </p>
+            <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
+            <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
+            <p> <a href = "#ballgame"> Back to the ballgame </a> </p>
+        </span>
     </div>
 </template>
 
@@ -150,7 +178,7 @@
         margin: 0 10px;
     }
     a {
-        color: #42b983;
+        color: yellowgreen;
     }
     select {
         background-color: violet;

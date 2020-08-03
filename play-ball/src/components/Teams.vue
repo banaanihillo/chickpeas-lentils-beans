@@ -66,6 +66,9 @@
                 </span>
             </li>
         </ul>
+        <p>
+            <a href = "#teams"> Back to top </a>
+        </p>
     </div>
 </template>
 
@@ -135,5 +138,11 @@
     }
     #team-name {
         font-size: 2ch;
+    }
+    a {
+        color: yellowgreen;
+    }
+    a:visited {
+        color: teal;
     }
 </style>
