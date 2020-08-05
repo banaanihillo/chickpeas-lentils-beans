@@ -23,7 +23,7 @@
                 <span v-else id = "pitching-slot-empty"> Pitcher number {{row}} </span>
             </th>
             <td v-for = "stat in stats" v-bind:key = "stat + ' row'">
-                <input type = "number" />
+                <input type = "number" min = 0 />
             </td>
             <td>
                 <input type = "text" maxlength = 6

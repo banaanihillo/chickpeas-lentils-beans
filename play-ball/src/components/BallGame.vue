@@ -42,20 +42,11 @@
                 </option>
             </select>
         </form>
-
-        <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
-        <p> <a href = "#away-pitching-scorecard"> Go to away pitching scorecard </a> </p>
-        <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
-        <p> <a href = "#home-pitching-scorecard"> Go to home pitching scorecard </a> </p>
-        <p> <a href = "#boxscore"> Go to boxscore </a> </p>
-
+        <!---->
         <h2> Score cards </h2>
         <span id = "away-scorecard">
             <h3> Away </h3>
-            <p> <a href = "#away-pitching-scorecard"> Go to away pitching scorecard </a> </p>
-            <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
-            <p> <a href = "#boxscore"> Go to boxscore </a> </p>
-            <p> <a href = "#ballgame"> Back to top </a> </p>
+            
             <h4> Away position players </h4>
             <score-card
                 v-bind:selectedPlayers = "awayPlayers"
@@ -65,16 +56,13 @@
         </span>
         <span id = "away-pitching-scorecard">
             <h4> Away pitching </h4>
-            <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
+            
             <pitching-score-card v-bind:selectedTeam = "awayTeam" />
         </span>
 
         <span id = "home-scorecard">
             <h3> Home </h3>
-            <p> <a href = "#home-pitching-scorecard"> Go to home pitching scorecard </a> </p>
-            <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
-            <p> <a href = "#boxscore"> Go to boxscore </a> </p>
-            <p> <a href = "#ballgame"> Back to top </a> </p>
+            
             <h4> Home position players </h4>
             <score-card
                 v-bind:selectedPlayers = "homePlayers"
@@ -84,7 +72,7 @@
         </span>
         <span id = "home-pitching-scorecard">
             <h4> Home pitching </h4>
-            <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
+            
             <pitching-score-card v-bind:selectedTeam = "homeTeam" />
         </span>
 
@@ -100,10 +88,9 @@
                     Extra innings
                 </button>
             </p>
-            <p> <a href = "#away-scorecard"> Go to away scorecard </a> </p>
-            <p> <a href = "#home-scorecard"> Go to home scorecard </a> </p>
-            <p> <a href = "#ballgame"> Back to the ballgame </a> </p>
+            
         </span>
+        <NavigationBar />
     </div>
 </template>
 
@@ -111,13 +98,14 @@
     import BoxScore from "./BoxScore"
     import ScoreCard from "./ScoreCard"
     import PitchingScoreCard from "./PitchingScoreCard"
-    //
+    import NavigationBar from "./NavigationBar"
     export default {
         name: "BallGame",
         components: {
             BoxScore,
             ScoreCard,
-            PitchingScoreCard
+            PitchingScoreCard,
+            NavigationBar
         },
         computed: {
             players() {

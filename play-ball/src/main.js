@@ -3,7 +3,7 @@ import Vuex from "vuex"
 import VueRouter from "vue-router"
 import App from "./App.vue"
 
-const BallGame = () => import("./components/BallGame")
+
 const Players = () => import("./components/Players")
 const Teams = () => import("./components/Teams")
 const AddPlayer = () => import("./components/AddPlayer")
@@ -18,10 +18,7 @@ Vue.config.productionTip = false
 
 const routes = [
     {
-        path: "/ballgame",
-        component: BallGame
-    },
-    {
+
         path: "/players",
         component: Players
     },
