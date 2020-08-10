@@ -113,16 +113,28 @@
                     <g>
                         <line
                             x1 = "30" y1 = "55" x2 = "55" y2 = "30"
-                            id = "home-to-first" onclick = "style.stroke='yellow'"/>
+                            id = "home-to-first"
+                            onclick = "style.stroke='yellow'"
+                            v-on:click = "incrementTotalBases(inning)"
+                        />
                         <line
                             x1 = "55" y1 = "30" x2 = "30" y2 = "5"
-                            id = "first-to-second" onclick = "style.stroke='yellow'" />
+                            id = "first-to-second"
+                            onclick = "style.stroke='yellow'"
+                            v-on:click = "incrementTotalBases(inning)"
+                        />
                         <line
                             x1 = "30" y1 = "5" x2 = "5" y2 = "30"
-                            id = "second-to-third" onclick = "style.stroke='yellow'" />
+                            id = "second-to-third"
+                            onclick = "style.stroke='yellow'"
+                            v-on:click = "incrementTotalBases(inning)"
+                        />
                         <line
                             x1 = "5" y1 = "30" x2 = "30" y2 = "55"
-                            id = "third-to-home" onclick = "style.stroke='yellow'" />
+                            id = "third-to-home"
+                            onclick = "style.stroke='yellow'"
+                            v-on:click = "incrementTotalBases(inning)"
+                        />
                     </g>
                     <g v-if = "player.plateAppearances">
                         <g v-if = "player.plateAppearances[inning]">
@@ -161,6 +173,26 @@
                 
             </td>
         </tr>
+        <tr id = "miscellaneous">
+            <th>
+                <p> Left on base: {{calculateSum(leftOnBase)}} </p>
+                <p> Total bases: {{calculateSum(totalBases)}} </p>
+            </th>
+            <td v-for = "inning in innings" v-bind:key = "inning">
+                <p>
+                    <input
+                        v-model.number = "leftOnBase[inning]"
+                        type = "number"
+                        min = 0
+                        max = 3
+                        placeholder = "LOB"
+                        id = "left-on-base-input"
+                    />
+                </p>
+                <p v-if = "totalBases[inning]"> {{totalBases[inning]}} </p>
+                <p v-else> 0 </p>
+            </td>
+        </tr>
     </table>
 
     <h5> Batting statistics </h5>
@@ -182,7 +214,12 @@
             innings: Number,
             selectedTeam: String
         },
-        
+        data() {
+            return {
+                totalBases: {},
+                leftOnBase: {}
+            }
+        },
         computed: {
             players() {
                 return this.$store.state.players
@@ -225,6 +262,16 @@
                     return false
                 } else {
                     return true
+                }
+            },
+            calculateSum(things) {
+                return Object.values(things).reduce((sum, summand) => sum + summand, 0)
+            },
+            incrementTotalBases(inning) {
+                if (!this.totalBases[inning]) {
+                    this.$set(this.totalBases, inning, 1)
+                } else {
+                    this.totalBases[inning]++
                 }
             }
 
@@ -283,12 +330,8 @@
     #strike input:checked {
         box-shadow: 0 0 0 1px;
     }
-    path {
-        fill: fuchsia;
-        stroke: gold;
-        stroke-width: 3;
-    }
-    
+
+
     line {
         stroke: deeppink;
         stroke-width: 2;
@@ -316,5 +359,11 @@
     }
     #type-of-hit {
         background-color: limegreen;
+    }
+    #miscellaneous {
+        color: aqua;
+    }
+    #left-on-base-input {
+        width: 6ch;
     }
 </style>
