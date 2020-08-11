@@ -114,26 +114,22 @@
                         <line
                             x1 = "30" y1 = "55" x2 = "55" y2 = "30"
                             id = "home-to-first"
-                            onclick = "style.stroke='yellow'"
-                            v-on:click = "incrementTotalBases(inning)"
+                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
                         />
                         <line
                             x1 = "55" y1 = "30" x2 = "30" y2 = "5"
                             id = "first-to-second"
-                            onclick = "style.stroke='yellow'"
-                            v-on:click = "incrementTotalBases(inning)"
+                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
                         />
                         <line
                             x1 = "30" y1 = "5" x2 = "5" y2 = "30"
                             id = "second-to-third"
-                            onclick = "style.stroke='yellow'"
-                            v-on:click = "incrementTotalBases(inning)"
+                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
                         />
                         <line
                             x1 = "5" y1 = "30" x2 = "30" y2 = "55"
                             id = "third-to-home"
-                            onclick = "style.stroke='yellow'"
-                            v-on:click = "incrementTotalBases(inning)"
+                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
                         />
                     </g>
                     <g v-if = "player.plateAppearances">
@@ -267,7 +263,13 @@
             calculateSum(things) {
                 return Object.values(things).reduce((sum, summand) => sum + summand, 0)
             },
-            incrementTotalBases(inning) {
+            incrementTotalBases(target, inning) {
+                if (target.style.stroke === "yellow") {
+                    target.style.stroke = "deeppink"
+                    this.totalBases[inning]--
+                    return
+                }
+                target.style.stroke = "yellow"
                 if (!this.totalBases[inning]) {
                     this.$set(this.totalBases, inning, 1)
                 } else {
@@ -334,7 +336,7 @@
 
     line {
         stroke: deeppink;
-        stroke-width: 2;
+        stroke-width: 6;
     }
     line:hover {
         stroke: yellow;
