@@ -1,5 +1,5 @@
 {
-    "root": "dist",
+    "root": "play-ball/dist",
     "clean_urls": true,
     "routes": {
         "/**": "index.html"

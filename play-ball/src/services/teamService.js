@@ -1,5 +1,5 @@
 import axios from "axios"
-const baseURL = "http://localhost:9001/teams"
+const baseURL = "/teams"
 
 const getTeams = async () => {
     const response = await axios.get(baseURL)
