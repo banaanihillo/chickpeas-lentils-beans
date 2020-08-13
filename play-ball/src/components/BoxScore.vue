@@ -1,6 +1,10 @@
 <template>
     <div>
         <span id = "boxscore">
+            <span id = "row-header">
+                <span id = "away-team"> {{awayTeam}} </span> <br /> <br />
+                <span id = "home-team"> {{homeTeam}} </span>
+            </span>
             <span v-for = "inning in innings" v-bind:key = "inning" id = "inning">
                 {{inning}} <br />
                 <span id = "runs-per-inning">
@@ -45,9 +49,9 @@
                     </span>
                 </span>
             </span>
-            <!---->
+
         </span>
-        <!---->
+        
     </div>
 </template>
 
@@ -118,8 +122,10 @@
         props: {
             innings: Number,
             awayPlayers: Object,
-            homePlayers: Object
-        } //
+            homePlayers: Object,
+            awayTeam: String,
+            homeTeam: String
+        }
     }
 </script>
 
@@ -130,31 +136,53 @@
         color: hotpink;
         margin-top: 10px;
         display: flex;
-
+        height: 10ch;
         justify-content: center;
-        align-items: flex-start;
+        align-items: flex-end;
         grid-auto-flow: column;
         flex-wrap: wrap;
-        
+        align-content: center;
+    }
+    #row-header {
+        height: 9ch;
+        font-size: 1ch;
+    }
+    #team-header {
+        display: flex;
+        justify-content: center;
+    }
+    #away-team {
+        color: deeppink;
+        display: flex;
+        justify-content: center;
+    }
+    #home-team {
+        color: magenta;
+        display: flex;
+        justify-content: center;
     }
     #slashline {
         display: flex;
         flex: 0 1 auto;
         justify-content: space-around;
-        width: 8ch;
-        height: 9ch;
+        width: 10ch;
     }
     #runs {
         color: yellow;
-        width: 2ch;
+        width: 3ch;
+        outline: solid goldenrod;
+    }
+    #hits {
+        width: 3ch;
+        outline: solid hotpink;
     }
     #away-total-runs {
         font-size: 3ch;
-        outline: solid goldenrod;
+
     }
     #home-total-runs {
         font-size: 3ch;
-        outline: solid goldenrod
+
     }
     #away-team-runs-per-inning {
         font-size: 3ch;
@@ -162,33 +190,31 @@
     }
     #home-team-runs-per-inning {
         font-size: 3ch;
-        outline: solid magenta;
+        border: solid magenta;
     }
-    #hit-column {
-        font-size: 3ch;
-        border-top: solid deeppink;
-        border-bottom: solid magenta;
-    }
+    
     #errors {
         color: red;
+        width: 3ch;
+        outline: solid red;
     }
     #away-errors {
         font-size: 3ch;
-        outline: solid deeppink;
+        
     }
     #home-errors {
         font-size: 3ch;
-        outline: solid magenta;
+        
     }
     #inning {
         width: 3ch;
     }
     #away-hits {
         font-size: 3ch;
-        outline: solid deeppink;
+
     }
     #home-hits {
         font-size: 3ch;
-        outline: solid magenta;
+        
     }
 </style>

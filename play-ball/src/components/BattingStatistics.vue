@@ -5,13 +5,9 @@
             <th id = "plate-appearances"> Plate appearances </th>
             <th id = "base-hits"> Hits </th>
             <th id = "runs-batted-in"> RBI </th>
-            <th
-                v-for = "(outcome, index) in threeTrueOutcomes"
-                v-bind:key = "index"
-                id = "three-true-outcomes"
-            >
-                <span id = "batting-statistics-column"> {{outcome}} </span>
-            </th>
+            <th id = "three-true-outcomes"> HR </th>
+            <th id = "three-true-outcomes"> BB + HBP </th>
+            <th id = "three-true-outcomes"> K </th>
             <th id = "extra-base-hits"> XBH </th>
         </tr>
 
@@ -37,10 +33,26 @@
                     {{getRunsBattedIn(batter.plateAppearances)}}
                 </span>
             </td>
-            <td v-for = "outcome in threeTrueOutcomes" v-bind:key = "outcome">
-                <span v-if = "batter.plateAppearances" id = "three-true-outcomes">
+            <td id = "three-true-outcomes">
+                <span v-if = "batter.plateAppearances">
                     {{Object.values(batter.plateAppearances).filter(plateAppearance =>
-                        plateAppearance.payoff === outcome
+                        plateAppearance.typeOfHit === 'HR'
+                    ).length
+                    }}
+                </span>
+            </td>
+            <td id = "three-true-outcomes">
+                <span v-if = "batter.plateAppearances">
+                    {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                        plateAppearance.payoff === 'BB' || plateAppearance.payoff === 'HBP'
+                    ).length
+                    }}
+                </span>
+            </td>
+            <td id = "three-true-outcomes">
+                <span v-if = "batter.plateAppearances">
+                    {{Object.values(batter.plateAppearances).filter(plateAppearance =>
+                        plateAppearance.payoff === 'K'
                     ).length
                     }}
                 </span>
@@ -67,13 +79,7 @@
         props: {
             battingOrder: Object
         },
-        data() {
-            return {
-                threeTrueOutcomes: [
-                    "HR", "BB", "K"
-                ]
-            }
-        },
+
         methods: {
             getRunsBattedIn(plateAppearances) {
                 const rbiTotal = Object.values(plateAppearances).map(plateAppearance =>
@@ -120,7 +126,7 @@
     }
     #three-true-outcomes {
         color: magenta;
-        width: 4ch;
+        width: 5ch;
     }
     #runs-batted-in {
         width: 4ch;

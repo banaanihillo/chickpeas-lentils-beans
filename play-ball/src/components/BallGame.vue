@@ -52,6 +52,7 @@
                 v-bind:selectedPlayers = "awayPlayers"
                 v-bind:innings = "innings"
                 v-bind:selectedTeam = "awayTeam"
+                team = "away"
             />
         </span>
         <span id = "away-pitching-scorecard">
@@ -68,6 +69,7 @@
                 v-bind:selectedPlayers = "homePlayers"
                 v-bind:innings = "innings"
                 v-bind:selectedTeam = "homeTeam"
+                team = "home"
             />
         </span>
         <span id = "home-pitching-scorecard">
@@ -82,9 +84,11 @@
                 v-bind:innings = "innings"
                 v-bind:awayPlayers = "awayPlayers"
                 v-bind:homePlayers = "homePlayers"
+                v-bind:awayTeam = "awayTeam"
+                v-bind:homeTeam = "homeTeam"
             />
             <p>
-                <button @click.prevent = "innings++">
+                <button v-on:click.prevent = "innings++">
                     Extra innings
                 </button>
             </p>

@@ -8,7 +8,7 @@
                     type = "text"
                     v-model = "team.name"
                     size = "30ch"
-                    @input = "team.nameModified = true"
+                    v-on:input = "team.nameModified = true"
                 />
                 <span v-if = "team.nameModified">
                     <br />
@@ -35,7 +35,7 @@
                                     v-model = "team.league"
                                     v-bind:value = "league"
                                     id = "new-league"
-                                    @input = "team.modified = true"
+                                    v-on:input = "team.modified = true"
                                 />
                             </span>
                         </p>
@@ -51,7 +51,7 @@
                                         v-model = "team.division"
                                         v-bind:value = "division"
                                         id = "new-division"
-                                        @input = "team.modified = true"
+                                        v-on:input = "team.modified = true"
                                     />
                                 </span>
                             </p>
@@ -59,7 +59,7 @@
                     </span>
                 </p>
                 <span v-if = "team.modified || team.nameModified">
-                    <button @click = "modifyTeam(team)"> Save changes </button>
+                    <button v-on:click = "modifyTeam(team)"> Save changes </button>
                     <li v-for = "error in errors" v-bind:key = "error">
                         {{error}}
                     </li>

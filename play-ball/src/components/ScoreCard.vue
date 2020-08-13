@@ -37,7 +37,8 @@
                 </span> <br />
                 <select
                     value = ""
-                    v-on:change = "({target}) => addPayoff(target.value, player, inning)"
+                    v-on:change = "({target}) =>
+                        addPayoff(target.value, player, inning, index, team)"
                 >
                     <option disabled value = "" selected> Payoff </option>
                     <option> H </option>
@@ -60,7 +61,8 @@
                         <span v-if = "player.plateAppearances[inning].payoff === 'H'">
                             <select
                                 id = "type-of-hit"
-                                @change = "({target}) => addHit(target.value, player, inning)"
+                                v-on:change = "({target}) =>
+                                    addHit(target.value, player, inning, index, team)"
                             >
                                 <option disabled value = "" selected> Hit </option>
                                 <option> 1B </option>
@@ -92,7 +94,8 @@
                             v-if = "checkPayoff(player.plateAppearances[inning].payoff)"
                         > RBI:
                             <select
-                                @change = "({target}) => addRBI(target.value, player, inning)"
+                                v-on:change = "({target}) =>
+                                    addRBI(target.value, player, inning)"
                                 id = "runs-batted-in-input"
                             >
                                 <option selected value = 0> 0 </option>
@@ -108,28 +111,28 @@
                     </span>
                 </span>
                 <br />
-                <!---->
+                
                 <svg width = "6.5ch" height = "6.5ch">
-                    <g>
+                    <g v-bind:id = "team+'inning'+inning+'-batter'+index">
                         <line
                             x1 = "30" y1 = "55" x2 = "55" y2 = "30"
                             id = "home-to-first"
-                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
+                            v-on:click = "({target}) => paintLine(target, inning)"
                         />
                         <line
                             x1 = "55" y1 = "30" x2 = "30" y2 = "5"
                             id = "first-to-second"
-                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
+                            v-on:click = "({target}) => paintLine(target, inning)"
                         />
                         <line
                             x1 = "30" y1 = "5" x2 = "5" y2 = "30"
                             id = "second-to-third"
-                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
+                            v-on:click = "({target}) => paintLine(target, inning)"
                         />
                         <line
                             x1 = "5" y1 = "30" x2 = "30" y2 = "55"
                             id = "third-to-home"
-                            v-on:click = "({target}) => incrementTotalBases(target, inning)"
+                            v-on:click = "({target}) => paintLine(target, inning)"
                         />
                     </g>
                     <g v-if = "player.plateAppearances">
@@ -172,7 +175,7 @@
         <tr id = "miscellaneous">
             <th>
                 <p> Left on base: {{calculateSum(leftOnBase)}} </p>
-                <p> Total bases: {{calculateSum(totalBases)}} </p>
+                
             </th>
             <td v-for = "inning in innings" v-bind:key = "inning">
                 <p>
@@ -185,8 +188,7 @@
                         id = "left-on-base-input"
                     />
                 </p>
-                <p v-if = "totalBases[inning]"> {{totalBases[inning]}} </p>
-                <p v-else> 0 </p>
+                
             </td>
         </tr>
     </table>
@@ -208,7 +210,8 @@
         props: {
             selectedPlayers: Object,
             innings: Number,
-            selectedTeam: String
+            selectedTeam: String,
+            team: String
         },
         data() {
             return {
@@ -238,7 +241,13 @@
                     this.$set(player.plateAppearances[inning], "putout", putout)
                 }
             },
-            addPayoff(value, player, inning) {
+            addPayoff(value, player, inning, index, team) {
+                if (value === 'BB' || value === 'HBP') {
+                    const homeToFirst = document.querySelector(
+                        `#${team}inning${inning}-batter${index} #home-to-first`
+                    )
+                    homeToFirst.style.stroke = "yellow"
+                }
                 if (!Object.prototype.hasOwnProperty.call(player, "plateAppearances")) {
                     this.$set(player, "plateAppearances", {})
                 }
@@ -247,7 +256,22 @@
                 }
                 this.$set(player.plateAppearances, inning, plateAppearance)
             },
-            addHit(value, player, inning) {
+            addHit(value, player, inning, index, team) {
+                const id = `#${team}inning${inning}-batter${index}`
+                const homeToFirst = document.querySelector(`${id} #home-to-first`)
+                homeToFirst.style.stroke = "yellow"
+                if (value === '2B' || value === '3B' || value === 'HR') {
+                    const firstToSecond = document.querySelector(`${id} #first-to-second`)
+                    firstToSecond.style.stroke = "yellow"
+                }
+                if (value === '3B' || value === 'HR') {
+                    const secondToThird = document.querySelector(`${id} #second-to-third`)
+                    secondToThird.style.stroke = "yellow"
+                }
+                if (value === 'HR') {
+                    const thirdToHome = document.querySelector(`${id} #third-to-home`)
+                    thirdToHome.style.stroke = "yellow"
+                }
                 this.$set(player.plateAppearances[inning], "typeOfHit", value)
             },
             addRBI(value, player, inning) {
@@ -263,24 +287,20 @@
             calculateSum(things) {
                 return Object.values(things).reduce((sum, summand) => sum + summand, 0)
             },
-            incrementTotalBases(target, inning) {
+            paintLine(target) {
                 if (target.style.stroke === "yellow") {
                     target.style.stroke = "deeppink"
-                    this.totalBases[inning]--
+
                     return
                 }
                 target.style.stroke = "yellow"
-                if (!this.totalBases[inning]) {
-                    this.$set(this.totalBases, inning, 1)
-                } else {
-                    this.totalBases[inning]++
-                }
+
             }
 
         }
     }
 </script>
-<!---->
+
 <style scoped>
     #scorecard {
         background-color: black;

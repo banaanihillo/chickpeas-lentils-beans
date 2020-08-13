@@ -1,6 +1,6 @@
 <template>
     <div id = "add-player">
-        <form @submit.prevent = "addPlayer(input)">
+        <form v-on:submit.prevent = "addPlayer(input)">
             <p v-if = "errors.length">
                 Make sure all the required fields are filled:
                 <ul v-for = "error in errors" v-bind:key = "error">
@@ -31,7 +31,11 @@
             
             <label for = "positions"> Positions: </label>
             <span v-for = "position in listOfPositions" v-bind:key = "position">
-                <input type = "checkbox" :value = "position" v-model = "input.positions" />
+                <input
+                    type = "checkbox"
+                    v-bind:value = "position"
+                    v-model = "input.positions"
+                />
                 <label for = "position" style = "margin-right: 5px">
                     {{position}}
                 </label>

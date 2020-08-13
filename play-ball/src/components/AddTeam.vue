@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent = "addTeam(input)" id = "add-team">
+        <form v-on:submit.prevent = "addTeam(input)" id = "add-team">
             <p v-if = "errors.length">
                 Not all fields were correctly filled in:
                 <ul v-for = "error in errors" v-bind:key = "error">
@@ -24,9 +24,9 @@
                 <span v-for = "organization in organizations" v-bind:key = "organization.id">
                     <input
                         type = "radio"
-                        :value = "organization.name"
+                        v-bind:value = "organization.name"
                         v-model = "input.organization"
-                        @click = "input.league = ''; input.division = ''"
+                        v-on:click = "input.league = ''; input.division = ''"
                     />
                     <label for = "organization" style = "margin-right: 10px">
                         {{organization.id}}
@@ -37,7 +37,7 @@
             <p v-if = "hasLeagues()">
                 <label for = "league"> League: </label>
                 <span v-for = "league in hasLeagues()" v-bind:key = "league">
-                    <input type = "radio" :value = "league" v-model = "input.league" />
+                    <input type = "radio" v-bind:value = "league" v-model = "input.league" />
                     <label for = "league"> {{league}} </label>
                 </span>
             </p>
@@ -45,7 +45,11 @@
             <p v-if = "!(!(input.league) || !(hasDivisions()))">
                 <label for = "division"> Division: </label>
                 <span v-for = "division in hasDivisions()" v-bind:key = "division">
-                    <input type = "radio" :value = "division" v-model = "input.division" />
+                    <input
+                        type = "radio"
+                        v-bind:value = "division"
+                        v-model = "input.division"
+                    />
                     <label for = "division"> {{division}} </label>
                 </span>
             </p>

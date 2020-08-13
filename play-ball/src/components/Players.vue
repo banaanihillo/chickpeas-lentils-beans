@@ -7,7 +7,7 @@
                     type = "number"
                     v-model.number = "player.number"
                     id = "number"
-                    @input = "player.modified = true"
+                    v-on:input = "player.modified = true"
                     min = 0
                     max = 99
                 />
@@ -31,7 +31,7 @@
                     </p>
                     <p>
                         <label for = "pitcherRole"> Assign a new role: </label>
-                        <select v-model = "player.role" @input = "player.modified = true">
+                        <select v-model = "player.role" v-on:input = "player.modified = true">
                             <option disabled value = ""></option>
                             <option
                                 v-for = "pitcherRole in roles.pitchers"
@@ -73,7 +73,7 @@
                     </p>
                     <p>
                         <label for = "positionPlayerRole"> Assign a new role: </label>
-                        <select v-model = "player.role" @input = "player.modified = true">
+                        <select v-model = "player.role" v-on:input = "player.modified = true">
                             <option disabled value = ""></option>
                             <option
                                 v-for = "positionPlayerRole in roles.positionPlayers"
@@ -106,7 +106,7 @@
                         v-model = "player.positions"
                         id = "positionInput"
                         v-bind:value = "position"
-                        @input = "player.positionsModified = true"
+                        v-on:input = "player.positionsModified = true"
                     />
                 </span>
                 <p v-if = "player.positionsModified">
@@ -124,7 +124,7 @@
                 </p>
             </li>
             <span v-if = "player.modified || player.positionsModified">
-                <button @click.prevent = "modifyPlayer(player)"> Save changes </button>
+                <button v-on:click.prevent = "modifyPlayer(player)"> Save changes </button>
                 <span v-if = "errors.length > 0">
                     <br />
                     Modification unsuccessful:
