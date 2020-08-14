@@ -1,0 +1,506 @@
+2020-06-21T15:00-16:30 20:00-23:15
+1h30 + 3h15
+4h45
+Getting acquainted with Vue dot js
+
+2020-06-22T12:00-18:45 21:15-22:15
+6h45 + 1h
+Getting acquainted with Vue,
+added some conditionally rendered and computed things,
+including a listage of food items and incremention of their quantity,
+still trying to figure out why one of the buttons will not work
+
+Total hours currently sitting at 12h30
+
+
+2020-06-23T10:30-12:00
+1h30
+Figuring out different means for component definition,
+also fixed the earlier issue with one of the buttons
+
+Total hours currently sitting at 14h
+
+
+2020-06-24T11:45-12:15 15:15-17:15 19:30-22:00
+30 + 2h + 2h30
+5h
+Figuring out a suitable way for component definition,
+as in, trying to get rid of ugly, multi-line string templates,
+also added a select thing,
+still trying to find a reasonable alternative for the aforementioned issue
+
+Total hours currently sitting at 19
+
+
+2020-06-25T16:15-17:45
+1h30
+Figuring out Vue CLI,
+in relation to single file components
+
+Total hours currently sitting at 20h30
+
+
+2020-06-26T10:30-12:15 22:00-22:45
+1h45 + 45
+2h30
+Figuring out Vue CLI,
+also figured out how to use an x-template,
+also figuring out the process for single file components via Vue CLI
+
+Total hours currently sitting at 23h
+
+
+2020-06-27T14:15-15:45 18:00-20:00
+1h30 + 2h
+3h30
+Figuring out the Vue build process,
+also finding out about the different means for property passage,
+including the props {} and data() {} properties,
+also figuring out state management and miscellaneous stuff
+
+Total hours currently sitting at 26h30
+
+
+2020-06-28T14:30-19:00
+4h30
+Getting acquainted with state management and Vuex,
+as in, added some state entries, mutations and getters,
+also added some functionality for the components using said state,
+including incremention of bananas,
+and addition of guanabanas via number input,
+whose values are restricted to positive integers under 100
+
+Total hours currently sitting at 31h
+
+
+2020-06-29T11:15-19:00
+7h45
+Getting acquainted with the Vue router,
+also digging deeper into Vuex and some miscellaneous things,
+including asynchronous state actions, modules, plugins and stuff,
+also figuring out the limitations of certain v-directives,
+also created a new project to test the router in a realistic scenario,
+also figuring out lifecycle things for information retrieval from database
+
+Total hours currently sitting at 38h45
+
+
+2020-07-01T16:30-19:30
+3h
+Building a backend whence to fetch ballclub and ballplayer information,
+via Mongo database
+
+Total hours currently sitting at 41h45
+
+
+2020-07-02T16:30-20:45
+4h15
+Adding the information retrieval from the server onto the frontend,
+also expanding the backend to link the players to their respective team,
+also adding some conditionally rendered stuff depending on the ballplayer,
+also adding PUT requests for modifying existing ballclubs or ballplayers
+
+Total hours currently sitting at 46h
+
+
+2020-07-03T16:00-21:00
+5h
+Adding support for free agent signings from the frontend,
+also figuring out how Vue form handlage really works,
+also trying to make sense of (asynchronous) state methods and actions,
+also figuring out Vue models and how they work with form input
+
+Total hours currently sitting at 51h
+
+2020-07-04T16:00-19:00
+2h45
+Getting back into form handling,
+particularly how dynamically rendered checkboxes work,
+in addition to select and radio inputs of similar functionality,
+also making sure the ascynhronous request stuff works with state mutations,
+also refactored the ballplayer display a bit,
+still searching for how to effectively display ballplayers of various types
+
+Total hours currently sitting at 54h
+
+
+2020-07-05T15:00-18:45
+3h45
+Creating a page for addition of new teams,
+similarly to addition of new players,
+also fixed accidental submission of the same thing twice on one click,
+also figuring out the best way for selection of organization, league and division;
+decided on managing the organizational structure inside the local data object,
+also figuring out the most appropriate way for how the team catalog is displayed
+
+Total hours currently sitting at 57h45
+
+2020-07-06T11:15-12:45 16:15-18:45
+1h30 + 2h30
+4h
+Creating proper validation for the forms,
+also figuring out how to exclude fields that were intentionally left empty,
+also trying to prevent incorrect league input if organization input is changed
+
+Total hours currently sitting at 61h45
+
+
+2020-07-08T10:45-12:15
+1h30
+Figuring out how to fix the aforementioned issues regarding form submission,
+also added a simple fix for prevention of invalid league/division input,
+also modified the team input for new players into a select of existing teams,
+still figuring out why a modified copy of the input object will not work
+
+Total hours currently sitting at 63h15
+
+2020-07-12T18:00-20:00
+2h
+Figuring out why input objects in certain format are sent correctly,
+while seemingly similar objects will not send any data at all,
+also finding out about alternative ways for submission of unrequired fields,
+eventually ended up using Vue.delete instead of delete,
+which seems to have solved the problem
+
+Total hours currently sitting at 65h15
+
+
+2020-07-13T11:15-12:45 15:45-19:00
+1h30 + 3h15
+4h45
+Building a score card for offensive and defensive statistics and scorelines,
+also figuring out what to do with the result once the score card is filled,
+also playing around with styles, grids and flex and stuff,
+and figuring out how best to display a grid of number inputs,
+also figuring out how to handle extra innings whenever applicable
+
+Total hours currently sitting at 70h
+
+
+2020-07-14T10:00-12:15 19:15-20:00
+2h15 + 45
+3h
+Figuring out how to display additional columns on the scoreboard,
+also figuring out flex and grid and implicit column placement,
+to enable addition of extra innings one by one,
+also figuring out how to handle the display on a resized window,
+ended up separating the slashline from the runs scored in individual innings,
+and breaking it up into multiple lines in case of a real marathon ballgame
+
+Total hours currently sitting at 73h
+
+
+2020-07-15T11:00-12:15 16:00-21:15
+1h15 + 5h15
+6h30
+Figuring out how to display offensive and defensive statistics,
+also figuring out how to display specific symbols or images,
+also refactored the run column to be calculated from individual innings,
+also eventually modifying the hits and errors,
+to be set similarly via the offensive and defensive statistics, respectively,
+also broke and subsequently fixed the overflown boxscore in extra innings,
+also built a series of input things to pick the batting order,
+also figuring out how pitching changes and replacements should work
+
+Total hours currently sitting at 79h30
+
+
+2020-07-16T10:00-12:30 16:15-21:15
+2h30 + 5h
+7h30
+Building a grid or some sort of container for the scorecard,
+also figuring out how to handle the placement of columns and rows,
+also decided to separate the pitchers' score card into another component,
+also figuring out what kind of input the score card should take,
+also made the whole scorecard into a table with two dimensional headers,
+also figuring out how and in what kind of form to eventually handle the input
+
+Total hours currently sitting at 87h
+
+2020-07-17T17:00-21:30
+4h30
+Finding out the most suitable type for all the input within the scorecard,
+also fiddling with regular expression patterns to detect erroneous input,
+
+Total hours currently sitting at 91h30
+
+
+2020-07-18T10:15-12:00 15:15-20:15
+1h45 + 5h
+6h45
+Building a pitching score card of mostly number input,
+also figuring out how to make the scorecard colors look most indicative,
+also refactored the structure of the application and the routes a bit,
+also built an input whose pattern corresponds to the possible formats of innings pitched,
+also figuring out the most logical structure for the selection of available pitchers,
+also figuring out what kind of similar changes to make for the batting order
+
+Total hours currently sitting at 98h15
+
+
+2020-07-19T15:30-20:00
+4h30
+Fixing the innings pitched pattern to allow for innings to exceed 9,
+also figuring out how to handle resized browser windows in certain situations,
+such as the consistency of the score card in case of multiple extra innings,
+also refactored the various statistics to always handle just one team,
+and instead pass the away or home team directly to the corresponding component,
+which also allows for selection of pitchers from only the given team,
+also built a simple separate component for individual batting statistics,
+also added labels for the two different types of payoff
+
+Total hours currently sitting at 102h45
+
+
+2020-07-20T11:00-16:15
+5h15
+Expanding the batting statistics to get its data from the associated scorecard,
+also modified the batting statistics into a child of the scorecard,
+instead of being an unrelated component on the main page,
+also added some (un?)necessary repetition unto the away and home player objects,
+to facilitate the input for individual plate appearances,
+also added a semi-softcoded column for the hits in the batting statistics,
+and subsequently modified the table cells to include the easily iterable stats,
+also figuring out how to handle the amount of bases on a given base hit,
+also fiddling with possibly combining the walks and hit-by-pitch columns
+
+Total hours currently sitting at 108h
+
+
+2020-07-21T11:30-12:30 22:45-01:00
+1h + 2h15
+3h15
+Figuring out how to include additional input from the scorecard,
+for the display of extra base hits and home runs,
+decided on specifying the type of hit on the payoff input itself,
+henceforth enabling the refactoration of batting statistics,
+into individual columns for hits, home runs and extra base hits,
+also modifying the box score to show the total runs calculated from the scorecard,
+also figuring out how to emit changes in data from unrelated components,
+also fiddling with calculating the hits from total plate appearances one by one,
+also changed object.values to object.entries to prevent loss of information
+
+Total hours currently sitting at 111h15
+
+
+2020-07-22T11:15-14:00
+2h45
+Figuring out how to map deep object things inside the Vue computed properties,
+to achieve functionality similar to the linkage between the scorecard and batting stats,
+decided on calculating the hits of either team within a method,
+fetching the length of the corresponding team's plate appearances that resulted in a hit,
+and adding up the amount of said plate appearances via the existing sum calculator,
+also figuring out the possibility of adding up defensive errors onto the boxscore,
+contrary to the existing offensive statistics,
+decided on a method similar to the one for hits,
+to be called on the opposing team
+
+Total hours currently sitting at 114h
+
+
+2020-07-23T10:30-16:00
+5h30
+Adding the possibility for modification of initial player and team data onto the frontend,
+allowing at least for the players to change their number and positions,
+as well as teams changing their name and possibly division and/or league,
+also added a conditionally rendered button to prevent submission if the data have not been changed,
+also added input for preferred position modification in case of changes in the positions available
+
+Total hours currently sitting at 119h30
+
+
+2020-07-24T11:45-16:00
+4h15
+Adding functionality for modification of teams onto the frontend,
+allowing for relocation or realignment, and change of nickname,
+also figuring out the most logical structure for how the input is displayed,
+also fixed the deletion of the temporary properties before submission of player modification,
+also enabled the reassignment of a new role for players,
+also attempted to clarify the listing in case of two-way players a bit
+
+Total hours currently sitting at 123h45
+
+
+2020-07-25T12:00-17:00
+5h
+Figuring out the best way to display runs scored and batted in,
+also figuring out how to handle stolen bases or caught stealing,
+also fiddling with the diamond display again,
+and figuring out how filling in the lines would work,
+also decided on creating the diamond with scalable vector graphics,
+after playing around with purely css based shapes with little success,
+also figuring out how to programmatically set the advancement around the bases,
+to show the yellow line on advancement and none otherwise
+
+Total hours currently sitting at 128h45
+
+
+2020-07-26T13:00-20:00
+7h
+Figuring out how to display runs scored and batted in,
+also figuring out how to color individual lines in the diamond display,
+decided on re-refactoring the diamond into four individual line components again,
+to allow for recoloration on click,
+for the display of the batter-runner's advancement around the bases,
+also figuring out how to add the result onto the batting statistics when applicable,
+also refactored the plate appearances into no longer being initialized as empty objects,
+and instead being Vue.set on input,
+also removed a lot of repetition from the initial away and home team objects,
+while adding a few more checks whenever no plate appearances have been added yet,
+also added an extra information input on a base hit,
+also added color coding for the payoff depending on the call being safe or out
+
+Total hours currently sitting at 135h45
+
+
+2020-07-27T14:00-19:30
+5h30
+Adding an input for runs batted in,
+to be set unto the individual plate appearance objects,
+similarly to the payoff and putout properties,
+also adding a boolean for indication of the runner eventually scoring or not,
+also figuring out which previous change caused a significant performance drop,
+attempted to revert back to a couple of different earlier versions,
+and found out the long running tasks were already there,
+decided to go back to the newest version,
+and figure out what kind of scripts cause problems
+
+Total hours currently sitting at 141h15
+
+
+2020-07-28T13:45-18:45
+5h
+Continuing the pursuit of performance gains,
+also refactored the selected away and home team objects,
+into being initialized as empty objects with just the batting order keys,
+to allow for fewer checks when finding the players to display in the scorecard,
+also refactored all the component imports in main.js to utilize lazy loading,
+also getting back into adding the runs batted in and runs scored,
+also figuring out how to tie a boolean variable into the diamond svg,
+also refactored the payoff back into only displaying H on a base hit,
+and added an additional input to specify the type of hit,
+simplifying the statistics that make use of a plate appearance resulting in a base hit,
+also getting back to figuring out the possibility of stolen bases in the scorecard
+
+Total hours currently sitting at 146h15
+
+
+2020-07-29T13:15-17:30
+4h15
+Adding up the runs per inning for each team onto the boxscore,
+also figuring out how to make navigation between the individual components easier,
+also figuring out how to optimize the runs per inning as well as the total,
+also redesigning the boxscore into no longer being aligned as a grid of input fields,
+also figuring out how to calculate the total of runs per inning instead of per batter,
+also renamed the runs batted in property into not being classified as a constant,
+due to having been capitalized instead of camelCase
+
+Total hours currently sitting at 150h30
+
+
+2020-07-30T12:30-14:00
+1h30
+Getting back to the calculation of runs batted in for each inning,
+also messing around with the boxscore layout and how it works on smaller windows,
+also revisiting the automatic line break in extra innings and how it could be improved
+
+Total hours currently sitting at 152h
+
+
+2020-08-01T12:15-14:45
+2h30
+Figuring out a reasonable layout for the boxscore,
+also removed the possibility of runs batted in on a strikeout or a double play,
+and modified the putout input into not being shown on a strikeout as well,
+also refactored the batting statistics into no longer displaying unnecessary zeroes,
+instead rendering as empty whenever no player has been selected yet
+
+Total hours currently sitting at 154h30
+
+
+2020-08-02T16:30-17:00 18:00-18:30
+1h
+Added some additional styling for the ballplayer and ballclub submission forms,
+including indication for when the number input is out of range,
+also resized said input form into guiding the user not to input numbers outside the 0-99 range,
+also figuring out how to add more navigation options in addition to the existing page router
+
+Total hours currently sitting at 155h30
+
+
+2020-08-03T13:30-16:45
+3h15
+Adding extended navigation links to ease traversal between the different components,
+also modified the routing to always include the ballgame page,
+to prevent all the forms from losing any of their data on route change,
+also added history mode for the router to remove the superfluous empty hash from the address
+
+Total hours currently sitting at 158h45
+
+
+2020-08-05T13:00-16:15
+3h15
+Refactoring the navigationary links into a cute little navigation component,
+to be displayed at all times,
+also fixed the routes into no longer displaying the ballgame component twice,
+also prevented negative number input onto the pitching statistics
+
+Total hours currently sitting at 162h
+
+
+2020-08-10T11:30-17:45
+6h15
+Adding miscellaneous statistics for the scorecards,
+including the number of runners left on base and the total number of bases,
+for individual innings and the added up total as well,
+also figuring out the possibility for prevention of (accidental?) multiple clicks,
+to keep the total bases statistic accurate
+
+Total hours currently sitting at 168h15
+
+
+2020-08-11T12:15-14:15
+2h
+Figuring out how to handle extra clicks on the diamond,
+also making the lines more suitable to click on,
+also removed the click event from the icon itself,
+in favor of moving all the functionality into the incremention function,
+enabling the revertion of the line draw on a misclick or such
+
+Total hours currently sitting at 170h15
+
+
+2020-08-12T16:15-17:15
+1h
+Adding up automated line drawing for the diamond display whenever applicable,
+also figuring out how to differentiate said functionality from the clicks,
+also figuring out how to reference the individual lines from outside the svg
+
+Total hours currently sitting at 171h15
+
+
+2020-08-13T12:00-23:00
+11h
+Figuring out how to reference the svg images per inning and per batter,
+to allow for coloration of the lines from outside the svg,
+also fixed the batting statistics that had broken from a previous change,
+also figuring out a reasonable layout for the boxscore,
+to prevent oversized boxes in case of double digit numbers,
+also modified all the v-directives into their non-abbreviated forms for clarity,
+also removed the total bases statistic in favor of the better-functioning diamond,
+also added an away/home team indicator for the scorecard to allow for unique id selection,
+also taking a break due to some significant obstacles in the deployment process
+
+Total hours currently sitting at 182h15
+
+
+2020-08-14T11:45-16:30
+4h45
+Continuing the deployment process,
+figured out the problem was the absence of heroku config vars,
+returning undefined for the database address,
+also discovered some kind of width parsing issue for the scalable vector graphics on Gecko,
+and modified the width and height attributes into no longer using ch units,
+also commited this thing as a relatively accurate estimate of the total hours spent on the project
+
+Total hours currently sitting at 187h
