@@ -5,6 +5,7 @@ const mongoose = require("mongoose")
 require("dotenv").config()
 app.use(cors())
 app.use(express.json())
+app.use(express.static("dist"))
 
 const baseURL = process.env.MONGODB_URI
 const connectToMongo = () => {
