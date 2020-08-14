@@ -112,7 +112,7 @@
                 </span>
                 <br />
                 
-                <svg width = "6.5ch" height = "6.5ch">
+                <svg width = "60" height = "60">
                     <g v-bind:id = "team+'inning'+inning+'-batter'+index">
                         <line
                             x1 = "30" y1 = "55" x2 = "55" y2 = "30"
