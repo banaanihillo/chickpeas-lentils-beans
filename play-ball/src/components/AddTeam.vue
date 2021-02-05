@@ -7,50 +7,89 @@
                     <li> {{error}} </li>
                 </ul>
             </p>
+            <p v-else-if = "notification.length">
+                {{notification}}
+            </p>
+
             <p>
-                <label for = "name"> Name: </label> <input v-model = "input.name" />
+                <label for = "team-name-input"> Name: </label>
+                <input
+                    v-model = "input.name"
+                    id = "team-name-input"
+                />
             </p>
             <p>
-                <label for = "abbreviation"> Abbreviation: </label>
-                <input v-model = "input.abbreviation"  maxlength = "3" />
+                <label for = "team-abbreviation-input">
+                    Abbreviation:
+                </label>
+                <input
+                    v-model = "input.abbreviation"
+                    maxlength = "3"
+                    id = "team-abbreviation-input"
+                />
             </p>
             <p>
-                <label for = "alternate"> Alternative spelling: </label>
-                <input v-model = "input.alternate" /> <br />
+                <label for = "team-alternate-input">
+                    Alternative spelling:
+                </label>
+                <input
+                    v-model = "input.alternate"
+                    id = "team-alternate-input"
+                /> <br />
             </p>
             
             <p>
-                <label for = "organization"> Organization: </label>
-                <span v-for = "organization in organizations" v-bind:key = "organization.id">
+                <label> Organization: </label>
+                <span
+                    v-for = "organization in organizations"
+                    v-bind:key = "organization.id"
+                >
+                    <label v-bind:for = "organization.id">
+                        {{organization.id}}
+                    </label>
                     <input
                         type = "radio"
                         v-bind:value = "organization.name"
                         v-model = "input.organization"
                         v-on:click = "input.league = ''; input.division = ''"
+                        v-bind:id = "organization.id"
                     />
-                    <label for = "organization" style = "margin-right: 10px">
-                        {{organization.id}}
-                    </label>
+
                 </span>
             </p>
 
             <p v-if = "hasLeagues()">
-                <label for = "league"> League: </label>
-                <span v-for = "league in hasLeagues()" v-bind:key = "league">
-                    <input type = "radio" v-bind:value = "league" v-model = "input.league" />
-                    <label for = "league"> {{league}} </label>
+                <label> League: </label>
+                <span
+                    v-for = "league in hasLeagues()"
+                    v-bind:key = "league"
+                >
+                    <label v-bind:for = "league"> {{league}} </label>
+                    <input
+                        type = "radio"
+                        v-bind:value = "league"
+                        v-model = "input.league"
+                        v-bind:id = "league"
+                    />
                 </span>
             </p>
 
             <p v-if = "!(!(input.league) || !(hasDivisions()))">
-                <label for = "division"> Division: </label>
-                <span v-for = "division in hasDivisions()" v-bind:key = "division">
+                <label> Division: </label>
+                <span
+                    v-for = "division in hasDivisions()"
+                    v-bind:key = "division"
+                >
+                    <label v-bind:for = "division">
+                        {{division}}
+                    </label>
                     <input
                         type = "radio"
                         v-bind:value = "division"
                         v-model = "input.division"
+                        v-bind:id = "division"
                     />
-                    <label for = "division"> {{division}} </label>
+
                 </span>
             </p>
             <button type = "submit"> Submit </button>
@@ -65,46 +104,74 @@
             addTeam() {
                 if (this.hasLeagues()) {
                     if (!this.input.league) {
-                        this.errors.push("Please specify the league this team belongs to.")
+                        this.errors.push(
+                            "League input is required."
+                        )
                         return
                     }
                     if (this.hasDivisions() && !this.input.division) {
-                        this.errors.push("This league requires a division input.")
+                        this.errors.push(
+                            "This league requires a division input."
+                        )
                         return
                     }
                 }
-                if (this.input.name && this.input.abbreviation && this.input.organization) {
+                if (
+                    this.input.name
+                    && this.input.abbreviation
+                    && this.input.organization
+                ) {
                     this.errors = []
                     this.$store.dispatch({
                         type: "addExpansionTeam",
                         input: this.input
                     })
+                    this.notification = (
+                        `Successfully added ${this.input.name}.`
+                    )
+                    setTimeout(() => {
+                        this.notification = ""
+                    },
+                    6000)
                 } else {
-                    console.log("Make sure all the required fields are filled.")
+                    console.log(
+                        "Make sure all required fields are filled."
+                    )
                     if (!this.input.name) {
                         this.errors.push("A name is required.")
                     }
-                    if (!this.input.abbreviation || this.input.abbreviation.length > 3) {
-                        this.errors.push("An abbreviation of 1-3 characters is required.")
+                    if (
+                        !this.input.abbreviation
+                        || this.input.abbreviation.length > 3
+                    ) {
+                        this.errors.push(
+                            "Add an abbreviation of 1-3 characters."
+                        )
                     }
                     if (!this.input.organization) {
-                        this.errors.push("Please select an organization for the team.")
+                        this.errors.push(
+                            "Select an organization for the team."
+                        )
                     }
                 }
             },
             hasLeagues() {
-                const organizationWithLeagues = this.organizations.find(organization =>
-                    organization.name === this.input.organization && organization.leagues
-                )
+                const organizationWithLeagues = this.organizations
+                    .find(organization => (
+                        organization.name === this.input.organization
+                        && organization.leagues
+                    ))
                 if (organizationWithLeagues) {
                     return organizationWithLeagues.leagues
                 }
             },
             hasDivisions() {
-                const organizationWithDivisions = this.organizations.find(organization =>
-                    organization.divisions
-                )
-                if (organizationWithDivisions.name === this.input.organization) {
+                const organizationWithDivisions = this.organizations
+                    .find(organization => organization.divisions)
+                if (
+                    organizationWithDivisions.name
+                    === this.input.organization
+                ) {
                     return organizationWithDivisions.divisions
                 }
             }
@@ -112,6 +179,7 @@
         data() {
             return {
                 errors: [],
+                notification: "",
                 input: {
                     name: "",
                     abbreviation: "",
@@ -155,5 +223,8 @@
 <style scoped>
     input {
         background-color: plum;
+    }
+    label {
+        margin-left: 1em;
     }
 </style>

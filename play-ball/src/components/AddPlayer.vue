@@ -10,7 +10,7 @@
             <p v-else-if = "notification.length">
                 {{notification}}
             </p>
-            
+
             <label for = "name-input"> Name: </label>
             <input v-model = "input.name" id = "name-input" />
             <br />
@@ -43,23 +43,20 @@
                 </option>
             </select> <br />
             
-            <label for = "positions"> Positions: </label>
+            <label> Positions: </label>
             <span
                 v-for = "position in listOfPositions"
                 v-bind:key = "position"
-                id = "positions"
+
             >
-                <label
-                    for = "position-input"
-                    style = "margin-right: 5px"
-                >
+                <label v-bind:for = "position">
                     {{position}}
                 </label>
                 <input
                     type = "checkbox"
                     v-bind:value = "position"
                     v-model = "input.positions"
-                    id = "position-input"
+                    v-bind:id = "position"
                 />
             
             </span> <br />
@@ -82,7 +79,7 @@
                 </option>
             </select> <br />
 
-            <label for = "bats"> Bats: </label>
+            <label> Bats: </label>
                 <label for = "bats-left"> Left </label>
                 <input
                     type = "radio"
@@ -106,7 +103,7 @@
                 />
             <br />
 
-            <label for = "throws"> Throws: </label>
+            <label> Throws: </label>
                 <label for = "throws-left"> Left </label>
                 <input
                     type = "radio"
@@ -191,6 +188,10 @@
                     this.notification = (
                         `Successfully added ${this.input.name}.`
                     )
+                    setTimeout(() => {
+                        this.notification = ""
+                    },
+                    6000)
                 }
             }
         },
@@ -241,5 +242,8 @@
     }
     #number-input {
         width: 5ch;
+    }
+    label {
+        margin-left: 1em;
     }
 </style>
