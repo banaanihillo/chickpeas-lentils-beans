@@ -2,21 +2,11 @@
     <div id = "app">
         
         <p>
-            <router-link to = "/">
-                Main page
-            </router-link>
-            <router-link to = "/players">
-                Players
-            </router-link>
-            <router-link to = "/teams">
-                Teams
-            </router-link>
-            <router-link to = "/add-player">
-                Add a player
-            </router-link>
-            <router-link to = "/add-team">
-                Add a team
-            </router-link>
+            <router-link to = "/">Main page</router-link>
+            <router-link to = "/players">Players</router-link>
+            <router-link to = "/teams">Teams</router-link>
+            <router-link to = "/add-player">Add a player</router-link>
+            <router-link to = "/add-team">Add a team</router-link>
         </p>
         
         <router-view>
@@ -27,7 +17,7 @@
             <AddTeam />
         </router-view>
         <BallGame />
-        
+
     </div>
 </template>
 
