@@ -7,11 +7,22 @@
                     <li> {{error}} </li>
                 </ul>
             </p>
-
-            <label for = "name"> Name: </label> <input v-model = "input.name" /> <br />
-            <label for = "alternate"> Alternate spelling for non-roman script: </label>
-            <input v-model = "input.alternate" placeholder = "Romanized name" /> <br />
-            <label for = "number"> Number: </label>
+            <p v-else-if = "notification.length">
+                {{notification}}
+            </p>
+            
+            <label for = "name-input"> Name: </label>
+            <input v-model = "input.name" id = "name-input" />
+            <br />
+            <label for = "alternate-spelling-input">
+                Alternate spelling for non-roman script:
+            </label>
+            <input
+                v-model = "input.alternate"
+                placeholder = "Romanized name"
+                id = "alternate-spelling-input"
+            /> <br />
+            <label for = "number-input"> Number: </label>
             <input
                 v-model.number = "input.number"
                 type = "number"
@@ -21,51 +32,98 @@
                 id = "number-input"
             /> <br />
 
-            <label for = "team"> Team: </label>
-            <select v-model = "input.team">
+            <label for = "team-input"> Team: </label>
+            <select v-model = "input.team" id = "team-input">
                 <option disabled value = ""> Select the team </option>
-                <option v-for = "team in teams" v-bind:key = "team._id">
+                <option
+                    v-for = "team in teams"
+                    v-bind:key = "team._id"
+                >
                     {{team.name}}
                 </option>
             </select> <br />
             
             <label for = "positions"> Positions: </label>
-            <span v-for = "position in listOfPositions" v-bind:key = "position">
+            <span
+                v-for = "position in listOfPositions"
+                v-bind:key = "position"
+                id = "positions"
+            >
+                <label
+                    for = "position-input"
+                    style = "margin-right: 5px"
+                >
+                    {{position}}
+                </label>
                 <input
                     type = "checkbox"
                     v-bind:value = "position"
                     v-model = "input.positions"
+                    id = "position-input"
                 />
-                <label for = "position" style = "margin-right: 5px">
-                    {{position}}
-                </label>
+            
             </span> <br />
             
-            <label for = "preferred-position"> Preferred position: </label>
-            <select v-model = "input.preferredPosition">
-                <option disabled value = ""> Select primary position </option>
-                <option v-for = "position in listOfPositions" v-bind:key = "position + ' '">
+            <label for = "preferred-position">
+                Preferred position:
+            </label>
+            <select
+                v-model = "input.preferredPosition"
+                id = "preferred-position"
+            >
+                <option disabled value = "">
+                    Select primary position
+                </option>
+                <option
+                    v-for = "position in listOfPositions"
+                    v-bind:key = "position + ' '"
+                >
                     {{position}}
                 </option>
             </select> <br />
 
             <label for = "bats"> Bats: </label>
-                <input type = "radio" value = "L" v-model = "input.bats" />
-                <label for = "Left"> Left </label>
-                <input type = "radio" value = "R" v-model = "input.bats" />
-                <label for = "Right"> Right </label>
-                <input type = "radio" value = "S" v-model = "input.bats" />
-                <label for = "Switch"> Switch </label>
+                <label for = "bats-left"> Left </label>
+                <input
+                    type = "radio"
+                    value = "L"
+                    v-model = "input.bats"
+                    id = "bats-left"
+                />
+                <label for = "bats-right"> Right </label>
+                <input
+                    type = "radio"
+                    value = "R"
+                    v-model = "input.bats"
+                    id = "bats-right"
+                />
+                <label for = "switch-hitter"> Switch </label>
+                <input
+                    type = "radio"
+                    value = "S"
+                    v-model = "input.bats"
+                    id = "switch-hitter"
+                />
             <br />
 
             <label for = "throws"> Throws: </label>
-                <input type = "radio" value = "L" v-model = "input.throws" />
-                <label for = "Left"> Left </label>
-                <input type = "radio" value = "R" v-model = "input.throws" />
-                <label for = "Right"> Right </label>
+                <label for = "throws-left"> Left </label>
+                <input
+                    type = "radio"
+                    value = "L"
+                    v-model = "input.throws"
+                    id = "throws-left"
+                />
+                <label for = "throws-right"> Right </label>
+                <input
+                    type = "radio"
+                    value = "R"
+                    v-model = "input.throws"
+                    id = "throws-right"
+                />
             
-            <br /> <label for = "role"> Role: </label>
-            <select v-model = "input.role">
+            <br /> <label for = "role-input"> Role: </label>
+            <select v-model = "input.role" id = "role-input">
                 <option disabled value = ""> Select a role </option>
                 <option v-for = "role in roles" v-bind:key = "role">
                     {{role}}
@@ -99,17 +157,30 @@
                 if (!this.input.name) {
                     this.errors.push("A name is required.")
                 }
-                if (!this.input.number || this.input.number < 0 || this.input.number > 99) {
-                    this.errors.push("A number between 0 and 99 is required.")
+                if (
+                    !this.input.number
+                    || this.input.number < 0
+                    || this.input.number > 99
+                ) {
+                    this.errors.push(
+                        "A number between 0 and 99 is required."
+                    )
                 }
                 if (!this.input.team) {
-                    this.errors.push("The team of the player is required.")
+                    this.errors.push(
+                        "The team of the player is required."
+                    )
                 }
                 if (!this.input.throws) {
                     this.errors.push("Handedness is required.")
                 }
-                if (!this.input.positions.includes("P") && !this.input.bats) {
-                    this.errors.push("Position players require a batting side.")
+                if (
+                    !this.input.positions.includes("P")
+                    && !this.input.bats
+                ) {
+                    this.errors.push(
+                        "Position players require a batting side."
+                    )
                 }
                 if (this.errors.length === 0) {
                     this.emptyFields()
@@ -117,12 +188,16 @@
                         type: "signFreeAgent",
                         input: this.input
                     })
+                    this.notification = (
+                        `Successfully added ${this.input.name}.`
+                    )
                 }
             }
         },
         data() {
             return {
                 errors: [],
+                notification: "",
                 input: {
                     name: "",
                     alternate: null,
