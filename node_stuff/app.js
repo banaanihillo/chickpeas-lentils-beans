@@ -31,4 +31,8 @@ app.use("/api/players", playerRouter)
 const teamRouter = require("./controllers/teamRouter")
 app.use("/api/teams", teamRouter)
 
+app.get("/healthcheck", (_request, response) => {
+  response.send("OK")
+})
+
 module.exports = app
