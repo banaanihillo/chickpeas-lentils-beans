@@ -23,7 +23,7 @@ playerRouter.get("/", async (_request, response) => {
 playerRouter.post("/", async (request, response) => {
     try {
         const body = request.body
-        
+        // Trailing spaces, huh?
 
         if (!body.number || !body.name || !body.team || !body.positions || !body.throws) {
             console.log("Make sure all the required properties are filled in.")
