@@ -36,6 +36,11 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
+      - name: Deployment start time
+        run: |
+          echo Deployment started
+          date
+
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
@@ -52,7 +57,7 @@ jobs:
             http://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
           checkstring: OK
           rollbackonhealthcheckfailed: true
-          
+      
       
       - name: Print date after successful deployment
         if: ${{success()}}

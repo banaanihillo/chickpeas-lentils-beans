@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "nodemon": "nodemon index.js",
     "start": "node index.js",
-    "eslint": "eslint . --ext .js"
+    "eslint": "eslint . --ext .js --ext .vue"
   },
   "author": "banaanihillo",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "node": "10.15.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.26.0",
     "eslint-plugin-vue": "^7.9.0"
   },
