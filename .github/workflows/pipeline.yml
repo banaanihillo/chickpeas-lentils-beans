@@ -52,7 +52,7 @@ jobs:
             http://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
           checkstring: OK
           rollbackonhealthcheckfailed: true
-          appdir: dist
+          
       
       - name: Print date after successful deployment
         if: ${{success()}}
