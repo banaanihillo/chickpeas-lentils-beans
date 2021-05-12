@@ -18,8 +18,8 @@ on:
 # ran sequentially or in parallel
 jobs:
   print_date:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    # Hangs on ubuntu-latest (2021-05-12)
+    runs-on: ubuntu-18.04
 
     # Steps represent a <em> sequence </em> of tasks
     steps:
@@ -67,7 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           DEFAULT_BUMP: patch
-          INITIAL_VERSION: '0.0.3'
+          INITIAL_VERSION: '0.1.0-beta.1'
           RELEASE_BRANCES: main
       
       - name: Print date after successful deployment
