@@ -17,23 +17,14 @@ on:
 # A workflow run is made up of one or more jobs,
 # ran sequentially or in parallel
 jobs:
-  print_date:
-    # Hangs on ubuntu-latest (2021-05-12)
-    runs-on: ubuntu-18.04
-
-    # Steps represent a <em> sequence </em> of tasks
-    steps:
-      - name: Pipeline start time
-        run: |
-          echo First step of pipeline started
-          date
-  
+  # Deploy on pull requests,
+  # unless the commit message contains #skip
   deploy:
     if: |
       github.event_name == 'push'
-    #  && !contains(github.event.commits[0].message, '#skip')
+      && !contains(github.event.commits[0].message, '#skip')
     
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-16.04
 
     steps:
       - name: Deployment start time
@@ -49,15 +40,14 @@ jobs:
         with:
           node-version: "12.x"
       
-      - name: Deploy to heroku
-        if: ${{!contains(github.event.commits[0].message, '#skip')}}
+      - name: Deploy to heroku #
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: take-me-out-to-the-ballgame
           heroku_email: banaanihillo@protonmail.ch
           healthcheck: |
-            http://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
+            https://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
           checkstring: OK
           rollbackonhealthcheckfailed: true
       
@@ -89,10 +79,9 @@ jobs:
             #date
 
   lint:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-16.04
 
-    steps:
-      # What is that red commit deletion tick doing there again
+    steps: #
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
