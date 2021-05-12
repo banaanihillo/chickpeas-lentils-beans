@@ -51,6 +51,10 @@ jobs:
           checkstring: Okay
           rollbackonhealthcheckfailed: true
       
+      - name: Time after deployment
+        uses: gerred/actions/current-time@v1.0.0
+        id: time-after-deployment
+
       - name: Bump the version tag on success
         if: ${{success()}}
         uses: anothrNick/github-tag-action@1.33.0
@@ -69,13 +73,13 @@ jobs:
         if: ${{failure()}}
         uses: appleboy/telegram-action@v0.1.1
         env:
-          TODAY: ${{date}}
+          TIME: ${{steps.time-after-deployment.outputs.time}}
         with:
           to: ${{secrets.TELEGRAM_TO}}
           token: ${{secrets.TELEGRAM_TOKEN}}
           message: |
             ${{github.event_name}} deployment failed
-            "$TODAY"
+            echo "$TIME"
 #
   lint:
     runs-on: ubuntu-18.04
