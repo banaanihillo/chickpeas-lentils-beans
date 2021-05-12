@@ -31,7 +31,7 @@ jobs:
   deploy:
     if: |
       github.event_name == 'push'
-    #  && !contains(github.event.commits[0].message, '#skip')
+      && !contains(github.event.commits[0].message, '#skip')
     
     runs-on: ubuntu-18.04
 
@@ -49,15 +49,14 @@ jobs:
         with:
           node-version: "12.x"
       
-      - name: Deploy to heroku
-        if: ${{!contains(github.event.commits[0].message, '#skip')}}
+      - name: Deploy to heroku #
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: take-me-out-to-the-ballgame
           heroku_email: banaanihillo@protonmail.ch
           healthcheck: |
-            http://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
+            https://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
           checkstring: OK
           rollbackonhealthcheckfailed: true
       
@@ -91,8 +90,7 @@ jobs:
   lint:
     runs-on: ubuntu-18.04
 
-    steps:
-      # What is that red commit deletion tick doing there again
+    steps: #
       - uses: actions/checkout@v2
 
       - uses: actions/setup-node@v1
