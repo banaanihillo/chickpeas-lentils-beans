@@ -71,15 +71,16 @@ jobs:
       
       - name: Notify in case of a failure
         if: ${{failure()}}
-        uses: appleboy/telegram-action@v0.1.1
+        #uses: appleboy/telegram-action@v0.1.1
         env:
           TIME: ${{steps.time-after-deployment.outputs.time}}
-        with:
-          to: ${{secrets.TELEGRAM_TO}}
-          token: ${{secrets.TELEGRAM_TOKEN}}
-          message: |
-            ${{github.event_name}} deployment failed
-            at ${{env.TIME}}
+        run: echo "$TIME"
+        #with:
+          #to: ${{secrets.TELEGRAM_TO}}
+          #token: ${{secrets.TELEGRAM_TOKEN}}
+          #message: |
+            #${{github.event_name}} deployment failed
+            #at ${{env.TIME}}
 #
   lint:
     runs-on: ubuntu-18.04
