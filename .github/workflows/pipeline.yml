@@ -31,7 +31,7 @@ jobs:
   deploy:
     if: |
       github.event_name == 'push'
-      && !contains(github.event.commits[0].message, '#skip')
+    #  && !contains(github.event.commits[0].message, '#skip')
     
     runs-on: ubuntu-18.04
 
@@ -50,6 +50,7 @@ jobs:
           node-version: "12.x"
       
       - name: Deploy to heroku
+        if: ${{!contains(github.event.commits[0].message, '#skip')}}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -66,7 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           DEFAULT_BUMP: patch
-          INITIAL_VERSION: '0.0.2'
+          INITIAL_VERSION: '0.0.3'
           RELEASE_BRANCES: main
       
       - name: Print date after successful deployment
