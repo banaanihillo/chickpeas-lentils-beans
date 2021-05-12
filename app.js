@@ -2,12 +2,12 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const mongoose = require("mongoose")
-const history = require("connect-history-api-fallback")
+const path = require("path")
 require("dotenv").config()
 app.use(cors())
 app.use(express.json())
 app.use(express.static("dist"))
-app.use(history())
+
 
 const baseURL = process.env.MONGODB_URI
 const connectToMongo = () => {
@@ -39,4 +39,15 @@ app.use("/api/teams", teamRouter)
 app.get("/healthcheck", (_request, response) => {
   response.send("OK")
 })
-//
+
+
+app.get("/*", (_request, response) => {
+  response.sendFile(
+    path.join(__dirname, "dist/index.html"),
+    (error) => {
+      if (error) {
+        response.status(500).send(error)
+      }
+    }
+  )
+})
