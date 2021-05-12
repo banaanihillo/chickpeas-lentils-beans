@@ -26,6 +26,11 @@ try {
     console.log(error)
 }
 
+const PORT = process.env.PORT || 9001
+app.listen(PORT, () => {
+  console.log(`Server running on the port ${PORT}.`)
+})
+
 const playerRouter = require("./controllers/playerRouter")
 app.use("/api/players", playerRouter)
 const teamRouter = require("./controllers/teamRouter")
@@ -34,5 +39,4 @@ app.use("/api/teams", teamRouter)
 app.get("/healthcheck", (_request, response) => {
   response.send("OK")
 })
-
-module.exports = app
+//
