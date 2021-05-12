@@ -52,7 +52,7 @@ jobs:
           rollbackonhealthcheckfailed: true
       
       - name: Time after deployment
-        uses: gerred/current-time@v1.0.0
+        run: echo "::set-output name=time::$(date)"
         id: time-after-deployment
 
       - name: Bump the version tag on success
