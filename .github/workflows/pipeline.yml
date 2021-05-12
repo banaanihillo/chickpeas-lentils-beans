@@ -79,7 +79,7 @@ jobs:
           token: ${{secrets.TELEGRAM_TOKEN}}
           message: |
             ${{github.event_name}} deployment failed
-            echo "$TIME"
+            at ${{TIME}}
 #
   lint:
     runs-on: ubuntu-18.04
