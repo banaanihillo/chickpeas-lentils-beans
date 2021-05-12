@@ -17,17 +17,8 @@ on:
 # A workflow run is made up of one or more jobs,
 # ran sequentially or in parallel
 jobs:
-  print_date:
-    # Hangs on ubuntu-latest (2021-05-12)
-    runs-on: ubuntu-18.04
-
-    # Steps represent a <em> sequence </em> of tasks
-    steps:
-      - name: Pipeline start time
-        run: |
-          echo First step of pipeline started
-          date
-  
+  # Deploy on pull requests,
+  # unless the commit message contains #skip
   deploy:
     if: |
       github.event_name == 'push'
