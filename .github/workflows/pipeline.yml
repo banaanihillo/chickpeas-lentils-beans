@@ -48,12 +48,11 @@ jobs:
           heroku_email: banaanihillo@protonmail.ch
           healthcheck: |
             https://take-me-out-to-the-ballgame.herokuapp.com/healthcheck
-          checkstring: Okay
+          checkstring: OK
           rollbackonhealthcheckfailed: true
       
       - name: Time after deployment
-        run: echo "::set-output name=time::$(date)"
-        id: time-after-deployment
+        run: date
 
       - name: Bump the version tag on success
         if: ${{success()}}
@@ -71,16 +70,13 @@ jobs:
       
       - name: Notify in case of a failure
         if: ${{failure()}}
-        #uses: appleboy/telegram-action@v0.1.1
-        env:
-          TIME: ${{steps.time-after-deployment.outputs.time}}
-        run: echo "$TIME"
-        #with:
-          #to: ${{secrets.TELEGRAM_TO}}
-          #token: ${{secrets.TELEGRAM_TOKEN}}
-          #message: |
-            #${{github.event_name}} deployment failed
-            #at ${{env.TIME}}
+        uses: appleboy/telegram-action@v0.1.1
+        with:
+          to: ${{secrets.TELEGRAM_TO}}
+          token: ${{secrets.TELEGRAM_TOKEN}}
+          message: |
+            ${{github.event_name}} deployment failed
+
 #
   lint:
     runs-on: ubuntu-18.04
