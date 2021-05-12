@@ -67,8 +67,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           DEFAULT_BUMP: patch
-          INITIAL_VERSION: '0.1.0-beta.1'
-          RELEASE_BRANCES: main
+          RELEASE_BRANCHES: main
       
       - name: Print date after successful deployment
         if: ${{success()}}
