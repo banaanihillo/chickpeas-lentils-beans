@@ -58,6 +58,14 @@ jobs:
           checkstring: OK
           rollbackonhealthcheckfailed: true
       
+      - name: Bump the version tag on success
+        if: ${{success()}}
+        uses: anothrNick/github-tag-action@1.33.0
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          DEFAULT_BUMP: patch
+          INITIAL_VERSION: 0.0.1
+          RELEASE_BRANCES: main
       
       - name: Print date after successful deployment
         if: ${{success()}}
